@@ -1,0 +1,2 @@
+DEFAULT_PUBLIC_PATH='public/'
+DEFAULT_CONTENT_PATH='content/'
