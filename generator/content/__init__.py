@@ -1,2 +1,2 @@
-from .page import Page
-from .page_factory import PageFactory
+from generator.content.page import Page
+from generator.content.page_factory import PageFactory

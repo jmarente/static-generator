@@ -1,5 +1,5 @@
 # -*- condig: utf-8 -*-
-from .frontmatter_handlers import YamlHander, TomlHandler
+from generator.content.frontmatter_handlers import YamlHander, TomlHandler
 
 
 handlers = [handler() for handler in [YamlHander, TomlHandler]]
