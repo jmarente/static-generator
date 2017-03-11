@@ -15,6 +15,7 @@ def cli(ctx, config, verbose):
     if ctx.invoked_subcommand is None:
         click.echo('Call basic generator')
         generator = Generator()
+        generator.gen()
 
 @cli.command()
 @click.option('--port', default=80, type=int)

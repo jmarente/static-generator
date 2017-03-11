@@ -1,6 +1,7 @@
 ++++++++++++++++
 title='Test page'
 description='Page description'
+url="/es/paco/de/lucia/"
 ++++++++++++++++
 
 # Quod probat duobus

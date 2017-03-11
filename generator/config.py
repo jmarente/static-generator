@@ -15,6 +15,7 @@ class _Config(metaclass=Singleton):
     base_path = None
     content_path = None
     public_path = None
+    static_path = None
     extra_params = {}
 
     def load_config(self, config_file_path):
@@ -25,8 +26,9 @@ class _Config(metaclass=Singleton):
         # Default
         self.content_path = os.path.join(self.base_path, constants.DEFAULT_CONTENT_PATH)
         self.public_path = os.path.join(self.base_path, constants.DEFAULT_PUBLIC_PATH)
+        self.static_path = os.path.join(self.base_path, constants.DEFAULT_STATIC_PATH)
 
-        path_options = ['public_path', 'content_path']
+        path_options = ['public_path', 'content_path', 'static_path']
         with open(self.config, 'r') as config_file:
             parsed_config = yaml.load(config_file)
 
