@@ -19,12 +19,13 @@ class Page(object):
         self.sections = sections or []
 
     def __getattr__(self, attribute):
-        value = getattr(self, attribute) if hasattr(self, attribute) \
-                else self.frontmatter.get(attribute, None)
-        return value
+        return self.frontmatter.get(attribute, None)
 
     def get_url(self):
         alternative_url = self.sections + [self.name]
         url = self.frontmatter.get('url', None) or '/'.join(alternative_url)
-        print('url', url)
         return url
+
+    @property
+    def section(self):
+        return self.sections[0] if len(self.sections) else None

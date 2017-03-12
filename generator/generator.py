@@ -5,13 +5,15 @@ import shutil
 from generator.config import config
 from generator.content import PageFactory
 from generator.utils import constants
+from generator.template import Render
 
 class Generator(object):
     pages = []
+    render = None
     def __init__(self):
+        self.render = Render()
         page_factory = PageFactory()
         for root, directory, files in os.walk(config.content_path):
-            print(root, directory, files)
             supported_files = [os.path.join(root, f) for f in files
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
             self.pages += page_factory.get_pages(supported_files)
@@ -22,7 +24,9 @@ class Generator(object):
         self.move_static_folder()
 
         for page in self.pages:
-            self.create_page_folder(page)
+            page_path = self.create_page_folder(page)
+
+            self.render.render(page, page_path)
 
     def create_public_folder(self):
         if not os.path.exists(config.public_path):
@@ -46,3 +50,4 @@ class Generator(object):
         index_path = os.path.join(path, 'index.html')
 
         open(index_path, 'a').close()
+        return index_path

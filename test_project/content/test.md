@@ -1,7 +1,7 @@
 ++++++++++++++++
 title='Test page'
 description='Page description'
-url="/es/paco/de/lucia/"
+url="/es/test/main/"
 ++++++++++++++++
 
 # Quod probat duobus
