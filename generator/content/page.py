@@ -1,7 +1,9 @@
 # -*- condig: utf-8 -*-
 import os
+import markdown
 
 from generator.config import config
+from jinja2.utils import Markup
 
 
 class Page(object):
@@ -10,6 +12,7 @@ class Page(object):
     name = ""
     frontmatter = {}
     content = ""
+    context = {}
 
     def __init__(self, frontmatter, content, filename, sections = []):
         self.frontmatter = frontmatter or {}
@@ -29,3 +32,10 @@ class Page(object):
     @property
     def section(self):
         return self.sections[0] if len(self.sections) else None
+
+    def get_context(self):
+        if not self.context:
+            self.context = dict(self.frontmatter)
+            self.context['content'] = Markup(markdown.markdown(self.content))
+            self.context['raw'] = self.content
+        return self.context

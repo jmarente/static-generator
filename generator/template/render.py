@@ -12,10 +12,10 @@ class Render(object):
         self.loader = FileSystemLoader(config.templates_path)
         self.environment = Environment(loader=self.loader)
 
-    def render(self, page, output_path):
+    def render(self, page, output_path, context):
         template = self.get_page_template(page)
         if template:
-            template.stream(context={}).dump(output_path)
+            template.stream(**context).dump(output_path)
 
     def get_page_template(self, page):
         template = None

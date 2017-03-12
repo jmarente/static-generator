@@ -19,14 +19,16 @@ class Generator(object):
             self.pages += page_factory.get_pages(supported_files)
 
     def gen(self):
+        context = {}
 
         self.create_public_folder()
         self.move_static_folder()
 
         for page in self.pages:
             page_path = self.create_page_folder(page)
+            context['page'] = page.get_context()
 
-            self.render.render(page, page_path)
+            self.render.render(page, page_path, context)
 
     def create_public_folder(self):
         if not os.path.exists(config.public_path):
