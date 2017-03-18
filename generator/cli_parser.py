@@ -3,6 +3,7 @@ import click
 
 from generator.config import config as conf
 from generator.generator import Generator
+from generator.watcher import Watcher
 
 
 @click.group(invoke_without_command=True)
@@ -25,4 +26,5 @@ def server(port):
 
 @cli.command()
 def watch():
-    print("TODO watch")
+    watcher = Watcher()
+    watcher.start()

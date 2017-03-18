@@ -1,14 +1,14 @@
 # -*- condig: utf-8 -*-
 import os
 import sys
+import re
 
 import yaml
 
-from generator.utils.singleton import Singleton
 from generator.utils import constants
 
 
-class _Config(metaclass=Singleton):
+class _Config():
     config = None
     verbose = False
     port = None
@@ -18,6 +18,7 @@ class _Config(metaclass=Singleton):
     static_path = None
     templates_path = None
     extra_params = {}
+    ignore_files_regex = []
 
     def load_config(self, config_file_path):
         self.config = config_file_path
@@ -45,6 +46,9 @@ class _Config(metaclass=Singleton):
             # TODO: throw error correctly
             raise Exception('No valid content path')
             sys.exit(1)
+
+        # TODO: make patterns configurables
+        self.ignore_files_regex = [re.compile(i) for i in constants.IGNORE_FILES_PATTERN]
 
 
 config = _Config()
