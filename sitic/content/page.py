@@ -2,7 +2,7 @@
 import os
 import markdown
 
-from generator.config import config
+from sitic.config import config
 from jinja2.utils import Markup
 
 

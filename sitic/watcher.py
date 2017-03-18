@@ -6,8 +6,8 @@ from functools import reduce
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
-from generator.config import config
-from generator.generator import Generator
+from sitic.config import config
+from sitic.generator import Generator
 
 
 class EventHandler(FileSystemEventHandler):

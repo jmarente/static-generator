@@ -1,9 +1,9 @@
 # -*- condig: utf-8 -*-
 import click
 
-from generator.config import config as conf
-from generator.generator import Generator
-from generator.watcher import Watcher
+from sitic.config import config as conf
+from sitic.generator import Generator
+from sitic.watcher import Watcher
 
 
 @click.group(invoke_without_command=True)

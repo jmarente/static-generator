@@ -3,7 +3,7 @@ import os
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
-from generator.config import config
+from sitic.config import config
 
 class Render(object):
     environment = None

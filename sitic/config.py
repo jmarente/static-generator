@@ -5,7 +5,7 @@ import re
 
 import yaml
 
-from generator.utils import constants
+from sitic.utils import constants
 
 
 class _Config():

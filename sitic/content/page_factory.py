@@ -1,8 +1,8 @@
 # -*- condig: utf-8 -*-
 import os
 
-from generator.config import config
-from generator.content import Page, page_parser
+from sitic.config import config
+from sitic.content import Page, page_parser
 
 
 class PageFactory(object):

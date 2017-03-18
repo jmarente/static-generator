@@ -2,10 +2,10 @@
 import os
 import shutil
 
-from generator.config import config
-from generator.content import PageFactory
-from generator.utils import constants
-from generator.template import Render
+from sitic.config import config
+from sitic.content import PageFactory
+from sitic.utils import constants
+from sitic.template import Render
 
 class Generator(object):
     pages = []
