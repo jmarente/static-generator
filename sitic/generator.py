@@ -6,6 +6,7 @@ from sitic.config import config
 from sitic.content import PageFactory
 from sitic.utils import constants
 from sitic.template import Render
+from sitic.logging import logger
 
 class Generator(object):
     pages = []
@@ -29,6 +30,8 @@ class Generator(object):
             context['page'] = page.get_context()
 
             self.render.render(page, page_path, context)
+
+        logger.info('Site generated')
 
     def create_public_folder(self):
         if not os.path.exists(config.public_path):

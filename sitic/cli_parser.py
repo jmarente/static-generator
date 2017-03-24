@@ -14,7 +14,6 @@ def cli(ctx, config, verbose):
     conf.load_config(config)
     conf.verbose = verbose
     if ctx.invoked_subcommand is None:
-        click.echo('Call basic generator')
         generator = Generator()
         generator.gen()
 
