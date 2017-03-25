@@ -11,7 +11,6 @@ from sitic.utils import constants
 class _Config():
     config = None
     verbose = False
-    port = None
     base_path = None
     content_path = None
     public_path = None

@@ -5,6 +5,8 @@ import click
 from sitic.config import config as conf
 from sitic.generator import Generator
 from sitic.watcher import Watcher
+from sitic.server import Server
+from sitic.utils import constants
 
 
 @click.group(invoke_without_command=True)
@@ -19,10 +21,10 @@ def cli(ctx, config, verbose):
         generator.gen()
 
 @cli.command()
-@click.option('--port', default=80, type=int)
+@click.option('--port', default=constants.DEFAULT_PORT, type=int)
 def server(port):
-    conf.port = port
-    print("TODO server")
+    server = Server(port)
+    server.start()
 
 @cli.command()
 def watch():
