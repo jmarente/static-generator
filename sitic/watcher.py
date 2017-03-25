@@ -8,6 +8,7 @@ from watchdog.observers import Observer
 
 from sitic.config import config
 from sitic.generator import Generator
+from sitic.logging import logger
 
 
 class EventHandler(FileSystemEventHandler):
@@ -32,18 +33,30 @@ class EventHandler(FileSystemEventHandler):
 
 class Watcher:
 
-    def start(self):
-        generator = Generator()
+    def __init__(self):
+        self.generator = Generator()
+
+    def start(self, generate_on_start = True):
+        logger.info('Watching {}'.format(config.content_path))
+
+        if generate_on_start:
+            self.generator.gen()
+
         event_handler = EventHandler()
         observer = Observer()
         observer.schedule(event_handler, config.content_path, recursive=True)
         observer.start()
-        try:
-            while True:
+
+        stop = False
+        while not stop:
+            try:
                 time.sleep(1)
                 if event_handler.modified:
                     event_handler.modified = False
-                    generator.gen()
-        except KeyboardInterrupt:
-            observer.stop()
+                    self.generator.gen()
+            except KeyboardInterrupt:
+                stop = True
+                logger.info('Stopping watcher...')
+
+        observer.stop()
         observer.join()
