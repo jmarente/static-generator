@@ -1,4 +1,5 @@
 # -*- condig: utf-8 -*-
+
 import click
 
 from sitic.config import config as conf
@@ -8,7 +9,7 @@ from sitic.watcher import Watcher
 
 @click.group(invoke_without_command=True)
 @click.pass_context
-@click.option('--config', default='config.yml', type=click.Path(exists=True))
+@click.option('--config', default='sitic.yml', type=click.Path(exists=True))
 @click.option('--verbose', default=False)
 def cli(ctx, config, verbose):
     conf.load_config(config)
