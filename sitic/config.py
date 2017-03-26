@@ -18,6 +18,9 @@ class _Config():
     templates_path = None
     extra_params = {}
     ignore_files_regex = []
+    build_draft = False
+    build_future = False
+    build_expired = False
 
     def load_config(self, config_file_path):
         self.config = config_file_path

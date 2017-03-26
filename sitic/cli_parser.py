@@ -12,10 +12,14 @@ from sitic.utils import constants
 @click.group(invoke_without_command=True)
 @click.pass_context
 @click.option('--config', default='sitic.yml', type=click.Path(exists=True))
-@click.option('--verbose', default=False)
-def cli(ctx, config, verbose):
+@click.option('--build_draft', default=False, type=bool)
+@click.option('--build_future', default=False, type=bool)
+@click.option('--build_expired', default=False, type=bool)
+def cli(ctx, config, build_draft, build_future, build_expired):
     conf.load_config(config)
-    conf.verbose = verbose
+    conf.build_draft = build_draft
+    conf.build_future = build_future
+    conf.build_expired = build_expired
     if ctx.invoked_subcommand is None:
         generator = Generator()
         generator.gen()

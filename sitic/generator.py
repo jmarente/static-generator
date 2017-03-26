@@ -26,10 +26,16 @@ class Generator(object):
         self.move_static_folder()
 
         for page in self.pages:
-            page_path = self.create_page_folder(page)
-            context['page'] = page.get_context()
+            page_to_publish = page.to_publish()
+            page_path = self.get_page_folder(page, build_path=page_to_publish)
 
-            self.render.render(page, page_path, context)
+            if page_to_publish:
+                context['page'] = page.get_context()
+                self.render.render(page, page_path, context)
+
+            # Removes expired content previously published
+            if page.is_expired() and os.path.isfile(page_path):
+                os.remove(page_path)
 
         logger.info('Site generated')
 
@@ -41,18 +47,15 @@ class Generator(object):
         if os.path.exists(config.static_path):
             shutil.copytree(config.static_path, config.public_path)
 
-
-    def create_page_folder(self, page):
+    def get_page_folder(self, page, build_path=True):
         url = page.get_url().split('/')
         path = os.path.join(config.public_path, *url)
 
-        if len(url) > 0:
+        if len(url) > 0 and build_path:
             try:
                 os.makedirs(path)
             except FileExistsError:
                 pass
 
         index_path = os.path.join(path, 'index.html')
-
-        open(index_path, 'a').close()
         return index_path

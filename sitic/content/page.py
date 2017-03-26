@@ -1,9 +1,12 @@
 # -*- condig: utf-8 -*-
 import os
-import markdown
+from datetime import datetime
 
-from sitic.config import config
+import markdown
 from jinja2.utils import Markup
+
+from sitic.utils import boolean, get_valid_date
+from sitic.config import config
 
 
 class Page(object):
@@ -13,6 +16,9 @@ class Page(object):
     frontmatter = {}
     content = ""
     context = {}
+    draft = False
+    publication_date = None
+    expiration_date = None
 
     def __init__(self, frontmatter, content, filename, sections = []):
         self.frontmatter = frontmatter or {}
@@ -20,6 +26,13 @@ class Page(object):
         self.filename = filename or ""
         self.name = "_".join(self.filename.split('.')[0:-1])
         self.sections = sections or []
+
+        self.draft = boolean(self.frontmatter.pop('draft', None))
+
+        date_fields = ['publication_date', 'expiration_date']
+        for field in date_fields:
+            value = get_valid_date(self.frontmatter.pop(field, None), None)
+            setattr(self, field, value)
 
     def __getattr__(self, attribute):
         return self.frontmatter.get(attribute, None)
@@ -39,3 +52,24 @@ class Page(object):
             self.context['content'] = Markup(markdown.markdown(self.content))
             self.context['raw'] = self.content
         return self.context
+
+    def to_publish(self):
+        to_publish = True
+        now = datetime.now()
+
+        if not config.build_draft and self.draft:
+            to_publish = False
+        elif not config.build_future \
+                and self.publication_date  \
+                and self.publication_date > now:
+            to_publish = False
+        elif self.is_expired():
+            to_publish = False
+
+        return to_publish
+
+    def is_expired(self):
+        now = datetime.now()
+        return not config.build_expired \
+                and self.expiration_date \
+                and self.expiration_date <= now
