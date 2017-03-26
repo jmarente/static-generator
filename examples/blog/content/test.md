@@ -2,6 +2,7 @@
 title='Test page'
 description='Page description'
 url="/es/test/main/"
+draft=false
 ++++++++++++++++
 
 # Quod probat duobus
