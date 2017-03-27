@@ -6,6 +6,7 @@ import re
 import yaml
 
 from sitic.utils import constants
+from sitic.logging import logger
 
 
 class _Config():
@@ -41,12 +42,11 @@ class _Config():
             for param in parsed_config:
                 if param in path_options:
                     value = parsed_config[param]
-                    value = value if os.path.isdir(value) else os.path.join(self.base_path, value)
+                    value = value if os.path.isabs(value) else os.path.join(self.base_path, value)
                     setattr(self, param, value)
 
         if not os.path.isdir(self.content_path):
-            # TODO: throw error correctly
-            raise Exception('No valid content path')
+            logger.error('Invalid path for content. Folder not found')
             sys.exit(1)
 
         # TODO: make patterns configurables
