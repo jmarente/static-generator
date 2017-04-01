@@ -11,5 +11,10 @@ IGNORE_FILES_PATTERN = ['^\..*$']
 # Server constants
 DEFAULT_PORT=8000
 
-
 DATE_FORMATS = ["%Y-%m-%d %H:%M:%S"]
+
+# Singular - Plural
+DEFAULT_TAXONOMIES = {
+    'category': 'categories',
+    'tag': 'tags',
+}

@@ -7,12 +7,12 @@ from jinja2.utils import Markup
 
 from sitic.utils import boolean, get_valid_date
 from sitic.config import config
+from sitic.content.base_content import BaseContent
 
 
-class Page(object):
+class Page(BaseContent):
     sections = []
     filename = ""
-    name = ""
     frontmatter = {}
     content = ""
     context = {}
@@ -28,6 +28,7 @@ class Page(object):
         self.sections = sections or []
 
         self.draft = boolean(self.frontmatter.pop('draft', None))
+        self.taxonomies = []
 
         date_fields = ['publication_date', 'expiration_date']
         for field in date_fields:
@@ -46,11 +47,14 @@ class Page(object):
     def section(self):
         return self.sections[0] if len(self.sections) else None
 
+    def get_simple_context(self):
+        return dict(self.frontmatter)
+
     def get_context(self):
         if not self.context:
-            self.context = dict(self.frontmatter)
+            self.context = self.get_simple_context()
             self.context['content'] = Markup(markdown.markdown(self.content))
-            self.context['raw'] = self.content
+            self.context['raw_content'] = self.content
         return self.context
 
     def to_publish(self):

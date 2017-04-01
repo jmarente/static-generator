@@ -52,5 +52,9 @@ class _Config():
         # TODO: make patterns configurables
         self.ignore_files_regex = [re.compile(i) for i in constants.IGNORE_FILES_PATTERN]
 
+    def get_taxonomies(self):
+        # TODO make it configurable
+        return constants.DEFAULT_TAXONOMIES
+
 
 config = _Config()
