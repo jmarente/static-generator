@@ -3,6 +3,8 @@ title='Test page'
 description='Page description'
 url="/es/test/main/"
 draft=false
+categories=["cat1", "cat2"]
+tags=["tag3"]
 ++++++++++++++++
 
 # Quod probat duobus

@@ -12,6 +12,7 @@ from sitic.logging import logger
 class _Config():
     config = None
     verbose = False
+    base_url = ""
     base_path = None
     content_path = None
     public_path = None
@@ -24,9 +25,9 @@ class _Config():
     build_expired = False
 
     def load_config(self, config_file_path):
-        self.config = config_file_path
+        self.config_path = config_file_path
 
-        self.base_path = os.path.dirname(os.path.abspath(self.config))
+        self.base_path = os.path.dirname(os.path.abspath(self.config_path))
 
         # Default
         self.content_path = os.path.join(self.base_path, constants.DEFAULT_CONTENT_PATH)
@@ -35,15 +36,14 @@ class _Config():
         self.templates_path = os.path.join(self.base_path, constants.DEFAULT_TEMPLATES_PATH)
 
         path_options = ['public_path', 'content_path', 'static_path']
-        with open(self.config, 'r') as config_file:
+        with open(self.config_path, 'r') as config_file:
             parsed_config = yaml.load(config_file)
 
-            print('parsed_config', parsed_config)
             for param in parsed_config:
+                value = parsed_config[param]
                 if param in path_options:
-                    value = parsed_config[param]
-                    value = value if os.path.isabs(value) else os.path.join(self.base_path, value)
-                    setattr(self, param, value)
+                    value = value if os.path.isdir(value) else os.path.join(self.base_path, value)
+                setattr(self, param, value)
 
         if not os.path.isdir(self.content_path):
             logger.error('Invalid path for content. Folder not found')

@@ -27,9 +27,10 @@ class Generator(object):
 
         for page in self.pages:
             page_to_publish = page.to_publish()
-            page_path = self.get_page_folder(page, build_path=page_to_publish)
+            page_path = page.get_path()
 
             if page_to_publish:
+                self.create_path(page_path)
                 context['page'] = page.get_context()
                 self.render.render(page, page_path, context)
 
@@ -47,15 +48,10 @@ class Generator(object):
         if os.path.exists(config.static_path):
             shutil.copytree(config.static_path, config.public_path)
 
-    def get_page_folder(self, page, build_path=True):
-        url = page.get_url().split('/')
-        path = os.path.join(config.public_path, *url)
-
-        if len(url) > 0 and build_path:
+    def create_path(self, page_path):
+        path = os.path.dirname(page_path)
+        if not os.path.exists(path):
             try:
                 os.makedirs(path)
-            except FileExistsError:
-                pass
-
-        index_path = os.path.join(path, 'index.html')
-        return index_path
+            except FileExistsError as e:
+                print(str(e))

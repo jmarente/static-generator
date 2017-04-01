@@ -1,8 +1,9 @@
 ++++++++++++++++
 title='Test page content level 2'
 description='Page content level 2 description'
-url="/level-2/"
 publication_date="2017-01-12 12:00:00"
+categories=["cat2"]
+tags=["tag4","tag2"]
 ++++++++++++++++
 
 # Occupet aras genitis

@@ -73,3 +73,10 @@ class Page(object):
         return not config.build_expired \
                 and self.expiration_date \
                 and self.expiration_date <= now
+
+    def get_path(self):
+        url = self.get_url().split('/')
+        path = os.path.join(config.public_path, *url)
+
+        index_path = os.path.join(path, 'index.html')
+        return index_path
