@@ -4,6 +4,7 @@ import os
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 from sitic.config import config
+from sitic.template.filters import get_json
 
 class Render(object):
     environment = None
@@ -11,6 +12,7 @@ class Render(object):
     def __init__(self):
         self.loader = FileSystemLoader(config.templates_path)
         self.environment = Environment(loader=self.loader)
+        self.environment.filters['get_json'] = get_json
 
     def render(self, page, output_path, context):
         template = self.get_page_template(page)

@@ -2,4 +2,8 @@
 {% block content %}
 <h1>This is the content for TEST</h1>
 {{ node.content }}
+{% set json_content = 'files/example.json'|get_json %}
+{% for element in json_content.data %}
+  {{ element.id }} | {{ element.name }}
+{% endfor %}
 {% endblock %}
