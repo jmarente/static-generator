@@ -1,8 +1,13 @@
 # -*- condig: utf-8 -*-
+import os
+
+from sitic.config import config
 
 class BaseContent(object):
     name = ""
     paginable = False
+    template_fields = ['name']
+    default_template_name = 'default'
 
     def is_paginable(self):
         return paginable
@@ -16,5 +21,29 @@ class BaseContent(object):
     def get_context(self):
         raise NotImplementedError()
 
+    def to_publish(self):
+        return True
+
+    def is_expired(self):
+        return False
+
     def get_path(self):
-        raise NotImplementedError()
+        url = self.get_url().split('/')
+        path = os.path.join(config.public_path, *url)
+
+        index_path = os.path.join(path, 'index.html')
+        return index_path
+
+    def get_templates(self):
+        templates = []
+
+        for field in self.template_fields:
+            value = getattr(self, field, None)
+            if not value:
+                continue
+            templates.append("{}.html".format(value))
+
+        if self.default_template_name:
+            templates.append("{}.html".format(self.default_template_name))
+
+        return templates

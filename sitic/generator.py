@@ -10,7 +10,9 @@ from sitic.logging import logger
 
 class Generator(object):
     pages = []
+    taxonomies = []
     render = None
+
     def __init__(self):
         self.render = Render()
         page_factory = PageFactory()
@@ -19,19 +21,23 @@ class Generator(object):
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
             self.pages += page_factory.get_pages(supported_files)
 
+        self.taxonomies = list(page_factory.taxonomies.values())
+
     def gen(self):
         context = {}
 
         self.create_public_folder()
         self.move_static_folder()
 
-        for page in self.pages:
+        contents = self.pages + self.taxonomies
+
+        for page in contents:
             page_to_publish = page.to_publish()
             page_path = page.get_path()
 
             if page_to_publish:
                 self.create_path(page_path)
-                context['page'] = page.get_context()
+                context['node'] = page.get_context()
                 self.render.render(page, page_path, context)
 
             # Removes expired content previously published
@@ -54,4 +60,4 @@ class Generator(object):
             try:
                 os.makedirs(path)
             except FileExistsError as e:
-                print(str(e))
+                pass

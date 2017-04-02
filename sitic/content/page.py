@@ -19,6 +19,7 @@ class Page(BaseContent):
     draft = False
     publication_date = None
     expiration_date = None
+    template_fields = ['template', 'type', 'section', 'name']
 
     def __init__(self, frontmatter, content, filename, sections = []):
         self.frontmatter = frontmatter or {}
@@ -48,7 +49,9 @@ class Page(BaseContent):
         return self.sections[0] if len(self.sections) else None
 
     def get_simple_context(self):
-        return dict(self.frontmatter)
+        context = dict(self.frontmatter)
+        context['url'] = self.get_url()
+        return context
 
     def get_context(self):
         if not self.context:
@@ -77,10 +80,3 @@ class Page(BaseContent):
         return not config.build_expired \
                 and self.expiration_date \
                 and self.expiration_date <= now
-
-    def get_path(self):
-        url = self.get_url().split('/')
-        path = os.path.join(config.public_path, *url)
-
-        index_path = os.path.join(path, 'index.html')
-        return index_path

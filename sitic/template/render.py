@@ -19,18 +19,12 @@ class Render(object):
 
     def get_page_template(self, page):
         template = None
-        page_fields = ['template', 'type', 'section', 'name']
+        possible_templates = page.get_templates()
 
-        for field in page_fields:
-            value = getattr(page, field, None)
-            if not value:
-                continue
-            template_name = "{}.html".format(value)
+        for template_name in possible_templates:
             template = self.get_template(template_name)
             if template:
                 break;
-
-        template = template or self.get_template('default.html')
 
         return template
 
