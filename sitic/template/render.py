@@ -1,10 +1,11 @@
 # -*- condig: utf-8 -*-
 import os
+import inspect
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 from sitic.config import config
-from sitic.template.filters import get_json
+from sitic.template import filters
 
 class Render(object):
     environment = None
@@ -12,7 +13,9 @@ class Render(object):
     def __init__(self):
         self.loader = FileSystemLoader(config.templates_path)
         self.environment = Environment(loader=self.loader)
-        self.environment.filters['get_json'] = get_json
+
+        for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
+            self.environment.filters[name] = function
 
     def render(self, page, output_path, context):
         template = self.get_page_template(page)
