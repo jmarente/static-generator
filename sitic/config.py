@@ -23,6 +23,7 @@ class _Config():
     build_draft = False
     build_future = False
     build_expired = False
+    paginable = False
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path

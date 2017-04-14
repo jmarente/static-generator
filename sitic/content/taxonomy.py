@@ -50,3 +50,9 @@ class Taxonomy(BaseContent):
         templates.append("{}.html".format('taxonomy'))
 
         return templates
+
+    def get_paginable_paths(self):
+        paths = [self.get_path()]
+        if config.paginable:
+            base_path = self.get_base_path()
+        return paths

@@ -12,6 +12,7 @@ class Generator(object):
     pages = []
     taxonomies = []
     render = None
+    context = {}
 
     def __init__(self):
         self.render = Render()
@@ -24,8 +25,6 @@ class Generator(object):
         self.taxonomies = content_factory.get_taxonomies()
 
     def gen(self):
-        context = {}
-
         self.create_public_folder()
         self.move_static_folder()
 
@@ -33,13 +32,14 @@ class Generator(object):
 
         for page in contents:
             content_to_publish = page.to_publish()
-            content_path = page.get_path()
 
             if content_to_publish:
-                self.create_path(content_path)
-                context['node'] = page.get_context()
-                self.render.render(page, content_path, context)
+                if page.is_paginable():
+                    self.generate_paginable(page)
+                else:
+                    self.generate_regular(page)
 
+            content_path = page.get_path()
             # Removes expired content previously published
             if page.is_expired() and os.path.isfile(content_path):
                 os.remove(content_path)
@@ -61,3 +61,17 @@ class Generator(object):
                 os.makedirs(path)
             except FileExistsError as e:
                 pass
+
+    def generate_regular(self, page):
+        content_path = page.get_path()
+
+        self.create_path(content_path)
+        self.context['node'] = page.get_context()
+        self.render.render(page, content_path, self.context)
+
+    def generate_paginable(self, page):
+        content_path = page.get_path()
+
+        self.create_path(content_path)
+        self.context['node'] = page.get_context()
+        self.render.render(page, content_path, self.context)

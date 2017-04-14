@@ -10,7 +10,7 @@ class BaseContent(object):
     default_template_name = 'default'
 
     def is_paginable(self):
-        return paginable
+        return self.paginable
 
     def get_url(self):
         raise NotImplementedError()
@@ -27,11 +27,14 @@ class BaseContent(object):
     def is_expired(self):
         return False
 
-    def get_path(self):
+    def get_base_path(self):
         url = self.get_url().split('/')
         path = os.path.join(config.public_path, *url)
 
-        index_path = os.path.join(path, 'index.html')
+        return path
+
+    def get_path(self):
+        index_path = os.path.join(self.get_base_path(), 'index.html')
         return index_path
 
     def get_templates(self):
