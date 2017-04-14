@@ -6,7 +6,7 @@ from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 
 
-class PageFactory(object):
+class ContentFactory(object):
     pages = []
     taxonomy_definitions = {}
     taxonomies = {}
@@ -44,3 +44,6 @@ class PageFactory(object):
                 if term not in self.taxonomies:
                     self.taxonomies[term] = Taxonomy(term, definition)
                 self.taxonomies[term].add_page(page)
+
+    def get_taxonomies(self):
+        return list(self.taxonomies.values())

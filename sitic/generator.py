@@ -3,7 +3,7 @@ import os
 import shutil
 
 from sitic.config import config
-from sitic.content import PageFactory
+from sitic.content import ContentFactory
 from sitic.utils import constants
 from sitic.template import Render
 from sitic.logging import logger
@@ -15,13 +15,13 @@ class Generator(object):
 
     def __init__(self):
         self.render = Render()
-        page_factory = PageFactory()
+        content_factory = ContentFactory()
         for root, directory, files in os.walk(config.content_path):
             supported_files = [os.path.join(root, f) for f in files
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
-            self.pages += page_factory.get_pages(supported_files)
+            self.pages += content_factory.get_pages(supported_files)
 
-        self.taxonomies = list(page_factory.taxonomies.values())
+        self.taxonomies = content_factory.get_taxonomies()
 
     def gen(self):
         context = {}
@@ -32,17 +32,17 @@ class Generator(object):
         contents = self.pages + self.taxonomies
 
         for page in contents:
-            page_to_publish = page.to_publish()
-            page_path = page.get_path()
+            content_to_publish = page.to_publish()
+            content_path = page.get_path()
 
-            if page_to_publish:
-                self.create_path(page_path)
+            if content_to_publish:
+                self.create_path(content_path)
                 context['node'] = page.get_context()
-                self.render.render(page, page_path, context)
+                self.render.render(page, content_path, context)
 
             # Removes expired content previously published
-            if page.is_expired() and os.path.isfile(page_path):
-                os.remove(page_path)
+            if page.is_expired() and os.path.isfile(content_path):
+                os.remove(content_path)
 
         logger.info('Site generated')
 
@@ -54,8 +54,8 @@ class Generator(object):
         if os.path.exists(config.static_path):
             shutil.copytree(config.static_path, config.public_path)
 
-    def create_path(self, page_path):
-        path = os.path.dirname(page_path)
+    def create_path(self, content_path):
+        path = os.path.dirname(content_path)
         if not os.path.exists(path):
             try:
                 os.makedirs(path)
