@@ -21,8 +21,9 @@ class Taxonomy(BaseContent):
         self.pages = []
 
     def add_page(self, page):
-        self.pages.append(page)
-        page.taxonomies.append(self)
+        if page not in self.pages:
+            self.pages.append(page)
+            page.add_taxonomy(self)
 
     def get_url(self):
         url = '/'.join([self.definition.singular, self.name])

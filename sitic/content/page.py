@@ -80,3 +80,10 @@ class Page(BaseContent):
         return not config.build_expired \
                 and self.expiration_date \
                 and self.expiration_date <= now
+
+    def add_taxonomy(self, taxonomy):
+        if taxonomy not in self.taxonomies:
+            self.taxonomies.append(taxonomy)
+            if taxonomy.definition.plural in self.frontmatter:
+                del self.frontmatter[taxonomy.definition.plural]
+

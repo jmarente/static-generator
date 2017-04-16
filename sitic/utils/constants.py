@@ -11,7 +11,7 @@ IGNORE_FILES_PATTERN = ['^\..*$']
 # Server constants
 DEFAULT_PORT=8000
 
-DATE_FORMATS = ["%Y-%m-%d %H:%M:%S"]
+DATE_FORMATS = ["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S"]
 
 # Singular - Plural
 DEFAULT_TAXONOMIES = {
