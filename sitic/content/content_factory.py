@@ -4,12 +4,14 @@ import os
 from sitic.config import config
 from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
+from sitic.content.section import Section
 
 
 class ContentFactory(object):
     contents = []
     taxonomy_definitions = {}
     taxonomies = {}
+    sections = {}
 
     def get_contents(self, contents_path):
         self.taxonomy_definitions = {
@@ -28,12 +30,19 @@ class ContentFactory(object):
 
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
-        name = path_chunks[-1]
+        filename = path_chunks[-1]
         section = None
+        page = Page(frontmatter, content, filename, path_chunks)
         if len(path_chunks) > 1:
-            section = path_chunks[0]
+            section_name = path_chunks[0]
+        else:
+            section_name = page.name
 
-        return Page(frontmatter, content, name, path_chunks, section)
+        section = self._get_section(section_name)
+        section.add_page(page)
+
+        return page
+
 
     def update_taxonomies(self, content):
         for singular, plural in config.get_taxonomies().items():
@@ -47,3 +56,13 @@ class ContentFactory(object):
 
     def get_taxonomies(self):
         return list(self.taxonomies.values())
+
+    def get_sections(self):
+        return list(self.sections.values())
+
+    def _get_section(self, section_name):
+        section = self.sections.get(section_name, None)
+        if section is None:
+            self.sections[section_name] = section = Section(section_name)
+
+        return section

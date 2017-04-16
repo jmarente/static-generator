@@ -13,7 +13,7 @@ class Section(BaseContent):
     def add_page(self, page):
         if page not in self.pages:
             self.pages.append(page)
-            page.set_section(self)
+            page.section = self
 
     def get_url(self):
         url = '/'.join([self.name])
@@ -33,5 +33,4 @@ class Section(BaseContent):
         return context
 
     def get_templates(self):
-        templates.append("{}.html".format('section'))
-        return templates
+        return ["{}.html".format('section')]

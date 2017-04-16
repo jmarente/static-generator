@@ -10,9 +10,10 @@ from sitic.logging import logger
 
 class Generator(object):
     contents = []
+    sections = []
     taxonomies = []
-    render = None
     context = {}
+    render = None
 
     def __init__(self):
         self.render = Render()
@@ -23,12 +24,13 @@ class Generator(object):
             self.contents += content_factory.get_contents(supported_files)
 
         self.taxonomies = content_factory.get_taxonomies()
+        self.sections = content_factory.get_sections()
 
     def gen(self):
         self.create_public_folder()
         self.move_static_folder()
 
-        contents = self.contents + self.taxonomies
+        contents = self.contents + self.taxonomies + self.sections
 
         for content in contents:
             content_to_publish = content.to_publish()
