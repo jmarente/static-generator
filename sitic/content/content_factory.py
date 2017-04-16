@@ -7,26 +7,26 @@ from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 
 
 class ContentFactory(object):
-    pages = []
+    contents = []
     taxonomy_definitions = {}
     taxonomies = {}
 
-    def get_pages(self, pages_path):
+    def get_contents(self, contents_path):
         self.taxonomy_definitions = {
             singular: TaxonomyDefinition(singular, plural)
             for singular, plural in config.get_taxonomies().items()
         }
-        for path in pages_path:
-            page = self.get_page(path)
-            self.pages.append(page)
-            self.update_taxonomies(page)
+        for path in contents_path:
+            content = self.get_content(path)
+            self.contents.append(content)
+            self.update_taxonomies(content)
 
-        return self.pages
+        return self.contents
 
-    def get_page(self, page_path):
-        frontmatter, content = page_parser.load(page_path)
+    def get_content(self, content_path):
+        frontmatter, content = page_parser.load(content_path)
 
-        relative_path = page_path.replace(config.content_path, "").strip(os.sep)
+        relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
         name = path_chunks[-1]
         sections = []
@@ -35,15 +35,15 @@ class ContentFactory(object):
 
         return Page(frontmatter, content, name, sections)
 
-    def update_taxonomies(self, page):
+    def update_taxonomies(self, content):
         for singular, plural in config.get_taxonomies().items():
-            terms = page.frontmatter.get(plural, [])
+            terms = content.frontmatter.get(plural, [])
             definition = self.taxonomy_definitions[singular]
             for term in terms:
                 term = term.lower()
                 if term not in self.taxonomies:
                     self.taxonomies[term] = Taxonomy(term, definition)
-                self.taxonomies[term].add_page(page)
+                self.taxonomies[term].add_page(content)
 
     def get_taxonomies(self):
         return list(self.taxonomies.values())

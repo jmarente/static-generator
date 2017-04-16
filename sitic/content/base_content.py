@@ -8,6 +8,8 @@ class BaseContent(object):
     paginable = False
     template_fields = ['name']
     default_template_name = 'default'
+    simple_context = None
+    context = None
 
     def is_paginable(self):
         return self.paginable

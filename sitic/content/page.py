@@ -15,7 +15,6 @@ class Page(BaseContent):
     filename = ""
     frontmatter = {}
     content = ""
-    context = {}
     draft = False
     publication_date = None
     expiration_date = None
@@ -49,12 +48,13 @@ class Page(BaseContent):
         return self.sections[0] if len(self.sections) else None
 
     def get_simple_context(self):
-        context = dict(self.frontmatter)
-        context['url'] = self.get_url()
-        return context
+        if self.simple_context is None:
+            self.simple_context = dict(self.frontmatter)
+            self.simple_context['url'] = self.get_url()
+        return self.simple_context
 
     def get_context(self):
-        if not self.context:
+        if self.context is None:
             self.context = self.get_simple_context()
             self.context['content'] = Markup(markdown.markdown(self.content))
             self.context['raw_content'] = self.content

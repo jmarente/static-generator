@@ -3,13 +3,13 @@ import os
 import shutil
 
 from sitic.config import config
-from sitic.content import ContentFactory
+from sitic.content import ContentFactory, Paginator
 from sitic.utils import constants
 from sitic.template import Render
 from sitic.logging import logger
 
 class Generator(object):
-    pages = []
+    contents = []
     taxonomies = []
     render = None
     context = {}
@@ -20,7 +20,7 @@ class Generator(object):
         for root, directory, files in os.walk(config.content_path):
             supported_files = [os.path.join(root, f) for f in files
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
-            self.pages += content_factory.get_pages(supported_files)
+            self.contents += content_factory.get_contents(supported_files)
 
         self.taxonomies = content_factory.get_taxonomies()
 
@@ -28,20 +28,20 @@ class Generator(object):
         self.create_public_folder()
         self.move_static_folder()
 
-        contents = self.pages + self.taxonomies
+        contents = self.contents + self.taxonomies
 
-        for page in contents:
-            content_to_publish = page.to_publish()
+        for content in contents:
+            content_to_publish = content.to_publish()
 
             if content_to_publish:
-                if page.is_paginable():
-                    self.generate_paginable(page)
+                if content.is_paginable() and config.paginable:
+                    self.generate_paginable(content)
                 else:
-                    self.generate_regular(page)
+                    self.generate_regular(content)
 
-            content_path = page.get_path()
+            content_path = content.get_path()
             # Removes expired content previously published
-            if page.is_expired() and os.path.isfile(content_path):
+            if content.is_expired() and os.path.isfile(content_path):
                 os.remove(content_path)
 
         logger.info('Site generated')
@@ -62,16 +62,22 @@ class Generator(object):
             except FileExistsError as e:
                 pass
 
-    def generate_regular(self, page):
-        content_path = page.get_path()
+    def generate_regular(self, content):
+        content_path = content.get_path()
 
         self.create_path(content_path)
-        self.context['node'] = page.get_context()
-        self.render.render(page, content_path, self.context)
+        self.context['node'] = content.get_context()
+        self.render.render(content, content_path, self.context)
 
-    def generate_paginable(self, page):
-        content_path = page.get_path()
+    def generate_paginable(self, content):
+        paginator = Paginator(content, config.paginable)
+        for page_num in paginator.page_range:
+            page = paginator.get_page(page_num)
+            page_path = page.get_path()
 
-        self.create_path(content_path)
-        self.context['node'] = page.get_context()
-        self.render.render(page, content_path, self.context)
+            paginator.page = page
+
+            self.create_path(page_path)
+            self.context['node'] = content.get_context()
+            self.context['paginator'] = paginator
+            self.render.render(content, page_path, self.context)

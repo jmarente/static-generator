@@ -1,23 +1,28 @@
 # -*- condig: utf-8 -*-
+import os
 from math import ceil
 
 import six
 
 class Paginator(object):
     def __init__(self, content, per_page, paginable_attr='pages', orphans=0, allow_empty_first_page=True):
+        self.content = content
         self.object_list = getattr(content, paginable_attr)
         self.per_page = int(per_page)
         self.orphans = int(orphans)
         self.allow_empty_first_page = allow_empty_first_page
         self._num_pages = self._count = None
+        self.page = None
 
-    def page(self, number):
+    def get_page(self, number):
         "Returns a Page object for the given 1-based page number."
         bottom = (number - 1) * self.per_page
         top = bottom + self.per_page
         if top + self.orphans >= self.count:
             top = self.count
-        return Page(self.object_list[bottom:top], number, self)
+
+        objects_context = [o.get_simple_context() for o in self.object_list[bottom:top]]
+        return Page(objects_context, number, self)
 
     def _get_count(self):
         "Returns the total number of objects, across all pages."
@@ -131,4 +136,17 @@ class Page(object):
         return self.number * self.paginator.per_page
 
     def get_url(self):
-        return ""
+        index = self.number
+        url = self.paginator.content.get_url()
+        if index != 1:
+            url = '/'.join([url, 'page', index])
+        return url
+
+    def get_path(self):
+        index = self.number
+        base_path = self.paginator.content.get_base_path()
+        path_parts = [base_path]
+        if index != 1:
+            path_parts += ['page', str(index)]
+        path_parts.append('index.html')
+        return os.path.join(*path_parts)

@@ -17,14 +17,14 @@ class Render(object):
         for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
             self.environment.filters[name] = function
 
-    def render(self, page, output_path, context):
-        template = self.get_page_template(page)
+    def render(self, content, output_path, context):
+        template = self.get_content_template(content)
         if template:
             template.stream(**context).dump(output_path)
 
-    def get_page_template(self, page):
+    def get_content_template(self, content):
         template = None
-        possible_templates = page.get_templates()
+        possible_templates = content.get_templates()
 
         for template_name in possible_templates:
             template = self.get_template(template_name)

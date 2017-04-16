@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>This is the content for TAGS</h1>
-{% for page in node.pages %}
-  {{ page.title }}
+<h2>All pages:</h2>
+{% for content in node.pages %}
+  {{ content.title }}
+{% endfor %}
+<h2>Paginator pages:</h2>
+{% for content in paginator.page %}
+  {{ content.title }}
 {% endfor %}
 {% endblock %}
