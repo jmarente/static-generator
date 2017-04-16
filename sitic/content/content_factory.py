@@ -29,11 +29,11 @@ class ContentFactory(object):
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
         name = path_chunks[-1]
-        sections = []
+        section = None
         if len(path_chunks) > 1:
-            sections = path_chunks[:-1]
+            section = path_chunks[0]
 
-        return Page(frontmatter, content, name, sections)
+        return Page(frontmatter, content, name, path_chunks, section)
 
     def update_taxonomies(self, content):
         for singular, plural in config.get_taxonomies().items():

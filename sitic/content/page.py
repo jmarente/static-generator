@@ -11,7 +11,7 @@ from sitic.content.base_content import BaseContent
 
 
 class Page(BaseContent):
-    sections = []
+    section = None
     filename = ""
     frontmatter = {}
     content = ""
@@ -19,13 +19,14 @@ class Page(BaseContent):
     publication_date = None
     expiration_date = None
     template_fields = ['template', 'type', 'section', 'name']
+    relative_path = []
 
-    def __init__(self, frontmatter, content, filename, sections = []):
+    def __init__(self, frontmatter, content, filename, relative_path = [], section = None):
         self.frontmatter = frontmatter or {}
         self.content = content or ""
         self.filename = filename or ""
         self.name = "_".join(self.filename.split('.')[0:-1])
-        self.sections = sections or []
+        self.section = section
 
         self.draft = boolean(self.frontmatter.pop('draft', None))
         self.taxonomies = []
@@ -39,13 +40,9 @@ class Page(BaseContent):
         return self.frontmatter.get(attribute, None)
 
     def get_url(self):
-        alternative_url = self.sections + [self.name]
+        alternative_url = self.relative_path + [self.name]
         url = self.frontmatter.get('url', None) or '/'.join(alternative_url)
         return url
-
-    @property
-    def section(self):
-        return self.sections[0] if len(self.sections) else None
 
     def get_simple_context(self):
         if self.simple_context is None:
