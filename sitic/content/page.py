@@ -27,6 +27,7 @@ class Page(BaseContent):
         self.filename = filename or ""
         self.name = "_".join(self.filename.split('.')[0:-1])
         self.section = section
+        self.relative_path = relative_path
 
         self.draft = boolean(self.frontmatter.pop('draft', None))
         self.taxonomies = []

@@ -31,8 +31,9 @@ class ContentFactory(object):
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
         filename = path_chunks[-1]
+        content_path = path_chunks[0:-1]
         section = None
-        page = Page(frontmatter, content, filename, path_chunks)
+        page = Page(frontmatter, content, filename, content_path)
         if len(path_chunks) > 1:
             section_name = path_chunks[0]
         else:
