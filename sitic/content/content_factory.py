@@ -19,13 +19,13 @@ class ContentFactory(object):
             for singular, plural in config.get_taxonomies().items()
         }
         for path in contents_path:
-            content = self.get_content(path)
-            self.contents.append(content)
-            self.update_taxonomies(content)
+            content = self._get_content(path)
+            if content:
+                self.contents.append(content)
 
         return self.contents
 
-    def get_content(self, content_path):
+    def _get_content(self, content_path):
         frontmatter, content = page_parser.load(content_path)
 
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
@@ -34,15 +34,28 @@ class ContentFactory(object):
         content_path = path_chunks[0:-1]
         section = None
         page = Page(frontmatter, content, filename, content_path)
+        page_is_section = False
+
         if len(path_chunks) > 1:
             section_name = path_chunks[0]
         else:
+            page_is_section = True
             section_name = page.name
 
-        section = self._get_section(section_name)
-        section.add_page(page)
+        # Index content means section content
+        if len(path_chunks) == 2 and page.name == 'index':
+            page_is_section = True
 
-        return page
+        section = self._get_section(section_name)
+        page_to_return = page
+        if page_is_section:
+            section.content_page = page
+            page_to_return = None
+        else:
+            section.add_page(page)
+
+        self.update_taxonomies(page)
+        return page_to_return
 
 
     def update_taxonomies(self, content):
