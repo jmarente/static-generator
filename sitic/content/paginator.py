@@ -5,9 +5,9 @@ from math import ceil
 import six
 
 class Paginator(object):
-    def __init__(self, content, per_page, paginable_attr='pages', orphans=0, allow_empty_first_page=True):
+    def __init__(self, content, per_page, orphans=0, allow_empty_first_page=True):
         self.content = content
-        self.object_list = getattr(content, paginable_attr)
+        self.object_list = content.get_pages()
         self.per_page = int(per_page)
         self.orphans = int(orphans)
         self.allow_empty_first_page = allow_empty_first_page

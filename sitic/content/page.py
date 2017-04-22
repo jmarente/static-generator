@@ -104,3 +104,6 @@ class Page(BaseContent):
         ]
 
         return templates
+
+    def get_publication_date(self):
+        return self.publication_date if self.publication_date else datetime.now()

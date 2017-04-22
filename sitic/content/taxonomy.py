@@ -1,5 +1,5 @@
 # -*- condig: utf-8 -*-
-from sitic.content.base_content import BaseContent
+from sitic.content.paginable_content import PaginableContent
 
 
 class TaxonomyDefinition(object):
@@ -11,18 +11,16 @@ class TaxonomyDefinition(object):
         self.plural = plural
 
 
-class Taxonomy(BaseContent):
-    paginable = True
+class Taxonomy(PaginableContent):
 
     def __init__(self, name, definition=None):
+        super(Taxonomy, self).__init__()
         self.name = name
         self.definition = definition
-        self.pages = []
 
     def add_page(self, page):
-        if page not in self.pages:
-            self.pages.append(page)
-            page.add_taxonomy(self)
+        super(Taxonomy, self).add_page(page)
+        page.add_taxonomy(self)
 
     def get_url(self):
         url = '/'.join([self.definition.singular, self.name])
@@ -30,19 +28,9 @@ class Taxonomy(BaseContent):
 
     def get_simple_context(self):
         if self.simple_context is None:
-            self.simple_context = {
-                'taxonomy': self.definition.singular,
-                'name': self.name,
-                'page_count': len(self.pages),
-                'url': self.get_url(),
-            }
+            super(Taxonomy, self).get_simple_context()
+            self.simple_context['taxonomy'] = self.definition.singular
         return self.simple_context
-
-    def get_context(self):
-        if self.context is None:
-            self.context = self.get_simple_context()
-            self.context['pages'] = [p.get_simple_context() for p in self.pages]
-        return self.context
 
     def get_templates(self):
         return [
