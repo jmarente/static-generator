@@ -5,6 +5,7 @@ from sitic.config import config
 from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 from sitic.content.section import Section
+from sitic.content.homepage import Homepage
 
 
 class ContentFactory(object):
@@ -12,6 +13,10 @@ class ContentFactory(object):
     taxonomy_definitions = {}
     taxonomies = {}
     sections = {}
+    homepage = None
+
+    def __init__(self):
+        self.homepage = Homepage()
 
     def get_contents(self, contents_path):
         self.taxonomy_definitions = {
@@ -35,9 +40,12 @@ class ContentFactory(object):
         section = None
         page = Page(frontmatter, content, filename, content_path)
         page_is_section = False
+        page_is_homepage = False
 
         if len(path_chunks) > 1:
             section_name = path_chunks[0]
+        elif page.name == 'index':
+            page_is_homepage = True
         else:
             page_is_section = True
             section_name = page.name
@@ -46,15 +54,20 @@ class ContentFactory(object):
         if len(path_chunks) == 2 and page.name == 'index':
             page_is_section = True
 
-        section = self._get_section(section_name)
         page_to_return = page
-        if page_is_section:
-            section.set_content_page(page)
+        if page_is_homepage:
             page_to_return = None
+            self.homepage.set_content_page(page)
         else:
-            section.add_page(page)
+            section = self._get_section(section_name)
+            if page_is_section:
+                section.set_content_page(page)
+                page_to_return = None
+            else:
+                section.add_page(page)
 
-        self.update_taxonomies(page)
+            self.update_taxonomies(page)
+
         return page_to_return
 
 

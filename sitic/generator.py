@@ -13,6 +13,7 @@ class Generator(object):
     sections = []
     taxonomies = []
     context = {}
+    homepage = None
     render = None
 
     def __init__(self):
@@ -25,12 +26,14 @@ class Generator(object):
 
         self.taxonomies = content_factory.get_taxonomies()
         self.sections = content_factory.get_sections()
+        self.homepage = content_factory.homepage
+        self.homepage.pages = self.contents
 
     def gen(self):
         self.create_public_folder()
         self.move_static_folder()
 
-        contents = self.contents + self.taxonomies + self.sections
+        contents = [self.homepage] + self.contents + self.taxonomies + self.sections
 
         for content in contents:
             content_to_publish = content.to_publish()
