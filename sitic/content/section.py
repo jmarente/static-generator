@@ -4,7 +4,6 @@ from sitic.content.base_content import BaseContent
 
 class Section(BaseContent):
     paginable = True
-    default_template_name = 'section'
     content_page = None
 
     def __init__(self, name):
@@ -15,6 +14,10 @@ class Section(BaseContent):
         if page not in self.pages:
             self.pages.append(page)
             page.section = self
+
+    def set_content_page(self, page):
+        self.content_page = page
+        page.section = self
 
     def get_url(self):
         url = '/'.join([self.name])
@@ -44,4 +47,10 @@ class Section(BaseContent):
         return self.context
 
     def get_templates(self):
-        return ["{}.html".format('section')]
+        return [
+            "section/{}.html".format(self.name),
+            "{}/section.html".format(self.name),
+            "{}/list.html".format(self.name),
+            "default/section.html",
+            "default/list.html"
+        ]

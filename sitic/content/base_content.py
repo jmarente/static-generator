@@ -7,7 +7,6 @@ class BaseContent(object):
     name = ""
     paginable = False
     template_fields = ['name']
-    default_template_name = 'default'
     simple_context = None
     context = None
 
@@ -40,15 +39,4 @@ class BaseContent(object):
         return index_path
 
     def get_templates(self):
-        templates = []
-
-        for field in self.template_fields:
-            value = getattr(self, field, None)
-            if not value:
-                continue
-            templates.append("{}.html".format(value))
-
-        if self.default_template_name:
-            templates.append("{}.html".format(self.default_template_name))
-
-        return templates
+        raise NotImplementedError()

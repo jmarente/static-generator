@@ -85,3 +85,22 @@ class Page(BaseContent):
             if taxonomy.definition.plural in self.frontmatter:
                 del self.frontmatter[taxonomy.definition.plural]
 
+    def get_templates(self):
+        templates = []
+        page_type = self.frontmatter.get('type', None)
+        template_name = self.frontmatter.get('template', None)
+
+        if template_name:
+            if page_type:
+                templates.append('{}/{}.html'.format(page_type, template_name))
+            templates.append('{}/{}.html'.format(self.section.name, template_name))
+
+        if page_type:
+            templates.append("{}/page.html".format(page_type))
+
+        templates += [
+            "{}/page.html".format(self.section.name),
+            "default/page.html",
+        ]
+
+        return templates

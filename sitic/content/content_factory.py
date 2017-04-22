@@ -49,7 +49,7 @@ class ContentFactory(object):
         section = self._get_section(section_name)
         page_to_return = page
         if page_is_section:
-            section.content_page = page
+            section.set_content_page(page)
             page_to_return = None
         else:
             section.add_page(page)

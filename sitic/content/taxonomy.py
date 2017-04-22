@@ -13,7 +13,6 @@ class TaxonomyDefinition(object):
 
 class Taxonomy(BaseContent):
     paginable = True
-    default_template_name = None
 
     def __init__(self, name, definition=None):
         self.name = name
@@ -46,10 +45,9 @@ class Taxonomy(BaseContent):
         return self.context
 
     def get_templates(self):
-        templates = super(Taxonomy, self).get_templates()
-
-        templates.append('{}.html'.format(self.definition.singular))
-        templates.append('{}.html'.format(self.definition.plural))
-        templates.append("{}.html".format('taxonomy'))
-
-        return templates
+        return [
+            "taxonomy/{}.html".format(self.definition.singular),
+            "taxonomy/list.html",
+            "default/taxonomy.html",
+            "default/list.html"
+        ]
