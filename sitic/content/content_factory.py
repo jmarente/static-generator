@@ -10,6 +10,7 @@ from sitic.content.homepage import Homepage
 
 class ContentFactory(object):
     contents = []
+    expired_contents = []
     taxonomy_definitions = {}
     taxonomies = {}
     sections = {}
@@ -26,7 +27,10 @@ class ContentFactory(object):
         for path in contents_path:
             content = self._get_content(path)
             if content:
-                self.contents.append(content)
+                if content.to_publish():
+                    self.contents.append(content)
+                elif content.is_expired():
+                    self.expired_contents.append(content)
 
         return self.contents
 
@@ -58,7 +62,7 @@ class ContentFactory(object):
         if page_is_homepage:
             page_to_return = None
             self.homepage.set_content_page(page)
-        else:
+        elif page.to_publish():
             section = self._get_section(section_name)
             if page_is_section:
                 section.set_content_page(page)

@@ -28,6 +28,7 @@ class Generator(object):
         self.sections = content_factory.get_sections()
         self.homepage = content_factory.homepage
         self.homepage.pages = self.contents
+        self.expired_contents = content_factory.expired_contents
 
     def gen(self):
         self.create_public_folder()
@@ -36,18 +37,12 @@ class Generator(object):
         contents = [self.homepage] + self.contents + self.taxonomies + self.sections
 
         for content in contents:
-            content_to_publish = content.to_publish()
+            if content.is_paginable() and config.paginable:
+                self.generate_paginable(content)
+            else:
+                self.generate_regular(content)
 
-            if content_to_publish:
-                if content.is_paginable() and config.paginable:
-                    self.generate_paginable(content)
-                else:
-                    self.generate_regular(content)
-
-            content_path = content.get_path()
-            # Removes expired content previously published
-            if content.is_expired() and os.path.isfile(content_path):
-                os.remove(content_path)
+        self.remove_expired()
 
         logger.info('Site generated')
 
@@ -86,3 +81,10 @@ class Generator(object):
             self.context['node'] = content.get_context()
             self.context['paginator'] = paginator
             self.render.render(content, page_path, self.context)
+
+    def remove_expired(self):
+        for content in self.expired_contents:
+            content_path = content.get_path()
+            # Removes expired content previously published
+            if content.is_expired() and os.path.isfile(content_path):
+                os.remove(content_path)
