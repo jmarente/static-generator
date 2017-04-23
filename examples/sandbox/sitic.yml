@@ -1,3 +1,17 @@
 public_path: public
 base_url: www.sitic.net
 paginable: 1
+
+menus:
+    main:
+        - title: 'title test'
+          url: '/test-url'
+          id: 'test1'
+        - title: 'title test2'
+          url: '/test-url2'
+          id: 'test2-custom'
+          parent: 'test1'
+    footer:
+        - title: 'title footer'
+          url: '/test-url-footer'
+          id: 'test-footer'

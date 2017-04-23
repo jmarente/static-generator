@@ -40,9 +40,9 @@ class ContentFactory(object):
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
         filename = path_chunks[-1]
-        content_path = path_chunks[0:-1]
+        page_path = path_chunks[0:-1]
         section = None
-        page = Page(frontmatter, content, filename, content_path)
+        page = Page(frontmatter, content, filename, page_path)
         page_is_section = False
         page_is_homepage = False
 

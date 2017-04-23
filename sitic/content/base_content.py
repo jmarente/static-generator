@@ -15,6 +15,7 @@ class BaseContent(object):
 
     def get_url(self):
         raise NotImplementedError()
+    url = property(get_url)
 
     def get_simple_context(self):
         raise NotImplementedError()

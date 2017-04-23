@@ -31,3 +31,7 @@ class Section(PaginableContent):
             "default/section.html",
             "default/list.html"
         ]
+
+    @property
+    def id(self):
+        return self.name

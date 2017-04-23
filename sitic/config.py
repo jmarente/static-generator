@@ -23,7 +23,8 @@ class _Config():
     build_draft = False
     build_future = False
     build_expired = False
-    paginable = None # one page by default
+    paginable = None # no pagination by default
+    menus = {}
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
@@ -56,6 +57,9 @@ class _Config():
     def get_taxonomies(self):
         # TODO make it configurable
         return constants.DEFAULT_TAXONOMIES
+
+    def get_menus(self):
+        return self.menus
 
 
 config = _Config()

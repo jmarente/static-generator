@@ -3,6 +3,7 @@ title='Test page 2'
 description='Page description 2'
 category='cat1'
 tags=["tag1","tag2"]
+menus=['main', 'footer']
 ++++++++++++++++
 
 # Nervos tibi parce ab amentes

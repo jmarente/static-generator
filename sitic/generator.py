@@ -4,6 +4,7 @@ import shutil
 
 from sitic.config import config
 from sitic.content import ContentFactory, Paginator
+from sitic.content import MenuBuilder
 from sitic.utils import constants
 from sitic.template import Render
 from sitic.logging import logger
@@ -15,6 +16,7 @@ class Generator(object):
     context = {}
     homepage = None
     render = None
+    menus = {}
 
     def __init__(self):
         self.render = Render()
@@ -29,6 +31,10 @@ class Generator(object):
         self.homepage = content_factory.homepage
         self.homepage.pages = self.contents
         self.expired_contents = content_factory.expired_contents
+
+        menu_builder = MenuBuilder(self.contents, self.sections)
+
+        self.menus = menu_builder.build()
 
     def gen(self):
         self.create_public_folder()

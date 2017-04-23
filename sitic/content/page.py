@@ -107,3 +107,29 @@ class Page(BaseContent):
 
     def get_publication_date(self):
         return self.publication_date if self.publication_date else datetime.now()
+
+    @property
+    def id(self):
+        page_id = self.frontmatter.get('id', None)
+        if not page_id:
+            paths = self.relative_path + [self.name]
+            page_id = '-'.join(paths)
+        return page_id
+
+    @property
+    def weight(self):
+        return self.frontmatter.get('weight', 0)
+
+    def menus(self):
+        menus = self.frontmatter.get('menus', None)
+        if not menus:
+            menus = []
+        elif not isinstance(menus, list) and not isinstance(menus, dict):
+            menus = [menus]
+        elif isinstance(menus, dict):
+            new_menu = {}
+            for menu_name, data in menus.items():
+                data = data[0] if isinstance(data, list) else data
+                new_menu[menu_name] = data
+            menus = new_menu
+        return menus
