@@ -2,6 +2,8 @@ public_path: public
 base_url: www.sitic.net
 paginable: 1
 
+lazy_menu: 'main'
+
 menus:
     main:
         - title: 'title test'

@@ -35,3 +35,17 @@ class Section(PaginableContent):
     @property
     def id(self):
         return self.name
+
+    @property
+    def title(self):
+        title = self.name
+        if self.content_page and self.content_page.title != self.content_page.name:
+            title = self.content_page.title
+        return title
+
+    @property
+    def weight(self):
+        weight=0
+        if self.content_page:
+            weight = self.content_page.weight
+        return weight

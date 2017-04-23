@@ -133,3 +133,7 @@ class Page(BaseContent):
                 new_menu[menu_name] = data
             menus = new_menu
         return menus
+
+    @property
+    def title(self):
+        return self.frontmatter.get('title', self.name)

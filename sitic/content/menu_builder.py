@@ -2,10 +2,10 @@
 from sitic.config import config
 from sitic.logging import logger
 from sitic.content.menu import Menu
+from sitic.content.page import Page
 
 
 class MenuBuilder(object):
-    section_menu = None
 
     def __init__(self, pages = [], sections = []):
         self.pages = pages
@@ -14,11 +14,16 @@ class MenuBuilder(object):
         self.pages = section_pages + self.pages
         self.menus = {}
 
+        self.lazy_menu = config.lazy_menu
+
     def build(self):
         for page in self.pages:
             self.get_from_page(page)
 
         self.get_from_config()
+
+        if self.lazy_menu:
+            self.build_lazy()
 
         return self.rank()
 
@@ -31,6 +36,10 @@ class MenuBuilder(object):
         menus_items = menus.items() if isinstance(menus, dict) else enumerate(menus)
         for index, menu_data in menus_items:
             data = self.get_data(index, menu_data)
+
+            if self.lazy_menu and self.lazy_menu == data['name']:
+                logger.warning('Menu «{}» declared as lazy menu, skipping for page id «{}»'.format(self.lazy_menu, page.id))
+                continue
 
             if not data:
                 continue
@@ -48,12 +57,20 @@ class MenuBuilder(object):
             data['name'] = index
         return data
 
-    def get_object_from_page(self, page, menu_data):
+    def get_object_from_page(self, page, menu_data = {}):
         return Menu(
             id=menu_data.get('id', None) or page.id,
             title=menu_data.get('title', None) or page.title,
             weight=menu_data.get('weight', None) or page.weight,
             url=menu_data.get('url', None) or page.get_url()
+        )
+
+    def get_object_from_section(self, section):
+        return Menu(
+            id=section.id,
+            title=section.title,
+            weight=section.weight,
+            url=section.get_url()
         )
 
     def get_from_config(self):
@@ -74,6 +91,20 @@ class MenuBuilder(object):
                 else:
                     logger.warning('Malformed menu item: id, title and url are mandatory')
 
+    def build_lazy(self):
+        menu_name = self.lazy_menu
+
+        for section in self.sections:
+            section_menu_object = self.get_object_from_section(section)
+            section_id = section_menu_object.id
+
+            self.add_to_menu(menu_name, section_menu_object)
+            for page in section.pages:
+
+                menu_object = self.get_object_from_page(page)
+
+                self.add_to_menu(menu_name, menu_object, section_id)
+
     def rank(self):
         for menu_name, menu_items in self.menus.items():
             for key, menu in menu_items.items():
@@ -81,8 +112,8 @@ class MenuBuilder(object):
                 menu_object = menu['object']
 
                 if parent_id in menu_items:
-                    menu_object = menu_items[parent_id]['object']
-                    menu_object.add_children(menu_object)
+                    parent_object = menu_items[parent_id]['object']
+                    parent_object.add_children(menu_object)
 
         formatted_menus = {}
         for menu_name, menu_items in self.menus.items():
@@ -92,13 +123,13 @@ class MenuBuilder(object):
 
         return formatted_menus
 
-    def add_to_menu(self, menu_name, menu_object, parent):
+    def add_to_menu(self, menu_name, menu_object, parent=None):
         if menu_name not in self.menus:
             self.menus[menu_name] = {}
 
         menu_id = menu_object.id
         if menu_id in self.menus[menu_name]:
-            logger.warning('Duplicated menu element found for id: {}'.format(menu_id))
+            logger.warning('Duplicated menu element found for id «{}»'.format(menu_id))
 
         self.menus[menu_name][menu_id] = {
             'object': menu_object,

@@ -25,6 +25,7 @@ class _Config():
     build_expired = False
     paginable = None # no pagination by default
     menus = {}
+    lazy_menu = None
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
