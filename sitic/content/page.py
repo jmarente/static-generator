@@ -41,7 +41,7 @@ class Page(BaseContent):
     def __getattr__(self, attribute):
         return self.frontmatter.get(attribute, None)
 
-    def get_url(self):
+    def _get_url(self):
         alternative_url = self.relative_path + [self.name]
         url = self.frontmatter.get('url', None) or '/'.join(alternative_url)
         return url

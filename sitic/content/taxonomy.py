@@ -23,7 +23,7 @@ class Taxonomy(PaginableContent):
         super(Taxonomy, self).add_page(page)
         page.add_taxonomy(self)
 
-    def get_url(self):
+    def _get_url(self):
         url = '/'.join([self.definition.singular, self.name])
         return url
 

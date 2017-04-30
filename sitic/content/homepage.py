@@ -12,7 +12,7 @@ class Homepage(PaginableContent):
     def set_content_page(self, page):
         self.content_page = page
 
-    def get_url(self):
+    def _get_url(self):
         return '/'
 
     def get_templates(self):
