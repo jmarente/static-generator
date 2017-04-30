@@ -24,7 +24,7 @@ class Generator(object):
         self.move_static_folder()
 
         for language in config.get_languages():
-            render = Render()
+            render = Render(language)
 
             contents = self.content_factory.get_contents(language)
             expired_contents = self.content_factory.expired_contents[language]

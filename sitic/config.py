@@ -39,6 +39,7 @@ class _Config():
         self.public_path = os.path.join(self.base_path, constants.DEFAULT_PUBLIC_PATH)
         self.static_path = os.path.join(self.base_path, constants.DEFAULT_STATIC_PATH)
         self.templates_path = os.path.join(self.base_path, constants.DEFAULT_TEMPLATES_PATH)
+        self.locales_path = os.path.join(self.base_path, constants.DEFAULT_LOCALES_PATH)
 
         path_options = ['public_path', 'content_path', 'static_path']
         with open(self.config_path, 'r') as config_file:
