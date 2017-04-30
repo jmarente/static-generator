@@ -26,6 +26,8 @@ class _Config():
     paginable = None # no pagination by default
     menus = {}
     lazy_menu = None
+    languages = {}
+    main_language = None
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
@@ -55,12 +57,32 @@ class _Config():
         # TODO: make patterns configurables
         self.ignore_files_regex = [re.compile(i) for i in constants.IGNORE_FILES_PATTERN]
 
+        self._format_languages()
+
     def get_taxonomies(self):
         # TODO make it configurable
         return constants.DEFAULT_TAXONOMIES
 
     def get_menus(self):
         return self.menus
+
+    def _format_languages(self):
+        pass
+
+    def get_languages(self):
+        languages = [constants.DEFAULT_LANG]
+        if self.languages:
+            languages = self.languages.keys()
+        return languages
+
+    def get_main_language(self):
+        main = self.main_language
+        if self.languages and \
+           (not self.main_language \
+            or self.main_language not in self.languages.keys()):
+            main = self.languages.keys()[0]
+
+        return main
 
 
 config = _Config()

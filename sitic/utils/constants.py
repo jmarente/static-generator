@@ -18,3 +18,5 @@ DEFAULT_TAXONOMIES = {
     'category': 'categories',
     'tag': 'tags',
 }
+
+DEFAULT_LANG = None

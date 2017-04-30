@@ -4,9 +4,10 @@ from sitic.content.paginable_content import PaginableContent
 
 class Section(PaginableContent):
 
-    def __init__(self, name):
+    def __init__(self, name, language):
         super(Section, self).__init__()
         self.name = name
+        self.language = language
 
     def add_page(self, page):
         super(Section, self).add_page(page)

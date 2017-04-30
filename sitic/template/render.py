@@ -12,7 +12,8 @@ class Render(object):
     loader = None
     def __init__(self):
         self.loader = FileSystemLoader(config.templates_path)
-        self.environment = Environment(loader=self.loader)
+        self.environment = Environment(loader=self.loader,
+                                       extensions=['jinja2.ext.i18n'])
 
         for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
             self.environment.filters[name] = function

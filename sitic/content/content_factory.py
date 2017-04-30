@@ -1,25 +1,30 @@
 # -*- condig: utf-8 -*-
 import os
+from collections import defaultdict
 
 from sitic.config import config
 from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 from sitic.content.section import Section
 from sitic.content.homepage import Homepage
+from sitic.utils import constants
 
 
 class ContentFactory(object):
-    contents = []
-    expired_contents = []
+    contents = defaultdict(list)
+    expired_contents = defaultdict(list)
+
     taxonomy_definitions = {}
-    taxonomies = {}
-    sections = {}
-    homepage = None
+    taxonomies = defaultdict(dict)
+    sections = defaultdict(dict)
+
+    homepages = {}
 
     def __init__(self):
-        self.homepage = Homepage()
+        for lang in config.get_languages():
+            self.homepages[lang] = Homepage(lang)
 
-    def get_contents(self, contents_path):
+    def build_contents(self, contents_path):
         self.taxonomy_definitions = {
             singular: TaxonomyDefinition(singular, plural)
             for singular, plural in config.get_taxonomies().items()
@@ -28,9 +33,9 @@ class ContentFactory(object):
             content = self._get_content(path)
             if content:
                 if content.to_publish():
-                    self.contents.append(content)
+                    self.contents[content.language].append(content)
                 elif content.is_expired():
-                    self.expired_contents.append(content)
+                    self.expired_contents[content.language].append(content)
 
         return self.contents
 
@@ -40,9 +45,20 @@ class ContentFactory(object):
         relative_path = content_path.replace(config.content_path, "").strip(os.sep)
         path_chunks = relative_path.split(os.sep)
         filename = path_chunks[-1]
+
+        language = config.get_main_language()
+        languages = config.get_languages()
+        filename_parts = filename.split('.')
+        name = "_".join(filename_parts[0:-1])
+        if len(filename_parts) > 2:
+            posible_lang = filename_parts[-2]
+            language = posible_lang if posible_language in languages else language
+            name = "_".join(filename_parts[0:-2])
+
+
         page_path = path_chunks[0:-1]
         section = None
-        page = Page(frontmatter, content, filename, page_path)
+        page = Page(frontmatter, content, name, page_path, language)
         page_is_section = False
         page_is_homepage = False
 
@@ -61,9 +77,9 @@ class ContentFactory(object):
         page_to_return = page
         if page_is_homepage:
             page_to_return = None
-            self.homepage.set_content_page(page)
+            self.homepages[language].set_content_page(page)
         elif page.to_publish():
-            section = self._get_section(section_name)
+            section = self._get_section(section_name, language)
             if page_is_section:
                 section.set_content_page(page)
                 page_to_return = None
@@ -76,24 +92,28 @@ class ContentFactory(object):
 
 
     def update_taxonomies(self, content):
+        language = content.language
         for singular, plural in config.get_taxonomies().items():
             terms = content.frontmatter.get(plural, [])
             definition = self.taxonomy_definitions[singular]
             for term in terms:
                 term = term.lower()
-                if term not in self.taxonomies:
-                    self.taxonomies[term] = Taxonomy(term, definition)
-                self.taxonomies[term].add_page(content)
+                if term not in self.taxonomies[content.language]:
+                    self.taxonomies[language][term] = Taxonomy(term, definition, language)
+                self.taxonomies[language][term].add_page(content)
 
-    def get_taxonomies(self):
-        return list(self.taxonomies.values())
+    def get_taxonomies(self, language):
+        return list(self.taxonomies[language].values())
 
-    def get_sections(self):
-        return list(self.sections.values())
+    def get_sections(self, language):
+        return list(self.sections[language].values())
 
-    def _get_section(self, section_name):
-        section = self.sections.get(section_name, None)
+    def get_contents(self, language):
+        return self.contents[language]
+
+    def _get_section(self, section_name, language):
+        section = self.sections[language].get(section_name, None)
         if section is None:
-            self.sections[section_name] = section = Section(section_name)
+            self.sections[language][section_name] = section = Section(section_name, language)
 
         return section

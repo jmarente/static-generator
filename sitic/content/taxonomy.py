@@ -13,10 +13,11 @@ class TaxonomyDefinition(object):
 
 class Taxonomy(PaginableContent):
 
-    def __init__(self, name, definition=None):
+    def __init__(self, name, definition=None, language=None):
         super(Taxonomy, self).__init__()
         self.name = name
         self.definition = definition
+        self.language = language
 
     def add_page(self, page):
         super(Taxonomy, self).add_page(page)
