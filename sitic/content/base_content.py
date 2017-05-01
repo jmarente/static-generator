@@ -12,6 +12,7 @@ class BaseContent(object):
     simple_context = None
     context = None
     language = None
+    _url = None
 
     def is_paginable(self):
         return self.paginable
@@ -20,15 +21,17 @@ class BaseContent(object):
         raise NotImplementedError()
 
     def get_url(self):
-        url = self._get_url()
+        if not self._url:
+            url = self._get_url().strip('/')
 
-        language_slug = ''
-        if self.language:
-            url = parse.urljoin(language, url)
+            language_slug = ''
+            if self.language:
+                parts = [self.language] + url.split('/')
+                url = '/'.join(parts)
 
-        return url
+            self._url = url
 
-    url = property(get_url)
+        return self._url
 
     def get_simple_context(self):
         raise NotImplementedError()

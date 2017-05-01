@@ -1,6 +1,7 @@
 ++++++++++++++++
 title='Test page 2'
 description='Page description 2'
+url='/test2/main'
 category='cat1'
 tags=["tag1","tag2"]
 menus=['main', 'footer']

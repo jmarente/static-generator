@@ -7,12 +7,13 @@ from sitic.content.page import Page
 
 class MenuBuilder(object):
 
-    def __init__(self, pages = [], sections = []):
+    def __init__(self, pages = [], sections = [], language = None):
         self.pages = pages
         self.sections = sections
         section_pages = [s.content_page for s in sections if s.content_page]
         self.pages = section_pages + self.pages
         self.menus = {}
+        self.language = language
 
         self.lazy_menu = config.lazy_menu
 
@@ -74,7 +75,7 @@ class MenuBuilder(object):
         )
 
     def get_from_config(self):
-        menus = config.get_menus()
+        menus = config.get_menus(self.language)
         for menu_name, items in menus.items():
 
             for item in items:

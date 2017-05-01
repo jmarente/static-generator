@@ -35,7 +35,7 @@ class Generator(object):
             homepage = self.content_factory.homepages[language]
             homepage.pages = contents
 
-            menu_builder = MenuBuilder(contents, sections)
+            menu_builder = MenuBuilder(contents, sections, language)
 
             menus = menu_builder.build()
 

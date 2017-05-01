@@ -21,7 +21,7 @@ class Section(PaginableContent):
         url = '/'.join([self.name])
         # Section page might override section url
         if self.content_page and 'url' in self.content_page.frontmatter:
-            url = self.content_page.get_url()
+            url = self.content_page._get_url()
         return url
 
     def get_templates(self):

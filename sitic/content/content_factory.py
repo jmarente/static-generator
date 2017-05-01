@@ -46,7 +46,7 @@ class ContentFactory(object):
         path_chunks = relative_path.split(os.sep)
         filename = path_chunks[-1]
 
-        language = config.get_main_language()
+        language = config.main_language
         languages = config.get_languages()
         filename_parts = filename.split('.')
         name = "_".join(filename_parts[0:-1])

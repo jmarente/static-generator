@@ -2,6 +2,7 @@
 import os
 import sys
 import re
+from collections import defaultdict
 
 import yaml
 
@@ -26,7 +27,7 @@ class _Config():
     paginable = None # no pagination by default
     menus = {}
     lazy_menu = None
-    languages = {}
+    languages = defaultdict(dict)
     main_language = None
 
     def load_config(self, config_file_path):
@@ -59,31 +60,49 @@ class _Config():
         self.ignore_files_regex = [re.compile(i) for i in constants.IGNORE_FILES_PATTERN]
 
         self._format_languages()
+        self.set_main_language()
 
     def get_taxonomies(self):
         # TODO make it configurable
         return constants.DEFAULT_TAXONOMIES
 
-    def get_menus(self):
-        return self.menus
+    def get_menus(self, language = None):
+        menus = self.menus.copy()
+        language_config = self.get_language_config(language)
+        if language != constants.DEFAULT_LANG:
+            language_menus = language_config.get('menus', {})
+            if language == self.main_language:
+                menus.update(language_menus)
+            else:
+                menus = language_menus
+        return menus
 
     def _format_languages(self):
         pass
 
+    def get_language_config(self, language):
+        config = self.languages.get(language, {})
+        if not config and not isinstance(config, dict):
+            config = {}
+        return config
+
     def get_languages(self):
         languages = [constants.DEFAULT_LANG]
         if self.languages:
-            languages = self.languages.keys()
+            languages = list(self.languages.keys())
         return languages
 
-    def get_main_language(self):
+    def set_main_language(self):
         main = self.main_language
+        languages = self.get_languages()
         if self.languages and \
            (not self.main_language \
-            or self.main_language not in self.languages.keys()):
-            main = self.languages.keys()[0]
+            or self.main_language not in languages):
+            main = languages[0]
+            logger.warning("main_language not correctly defined, "
+                           "taking «{}» as main language".format(main))
 
-        return main
+        self.main_language = main
 
 
 config = _Config()
