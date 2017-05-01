@@ -10,45 +10,44 @@ from sitic.template import Render
 from sitic.logging import logger
 
 class Generator(object):
-    contents = []
-    sections = []
-    taxonomies = []
     context = {}
-    homepage = None
-    render = None
-    menus = {}
 
     def __init__(self):
-        self.render = Render()
-        content_factory = ContentFactory()
+        self.content_factory = ContentFactory()
         for root, directory, files in os.walk(config.content_path):
             supported_files = [os.path.join(root, f) for f in files
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
-            self.contents += content_factory.get_contents(supported_files)
-
-        self.taxonomies = content_factory.get_taxonomies()
-        self.sections = content_factory.get_sections()
-        self.homepage = content_factory.homepage
-        self.homepage.pages = self.contents
-        self.expired_contents = content_factory.expired_contents
-
-        menu_builder = MenuBuilder(self.contents, self.sections)
-
-        self.menus = menu_builder.build()
+            self.content_factory.build_contents(supported_files)
 
     def gen(self):
         self.create_public_folder()
         self.move_static_folder()
 
-        contents = [self.homepage] + self.contents + self.taxonomies + self.sections
+        for language in config.get_languages():
+            render = Render(language)
 
-        for content in contents:
-            if content.is_paginable() and config.paginable:
-                self.generate_paginable(content)
-            else:
-                self.generate_regular(content)
+            contents = self.content_factory.get_contents(language)
+            expired_contents = self.content_factory.expired_contents[language]
 
-        self.remove_expired()
+            taxonomies = self.content_factory.get_taxonomies(language)
+            sections = self.content_factory.get_sections(language)
+
+            homepage = self.content_factory.homepages[language]
+            homepage.pages = contents
+
+            menu_builder = MenuBuilder(contents, sections, language)
+
+            menus = menu_builder.build()
+
+            contents = [homepage] + contents + taxonomies + sections
+
+            for content in contents:
+                if content.is_paginable() and config.paginable:
+                    self.generate_paginable(render, content)
+                else:
+                    self.generate_regular(render, content)
+
+            self.remove_expired(expired_contents)
 
         logger.info('Site generated')
 
@@ -68,14 +67,14 @@ class Generator(object):
             except FileExistsError as e:
                 pass
 
-    def generate_regular(self, content):
+    def generate_regular(self, render, content):
         content_path = content.get_path()
 
         self.create_path(content_path)
         self.context['node'] = content.get_context()
-        self.render.render(content, content_path, self.context)
+        render.render(content, content_path, self.context)
 
-    def generate_paginable(self, content):
+    def generate_paginable(self, render, content):
         paginator = Paginator(content, config.paginable)
         for page_num in paginator.page_range:
             page = paginator.get_page(page_num)
@@ -86,10 +85,10 @@ class Generator(object):
             self.create_path(page_path)
             self.context['node'] = content.get_context()
             self.context['paginator'] = paginator
-            self.render.render(content, page_path, self.context)
+            render.render(content, page_path, self.context)
 
-    def remove_expired(self):
-        for content in self.expired_contents:
+    def remove_expired(self, expired_contents):
+        for content in expired_contents:
             content_path = content.get_path()
             # Removes expired content previously published
             if content.is_expired() and os.path.isfile(content_path):

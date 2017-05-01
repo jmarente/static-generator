@@ -13,16 +13,17 @@ class TaxonomyDefinition(object):
 
 class Taxonomy(PaginableContent):
 
-    def __init__(self, name, definition=None):
+    def __init__(self, name, definition=None, language=None):
         super(Taxonomy, self).__init__()
         self.name = name
         self.definition = definition
+        self.language = language
 
     def add_page(self, page):
         super(Taxonomy, self).add_page(page)
         page.add_taxonomy(self)
 
-    def get_url(self):
+    def _get_url(self):
         url = '/'.join([self.definition.singular, self.name])
         return url
 

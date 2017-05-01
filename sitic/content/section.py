@@ -4,9 +4,10 @@ from sitic.content.paginable_content import PaginableContent
 
 class Section(PaginableContent):
 
-    def __init__(self, name):
+    def __init__(self, name, language):
         super(Section, self).__init__()
         self.name = name
+        self.language = language
 
     def add_page(self, page):
         super(Section, self).add_page(page)
@@ -16,11 +17,11 @@ class Section(PaginableContent):
         self.content_page = page
         page.section = self
 
-    def get_url(self):
+    def _get_url(self):
         url = '/'.join([self.name])
         # Section page might override section url
         if self.content_page and 'url' in self.content_page.frontmatter:
-            url = self.content_page.get_url()
+            url = self.content_page._get_url()
         return url
 
     def get_templates(self):

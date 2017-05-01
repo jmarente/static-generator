@@ -17,3 +17,13 @@ menus:
         - title: 'title footer'
           url: '/test-url-footer'
           id: 'test-footer'
+
+
+languages:
+    en:
+    es:
+        menus:
+            footer:
+                - title: 'title footer'
+                  url: '/test-url-footer'
+                  id: 'test-footer'

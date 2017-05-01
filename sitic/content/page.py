@@ -12,7 +12,7 @@ from sitic.content.base_content import BaseContent
 
 class Page(BaseContent):
     section = None
-    filename = ""
+    name = ""
     frontmatter = {}
     content = ""
     draft = False
@@ -21,13 +21,14 @@ class Page(BaseContent):
     template_fields = ['template', 'type', 'section', 'name']
     relative_path = []
 
-    def __init__(self, frontmatter, content, filename, relative_path = [], section = None):
+    def __init__(self, frontmatter, content, name, relative_path = [], language = None, section = None):
         self.frontmatter = frontmatter or {}
         self.content = content or ""
-        self.filename = filename or ""
-        self.name = "_".join(self.filename.split('.')[0:-1])
+        self.name = name
         self.section = section
         self.relative_path = relative_path
+
+        self.language = language
 
         self.draft = boolean(self.frontmatter.pop('draft', None))
         self.taxonomies = []
@@ -40,7 +41,7 @@ class Page(BaseContent):
     def __getattr__(self, attribute):
         return self.frontmatter.get(attribute, None)
 
-    def get_url(self):
+    def _get_url(self):
         alternative_url = self.relative_path + [self.name]
         url = self.frontmatter.get('url', None) or '/'.join(alternative_url)
         return url

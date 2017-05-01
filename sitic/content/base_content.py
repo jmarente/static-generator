@@ -1,6 +1,8 @@
 # -*- condig: utf-8 -*-
 import os
 
+from six.moves.urllib import parse
+
 from sitic.config import config
 
 class BaseContent(object):
@@ -9,13 +11,27 @@ class BaseContent(object):
     template_fields = ['name']
     simple_context = None
     context = None
+    language = None
+    _url = None
 
     def is_paginable(self):
         return self.paginable
 
-    def get_url(self):
+    def _get_url(self):
         raise NotImplementedError()
-    url = property(get_url)
+
+    def get_url(self):
+        if not self._url:
+            url = self._get_url().strip('/')
+
+            language_slug = ''
+            if self.language:
+                parts = [self.language] + url.split('/')
+                url = '/'.join(parts)
+
+            self._url = url
+
+        return self._url
 
     def get_simple_context(self):
         raise NotImplementedError()
