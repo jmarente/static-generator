@@ -34,3 +34,18 @@ def server(port):
 def watch():
     watcher = Watcher()
     watcher.start()
+
+@cli.command()
+def makemessages():
+    import os
+    from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+    environment = Environment(extensions=['jinja2.ext.i18n'])
+    for root, directory, files in os.walk(conf.templates_path):
+        for f in files:
+            if not f.endswith('.html'):
+                continue
+            file_path = os.path.join(root, f)
+            with open(file_path, 'r') as content:
+                translations = environment.extract_translations(content.read())
+                for t in translations:
+                    print(t)

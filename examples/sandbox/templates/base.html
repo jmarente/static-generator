@@ -6,6 +6,23 @@
     {% endblock %}
   </head>
   <body>
+    <div id="header">{% trans %}This is a test{% endtrans %}</div>
+    <p>{% trans user='test'%}Hello {{ user }}!{% endtrans %}</p>
+    <p>
+      {% trans book_title='title', author='name' %}
+      This is {{ book_title }} by {{ author }}
+      {% endtrans %}
+    </p>
+    <p>
+      {% trans count=list|length %}
+      There is {{ count }} {{ name }} object.
+      {% pluralize %}
+      There are {{ count }} {{ name }} objects.
+      {% endtrans %}
+    </p>
+    <p>{{ gettext('Hello World!') }}</p>
+    <p>{{ ngettext('%(num)d apple', '%(num)d apples', apples|count) }}</p>
+    <p>{{ _('Hello World!') }}</p>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
       {% block footer %}
