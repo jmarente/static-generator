@@ -7,21 +7,48 @@ msgid "Hello %(user)s!"
 msgstr ""
 
 #: /templates/base.html:12
-msgid "This is %(book_title)s by %(author)s"
-msgstr ""
+msgid ""
+"\n"
+"      There is %(count)s %(name)s object.\n"
+"      "
+msgid_plural ""
+"\n"
+"      There are %(count)s %(name)s objects.\n"
+"      "
+msgstr[0] "\n what 1"
+msgstr[1] "\n what 2"
 
-#: /templates/base.html:17
-msgid "There is %(count)s %(name)s object."
-msgid_plural "There are %(count)s %(name)s objects."
-msgstr[0] ""
-msgstr[1] ""
-
-#: /templates/base.html:23 /templates/base.html:25
+#: /templates/base.html:18 /templates/base.html:20
 msgid "Hello World!"
 msgstr ""
 
-#: /templates/base.html:24
+#: /templates/base.html:19
 msgid "%(num)d apple"
 msgid_plural "%(num)d apples"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "apple 1"
+msgstr[1] " apple 2"
+
+#: /templates/base.html:21
+#, fuzzy
+#| msgid ""
+#| "this is multine\n"
+#| "    translation"
+msgid ""
+"this is multine\n"
+"    translation"
+msgstr "this is a test"
+
+#: /templates/base.html:24
+msgid "This is is another multiline cojones ya!! %(test)s"
+msgstr "a ve que pasa %(test)s"
+
+#, fuzzy
+#~| msgid "      This is %(book_title)s by %(author)s      "
+#~ msgid ""
+#~ "\n"
+#~ "      This is title by author\n"
+#~ "      maybe this???\n"
+#~ "      "
+#~ msgstr ""
+#~ "\n"
+#~ "test"

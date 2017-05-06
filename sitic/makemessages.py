@@ -10,7 +10,13 @@ from sitic.logging import logger
 
 
 def clean_msg(msg):
-    return [s.strip() for s in msg.splitlines()]
+    lines = msg.splitlines()
+    r = []
+    for index, line in enumerate(lines, start=1):
+        line = line + "\\n" if index < len(lines) else line
+        r.append(line)
+
+    return r
 
 
 class MakeMessages(object):

@@ -1,5 +1,6 @@
 # -*- condig: utf-8 -*-
 import os
+import sys
 
 from sitic.utils import constants, call_subprocess
 from sitic.config import config
