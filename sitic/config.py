@@ -92,7 +92,7 @@ class _Config():
     def get_languages(self):
         languages = [constants.DEFAULT_LANG]
         if self.languages:
-            languages = list(self.languages.keys())
+            languages = sorted(list(self.languages.keys()))
         return languages
 
     def set_main_language(self):

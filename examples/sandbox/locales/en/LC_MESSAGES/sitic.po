@@ -1,6 +1,6 @@
 #: /templates/base.html:9
 msgid "This is a test"
-msgstr "this is a test"
+msgstr ""
 
 #: /templates/base.html:10
 msgid "Hello %(user)s!"
@@ -25,6 +25,3 @@ msgid "%(num)d apple"
 msgid_plural "%(num)d apples"
 msgstr[0] ""
 msgstr[1] ""
-
-#~ msgid "Unknown system error"
-#~ msgstr "Error desconegut del sistema"

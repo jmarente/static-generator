@@ -19,6 +19,12 @@ class MakeMessages(object):
     msgmerge_options = ['-q', '--previous']
 
     def __init__(self):
+
+        languages = config.get_languages()
+        if len(languages) == 1 and languages[0] == constants.DEFAULT_LANG:
+            logger.error('No languages configuration detected, can\'t create messages')
+            sys.exit(1)
+
         loader = FileSystemLoader(config.files_path)
 
         self.env = Environment(extensions=['jinja2.ext.i18n'], loader=loader)

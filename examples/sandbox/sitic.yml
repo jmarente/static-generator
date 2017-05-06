@@ -1,6 +1,7 @@
 public_path: public
 base_url: www.sitic.net
 paginable: 1
+main_language: 'en'
 
 lazy_menu: 'main'
 
