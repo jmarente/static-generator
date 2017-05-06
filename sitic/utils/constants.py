@@ -5,6 +5,7 @@ DEFAULT_TEMPLATES_PATH='templates/'
 DEFAULT_LOCALES_PATH='locales/'
 
 VALID_CONTENT_EXTENSIONS=['.md']
+VALID_TEMPLATES_EXTENSIONS=['.html']
 
 # Ignore files starting with «.»
 IGNORE_FILES_PATTERN = ['^\..*$']
@@ -21,3 +22,9 @@ DEFAULT_TAXONOMIES = {
 }
 
 DEFAULT_LANG = None
+
+GETTEXT_DOMAIN = 'sitic'
+
+STATUS_OK = 0
+STATUS_KO = 1
+

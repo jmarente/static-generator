@@ -62,6 +62,9 @@ class _Config():
         self._format_languages()
         self.set_main_language()
 
+        current_file_path = os.path.abspath(os.path.dirname(__file__))
+        self.files_path = os.path.join(current_file_path, 'files/')
+
     def get_taxonomies(self):
         # TODO make it configurable
         return constants.DEFAULT_TAXONOMIES

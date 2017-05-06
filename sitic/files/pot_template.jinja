@@ -1,0 +1,21 @@
+{% for t in translations %}
+#: {{ t[0] }}:{{ t[1] }}
+{% if t[3] is sequence and t[3] is not string -%}
+{% set msg1 = t[3][0] | clean_msg -%}
+{% set msg2 = t[3][1] | clean_msg -%}
+msgid {% for s in msg1 -%}
+"{{ s }}"
+{% endfor -%}
+msgid_plural {% for s in msg2 -%}
+"{{ s }}"
+{% endfor -%}
+msgstr[0] ""
+msgstr[1] ""
+{% else -%}
+{% set msg = t[3] | clean_msg -%}
+msgid {% for s in msg -%}
+"{{ s }}"
+{% endfor -%}
+msgstr ""
+{% endif -%}
+{% endfor %}

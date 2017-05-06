@@ -7,6 +7,7 @@ from sitic.generator import Generator
 from sitic.watcher import Watcher
 from sitic.server import Server
 from sitic.utils import constants
+from sitic.makemessages import MakeMessages
 
 
 @click.group(invoke_without_command=True)
@@ -37,15 +38,5 @@ def watch():
 
 @cli.command()
 def makemessages():
-    import os
-    from jinja2 import Environment, FileSystemLoader, TemplateNotFound
-    environment = Environment(extensions=['jinja2.ext.i18n'])
-    for root, directory, files in os.walk(conf.templates_path):
-        for f in files:
-            if not f.endswith('.html'):
-                continue
-            file_path = os.path.join(root, f)
-            with open(file_path, 'r') as content:
-                translations = environment.extract_translations(content.read())
-                for t in translations:
-                    print(t)
+    maker = MakeMessages()
+    maker.run()

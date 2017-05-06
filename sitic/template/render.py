@@ -10,8 +10,6 @@ from sitic.template import filters
 from sitic.utils import constants
 from sitic.logging import logger
 
-GETTEXT_DOMAIN = 'sitic'
-
 class Render(object):
     environment = None
     loader = None
@@ -57,11 +55,11 @@ class Render(object):
         else:
             langs = [language]
             try:
-                translations = gettext.translation(GETTEXT_DOMAIN, locale_dir, langs)
+                translations = gettext.translation(config.GETTEXT_DOMAIN, locale_dir, langs)
             except (IOError, OSError):
                 logger.error((
                     "Cannot find translations for language '{}' in '{}'."
                     " Installing NullTranslations.").format(
-                        language, locale_dir, GETTEXT_DOMAIN))
+                        language, locale_dir, config.GETTEXT_DOMAIN))
                 translations = gettext.NullTranslations()
         return translations
