@@ -103,5 +103,7 @@ class MakeMessages(object):
             with open(po_file_path, 'w', encoding='utf-8') as f:
                 f.write(po_content)
 
+            logger.info('«.po» file generated for language «{}» at «{}»'.format(language, po_file_path))
+
     def delete_pot_file(self):
         os.remove(self.pot_file_path)
