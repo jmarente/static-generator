@@ -1,6 +1,6 @@
 #: /templates/base.html:9
 msgid "This is a test"
-msgstr ""
+msgstr "weofbweofbwe"
 
 #: /templates/base.html:10
 msgid "Hello %(user)s!"

@@ -49,7 +49,6 @@ class Render(object):
 
     def get_translations(self, language):
         locale_dir = config.locales_path
-        language = 'en'
         if language == constants.DEFAULT_LANG:
             translations = gettext.NullTranslations()
         else:

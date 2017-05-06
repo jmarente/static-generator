@@ -8,6 +8,7 @@ from sitic.watcher import Watcher
 from sitic.server import Server
 from sitic.utils import constants
 from sitic.makemessages import MakeMessages
+from sitic.compilemessages import CompileMessages
 
 
 @click.group(invoke_without_command=True)
@@ -40,3 +41,8 @@ def watch():
 def makemessages():
     maker = MakeMessages()
     maker.run()
+
+@cli.command()
+def compilemessages():
+    compiler = CompileMessages()
+    compiler.compile()
