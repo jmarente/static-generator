@@ -3,6 +3,8 @@ title='Test page content level 1'
 description='Page content level 1 description'
 url="/level-1/"
 expiration_date="2018-01-12 12:00:00"
+[sitemap]
+    priority=12
 ++++++++++++++++
 
 # Coniunx orgia

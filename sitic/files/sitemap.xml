@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     {% for page in node.pages -%}
+    {% set priority = node.priority(page) -%}
+    {% set change_frequency = node.change_frequency(page) -%}
     <url>
         <loc>{{ page.absolute_url }}</loc>
         {% if page.modification_date -%}
         <lastmod>{{ page.modification_date }}</lastmod>
         {% endif -%}
-        {% if page.change_frequency -%}
-        <changefreq>{{ page.change_frequency }}</changefreq>
+        {% if change_frequency -%}
+        <changefreq>{{ change_frequency }}</changefreq>
         {% endif -%}
-        {% if page.priority -%}
-        <priority>{{ page.priority }}</priority>
+        {% if priority -%}
+        <priority>{{ priority }}</priority>
         {% endif -%}
     </url>
     {% endfor -%}

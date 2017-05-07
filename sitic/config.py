@@ -29,6 +29,7 @@ class _Config():
     lazy_menu = None
     languages = defaultdict(dict)
     main_language = None
+    sitemap = None
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
