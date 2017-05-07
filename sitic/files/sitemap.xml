@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for page in node.pages -%}
+    <url>
+        <loc>{{ page.absolute_url }}</loc>
+        {% if page.modification_date -%}
+        <lastmod>{{ page.modification_date }}</lastmod>
+        {% endif -%}
+        {% if page.change_frequency -%}
+        <changefreq>{{ page.change_frequency }}</changefreq>
+        {% endif -%}
+        {% if page.priority -%}
+        <priority>{{ page.priority }}</priority>
+        {% endif -%}
+    </url>
+    {% endfor -%}
+</urlset>

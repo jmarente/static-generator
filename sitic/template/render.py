@@ -13,8 +13,9 @@ from sitic.logging import logger
 class Render(object):
     environment = None
     loader = None
+
     def __init__(self, language):
-        self.loader = FileSystemLoader(config.templates_path)
+        self.loader = FileSystemLoader([config.templates_path, config.files_path])
         self.environment = Environment(loader=self.loader,
                                        extensions=['jinja2.ext.i18n'])
 

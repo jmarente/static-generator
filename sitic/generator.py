@@ -8,6 +8,7 @@ from sitic.content import MenuBuilder
 from sitic.utils import constants
 from sitic.template import Render
 from sitic.logging import logger
+from sitic.content.sitemap import Sitemap
 
 class Generator(object):
     context = {}
@@ -25,6 +26,7 @@ class Generator(object):
 
         for language in config.get_languages():
             render = Render(language)
+            sitemap = Sitemap(language)
 
             contents = self.content_factory.get_contents(language)
             expired_contents = self.content_factory.expired_contents[language]
@@ -46,6 +48,9 @@ class Generator(object):
                     self.generate_paginable(render, content)
                 else:
                     self.generate_regular(render, content)
+                sitemap.contents.append(content)
+
+            self.generate_regular(render, sitemap)
 
             self.remove_expired(expired_contents)
 
