@@ -34,6 +34,7 @@ class Page(BaseContent):
         self.taxonomies = []
 
         date_fields = ['publication_date', 'expiration_date']
+        self.modification_date = datetime.now()
         for field in date_fields:
             value = get_valid_date(self.frontmatter.pop(field, None), None)
             setattr(self, field, value)
@@ -48,13 +49,14 @@ class Page(BaseContent):
 
     def get_simple_context(self):
         if self.simple_context is None:
-            self.simple_context = dict(self.frontmatter)
-            self.simple_context['url'] = self.get_url()
+            self.simple_context = super(Page, self).get_simple_context()
+            self.simple_context.update(dict(self.frontmatter))
+            self.simple_context['modification_date'] = self.modification_date
         return self.simple_context
 
     def get_context(self):
         if self.context is None:
-            self.context = self.get_simple_context()
+            self.context = super(Page, self).get_context()
             self.context['content'] = Markup(markdown.markdown(self.content))
             self.context['raw_content'] = self.content
         return self.context
@@ -138,3 +140,8 @@ class Page(BaseContent):
     @property
     def title(self):
         return self.frontmatter.get('title', self.name)
+
+    def set_modification_date(self, date):
+        if isinstance(date, int) or isinstance(date, float):
+            date = datetime.fromtimestamp(int(date))
+        self.modification_date = date

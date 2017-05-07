@@ -13,6 +13,7 @@ class BaseContent(object):
     context = None
     language = None
     _url = None
+    url_file = 'index.html'
 
     def is_paginable(self):
         return self.paginable
@@ -33,11 +34,21 @@ class BaseContent(object):
 
         return self._url
 
+    def absolute_url(self):
+        url = self.get_url()
+
+        return '/'.join([config.base_url.rstrip('/'), url.lstrip('/')])
+
     def get_simple_context(self):
-        raise NotImplementedError()
+        self.simple_context = {}
+        self.simple_context['name'] = self.name
+        self.simple_context['url'] = self.get_url()
+        self.simple_context['absolute_url'] = self.absolute_url()
+        return self.simple_context
 
     def get_context(self):
-        raise NotImplementedError()
+        self.context = self.get_simple_context()
+        return self.context
 
     def to_publish(self):
         return True
@@ -52,7 +63,7 @@ class BaseContent(object):
         return path
 
     def get_path(self):
-        index_path = os.path.join(self.get_base_path(), 'index.html')
+        index_path = os.path.join(self.get_base_path(), self.url_file)
         return index_path
 
     def get_templates(self):

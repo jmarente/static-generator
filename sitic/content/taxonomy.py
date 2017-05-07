@@ -29,7 +29,7 @@ class Taxonomy(PaginableContent):
 
     def get_simple_context(self):
         if self.simple_context is None:
-            super(Taxonomy, self).get_simple_context()
+            self.simple_context = super(Taxonomy, self).get_simple_context()
             self.simple_context['taxonomy'] = self.definition.singular
         return self.simple_context
 

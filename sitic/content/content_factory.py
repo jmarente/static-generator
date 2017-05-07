@@ -59,6 +59,7 @@ class ContentFactory(object):
         page_path = path_chunks[0:-1]
         section = None
         page = Page(frontmatter, content, name, page_path, language)
+        page.set_modification_date(os.path.getmtime(content_path))
         page_is_section = False
         page_is_homepage = False
 
