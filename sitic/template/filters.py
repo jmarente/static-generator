@@ -21,3 +21,6 @@ def get_csv(path, delimiter=",", is_dict=False):
                 if not is_dict \
                 else csv.DictReader(f, delimiter=delimiter)
     return content
+
+def datetimeformat(value, format='%H:%M - %d-%m-%Y'):
+    return value.strftime(format)

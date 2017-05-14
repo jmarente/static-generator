@@ -17,8 +17,11 @@ class PaginableContent(BaseContent):
 
     def get_simple_context(self):
         if self.simple_context is None:
+            pages = self.get_pages()
             self.simple_context = super(PaginableContent, self).get_simple_context()
             self.simple_context['page_count'] = len(self.pages)
+            if len(pages):
+                self.simple_context['modification_date'] = pages[0].modification_date
             if self.content_page:
                 self.simple_context['page'] = self.content_page.get_simple_context()
                 del self.simple_context['page']['url']

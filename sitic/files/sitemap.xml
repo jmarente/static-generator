@@ -6,7 +6,7 @@
     <url>
         <loc>{{ page.absolute_url }}</loc>
         {% if page.modification_date -%}
-        <lastmod>{{ page.modification_date }}</lastmod>
+        <lastmod>{{ page.modification_date | datetimeformat('%Y-%m-%d') }}</lastmod>
         {% endif -%}
         {% if change_frequency -%}
         <changefreq>{{ change_frequency }}</changefreq>
