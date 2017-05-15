@@ -52,6 +52,7 @@ class Page(BaseContent):
             self.simple_context = super(Page, self).get_simple_context()
             self.simple_context.update(dict(self.frontmatter))
             self.simple_context['modification_date'] = self.modification_date
+            self.simple_context['publication_date'] = self.get_publication_date()
         return self.simple_context
 
     def get_context(self):

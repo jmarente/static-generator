@@ -37,11 +37,15 @@ class Generator(object):
             homepage = self.content_factory.homepages[language]
             homepage.pages = contents
 
+            rss = self.content_factory.rss[language]
+
             menu_builder = MenuBuilder(contents, sections, language)
 
             menus = menu_builder.build()
 
-            contents = [homepage] + contents + taxonomies + sections
+            contents = [homepage] + contents + taxonomies + sections + rss
+
+            self.context['site'] = {}
 
             for content in contents:
                 if content.is_paginable() and config.paginable:

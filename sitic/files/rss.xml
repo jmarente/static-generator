@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ node.title }}</title>
+    <link>{{ node.content.absolute_url }}</link>
+    <description>Recent content </description>
+    <generator>Sitic</generator>
+    {% if node.language -%}
+    <language>{{ node.language }}</language>
+    {% endif -%}
+    {% if site.author and site.author.email -%}
+    <managingEditor>{{ site.author.email }}{% if site.author.name %} ({{ site.author.email }}){% endif %}</managingEditor>
+    <webMaster>{{ site.author.email }}{%if site.author.name %} ({{ site.author.name }}){% endif %}</webMaster>
+    {% endif -%}
+    {% if site.copyright -%}
+    <copyright>{{ site.copyright }}</copyright>
+    {% endif -%}
+    {% if node.publication_date -%}
+    <lastBuildDate>{{ node.publication_date }}</lastBuildDate>
+    {% endif -%}
+    <atom:link href="{{ node.absolute_url }}" rel="self" type="application/rss+xml" />
+    {% for page in node.pages -%}
+    <item>
+      <title>{{ page.title }}</title>
+      <link>{{ page.absolute_url }}</link>
+      <pubDate>{{ page.publication_date }}</pubDate>
+      {% if page.author and page.author.email -%}
+      <author>{{ page.author.email }}{% if page.author.name %} ({{ page.author.email }}){% endif %}</author>
+      {% endif -%}
+      <guid>{{ page.absolute_url }}</guid>
+      {% if page.description -%}
+      <description>{{ page.description }}</description>
+      {% endif -%}
+    </item>
+    {% endfor -%}
+  </channel>
+</rss>

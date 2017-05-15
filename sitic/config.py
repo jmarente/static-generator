@@ -30,6 +30,7 @@ class _Config():
     languages = defaultdict(dict)
     main_language = None
     sitemap = None
+    rss_limit = constants.DEFAULT_RSS_LIMIT
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path

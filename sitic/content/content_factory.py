@@ -7,6 +7,7 @@ from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 from sitic.content.section import Section
 from sitic.content.homepage import Homepage
+from sitic.content.rss import Rss
 from sitic.utils import constants
 
 
@@ -17,12 +18,14 @@ class ContentFactory(object):
     taxonomy_definitions = {}
     taxonomies = defaultdict(dict)
     sections = defaultdict(dict)
+    rss = defaultdict(list)
 
     homepages = {}
 
     def __init__(self):
         for lang in config.get_languages():
-            self.homepages[lang] = Homepage(lang)
+            self.homepages[lang] = homepage = Homepage(lang)
+            self.rss[lang].append(Rss(lang, homepage))
 
     def build_contents(self, contents_path):
         self.taxonomy_definitions = {
@@ -100,7 +103,8 @@ class ContentFactory(object):
             for term in terms:
                 term = term.lower()
                 if term not in self.taxonomies[content.language]:
-                    self.taxonomies[language][term] = Taxonomy(term, definition, language)
+                    self.taxonomies[language][term] = taxonomy = Taxonomy(term, definition, language)
+                    self.rss[language].append(Rss(language, taxonomy))
                 self.taxonomies[language][term].add_page(content)
 
     def get_taxonomies(self, language):
@@ -116,5 +120,6 @@ class ContentFactory(object):
         section = self.sections[language].get(section_name, None)
         if section is None:
             self.sections[language][section_name] = section = Section(section_name, language)
+            self.rss[language].append(Rss(language, section))
 
         return section

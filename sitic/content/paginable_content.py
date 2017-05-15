@@ -7,6 +7,7 @@ class PaginableContent(BaseContent):
     def __init__(self):
         self.pages = []
         self.content_page = None
+        self.rss = None
 
     def get_pages(self):
         return sorted(self.pages, key=lambda x: x.get_publication_date(), reverse=True)
@@ -14,6 +15,10 @@ class PaginableContent(BaseContent):
     def add_page(self, page):
         if page not in self.pages:
             self.pages.append(page)
+
+    def set_rss(self, rss):
+        if not self.rss or self.rss != rss:
+            self.rss = rss
 
     def get_simple_context(self):
         if self.simple_context is None:
