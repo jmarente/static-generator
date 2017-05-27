@@ -21,12 +21,13 @@ class Page(BaseContent):
     template_fields = ['template', 'type', 'section', 'name']
     relative_path = []
 
-    def __init__(self, frontmatter, content, name, relative_path = [], language = None, section = None):
+    def __init__(self, frontmatter, content, name, file_path, relative_path = [], language = None, section = None):
         self.frontmatter = frontmatter or {}
         self.content = content or ""
         self.name = name
         self.section = section
         self.relative_path = relative_path
+        self.file_path = file_path
 
         self.language = language
 

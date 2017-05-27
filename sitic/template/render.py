@@ -29,6 +29,8 @@ class Render(object):
         template = self.get_content_template(content)
         if template:
             template.stream(**context).dump(output_path)
+        else:
+            logger.warning('No template found for content {}'.format(content.file_path))
 
     def get_content_template(self, content):
         template = None
