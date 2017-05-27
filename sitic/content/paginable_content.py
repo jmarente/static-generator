@@ -12,6 +12,9 @@ class PaginableContent(BaseContent):
     def get_pages(self):
         return sorted(self.pages, key=lambda x: x.get_publication_date(), reverse=True)
 
+    def pages_count(self):
+        return len(self.pages)
+
     def add_page(self, page):
         if page not in self.pages:
             self.pages.append(page)

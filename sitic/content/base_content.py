@@ -68,3 +68,6 @@ class BaseContent(object):
 
     def get_templates(self):
         raise NotImplementedError()
+
+    def __repr__(self):
+        return "<%s instance at %s>" % (self.__class__.__name__, id(self))

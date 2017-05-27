@@ -48,7 +48,7 @@ class Generator(object):
             self.context['site'] = {}
 
             for content in contents:
-                if content.is_paginable() and config.paginable:
+                if content.is_paginable():
                     self.generate_paginable(render, content)
                 else:
                     self.generate_regular(render, content)
@@ -92,7 +92,8 @@ class Generator(object):
         render.render(content, content_path, self.context)
 
     def generate_paginable(self, render, content):
-        paginator = Paginator(content, config.paginable)
+        page_size = config.paginable or content.pages_count()
+        paginator = Paginator(content, page_size)
         for page_num in paginator.page_range:
             page = paginator.get_page(page_num)
             page_path = page.get_path()
@@ -101,7 +102,7 @@ class Generator(object):
 
             self.create_path(page_path)
             self.context['node'] = content.get_context()
-            self.context['paginator'] = paginator
+            self.context['node']['paginator'] = paginator
             render.render(content, page_path, self.context)
 
     def remove_expired(self, expired_contents):
