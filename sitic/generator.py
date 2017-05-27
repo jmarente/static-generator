@@ -66,7 +66,15 @@ class Generator(object):
 
     def move_static_folder(self):
         if os.path.exists(config.static_path):
-            shutil.copytree(config.static_path, config.public_path)
+            for item in os.listdir(config.static_path):
+                s = os.path.join(config.static_path, item)
+                # FIXME: use same name as static source folder
+                d = os.path.join(config.public_path, 'static', item)
+                if os.path.isdir(s):
+                    shutil.rmtree(d)
+                    shutil.copytree(s, d)
+                else:
+                    shutil.copy2(s, d)
 
     def create_path(self, content_path):
         path = os.path.dirname(content_path)

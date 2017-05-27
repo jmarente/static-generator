@@ -48,6 +48,10 @@ class _Config():
         with open(self.config_path, 'r') as config_file:
             parsed_config = yaml.load(config_file)
 
+            if not parsed_config:
+                logger.warning('Config file completely empty')
+                parsed_config = []
+
             for param in parsed_config:
                 value = parsed_config[param]
                 if param in path_options:
