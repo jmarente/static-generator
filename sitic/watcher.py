@@ -37,14 +37,18 @@ class Watcher:
         self.generator = Generator()
 
     def start(self, generate_on_start = True):
-        logger.info('Watching {}'.format(config.content_path))
 
         if generate_on_start:
             self.generator.gen()
 
+        paths_to_watch = [config.content_path, config.static_path, config.templates_path]
+
         event_handler = EventHandler()
         observer = Observer()
-        observer.schedule(event_handler, config.content_path, recursive=True)
+        for path in paths_to_watch:
+            if os.path.exists(path):
+                logger.info('Watching {}'.format(path))
+                observer.schedule(event_handler, path, recursive=True)
         observer.start()
 
         stop = False
