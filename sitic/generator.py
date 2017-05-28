@@ -71,7 +71,8 @@ class Generator(object):
                 # FIXME: use same name as static source folder
                 d = os.path.join(config.public_path, 'static', item)
                 if os.path.isdir(s):
-                    shutil.rmtree(d)
+                    if os.path.exists(d):
+                        shutil.rmtree(d)
                     shutil.copytree(s, d)
                 else:
                     shutil.copy2(s, d)
