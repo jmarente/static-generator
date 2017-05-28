@@ -99,6 +99,7 @@ class Generator(object):
     def generate_paginable(self, render, content):
         page_size = config.paginable or content.pages_count()
         paginator = Paginator(content, page_size)
+        self.context['node'] = content.get_context()
         for page_num in paginator.page_range:
             page = paginator.get_page(page_num)
             page_path = page.get_path()
@@ -106,7 +107,6 @@ class Generator(object):
             paginator.page = page
 
             self.create_path(page_path)
-            self.context['node'] = content.get_context()
             self.context['node']['paginator'] = paginator
             render.render(content, page_path, self.context)
 

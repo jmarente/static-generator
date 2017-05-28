@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12 blog-post">
+
+  <div class="post-title">
+    <h1>{{ node.title }}</h1>
+  </div>
+
+  <div class="post-info">
+    <span>{{ node.publication_date | datetimeformat("%d %B, %Y") }}{% if node.author %}/ by <a href="#" target="_blank">{{ node.author }}</a>{% endif %}</span>
+  </div>
+
+  {{ node.content }}
+</div>
+{% endblock %}

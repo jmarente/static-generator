@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for content in node.paginator.page %}
+<!-- Blog Post Start -->
+<div class="col-md-12 blog-post">
+  <div class="post-title">
+    <a href="{{ content.url }}"><h1>{{ content.title }}</h1></a>
+  </div>
+  <div class="post-info">
+    <span>{{ content.publication_date | datetimeformat("%d %B, %Y") }}{% if content.author %}/ by <a href="#" target="_blank">{{ node.author }}</a>{% endif %}</span>
+  </div>
+  <p>{{ content.description }}</p>
+  <a href="{{ content.url }}" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
+</div>
+<!-- Blog Post End -->
+{% endfor %}
+
+{% if node.paginator.num_pages > 1 %}
+<div class="col-md-12">
+  <nav aria-label="...">
+    <ul class="pager">
+
+      {% if node.paginator.page.has_previous %}
+      <li><a href="{{ node.paginator.page.previous_url }}">Previous</a></li>
+      {% endif %}
+
+      {% if node.paginator.page.has_next %}
+      <li><a href="{{ node.paginator.page.next_url }}">Next</a></li>
+      {% endif %}
+
+    </ul>
+  </nav>
+</div>
+{% endif %}
+
+{% endblock %}
