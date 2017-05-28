@@ -2,9 +2,11 @@
 
 import sys
 import os
+import posixpath
+import argparse
 from multiprocessing import Process
 
-from six.moves import SimpleHTTPServer, socketserver
+from six.moves import SimpleHTTPServer, socketserver, BaseHTTPServer
 from six.moves.urllib import parse
 
 from sitic.generator import Generator
@@ -14,23 +16,28 @@ from sitic.logging import logger
 
 INDEXFILE = 'index.html'
 
+
+class HttpServer(SimpleHTTPServer.HTTPServer):
+
+    def __init__(self, base_path, *args, **kwargs):
+        SimpleHTTPServer.HTTPServer.__init__(self, *args, **kwargs)
+        self.RequestHandlerClass.base_path = base_path
+
+
 class HttpHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
-    def do_GET(self):
 
-        # Parse query data to find out what was requested
-        parsedParams = parse.urlparse(self.path)
-
-        # See if the file requested exists
-        if os.access('.' + os.sep + parsedParams.path, os.R_OK):
-            # File exists, serve it up
-            SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
-        else:
-            # send index.html, but don't redirect
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.end_headers()
-            with open(INDEXFILE, 'rb') as fin:
-                self.copyfile(fin, self.wfile)
+    def translate_path(self, path):
+        dth = posixpath.normpath(parse.unquote(path))
+        words = path.split('/')
+        words = filter(None, words)
+        path = self.base_path
+        for word in words:
+            drive, word = os.path.splitdrive(word)
+            head, word = os.path.split(word)
+            if word in (os.curdir, os.pardir):
+                continue
+            path = os.path.join(path, word)
+        return path
 
 
 class Server(object):
@@ -42,10 +49,6 @@ class Server(object):
 
     def start(self):
         self.generator.gen()
-
-        os.chdir(config.public_path)
-
-        # self.start_server()
 
         server_process = Process(target = self.start_server)
         watcher_process = Process(target = self.start_watcher)
@@ -59,7 +62,7 @@ class Server(object):
 
         Handler = HttpHandler
 
-        httpd = socketserver.TCPServer(("", self.port), Handler)
+        httpd = HttpServer(config.public_path, ("", self.port), HttpHandler)
 
         logger.info("Serving at: localhost:{}".format(self.port))
 
@@ -67,6 +70,8 @@ class Server(object):
             httpd.serve_forever()
         except KeyboardInterrupt:
             logger.info('Stopping server...')
+
+        httpd.server_close()
 
     def start_watcher(self):
         self.watcher.start(generate_on_start=False)
