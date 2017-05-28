@@ -2,6 +2,7 @@
 import os
 from datetime import datetime
 
+import lxml.html
 import markdown
 from jinja2.utils import Markup
 
@@ -40,6 +41,10 @@ class Page(BaseContent):
             value = get_valid_date(self.frontmatter.pop(field, None), None)
             setattr(self, field, value)
 
+        self.description = None
+        self.html_content = None
+        self.plain_content = None
+
     def __getattr__(self, attribute):
         return self.frontmatter.get(attribute, None)
 
@@ -54,12 +59,13 @@ class Page(BaseContent):
             self.simple_context.update(dict(self.frontmatter))
             self.simple_context['modification_date'] = self.modification_date
             self.simple_context['publication_date'] = self.get_publication_date()
+            self.simple_context['description'] = self.get_description()
         return self.simple_context
 
     def get_context(self):
         if self.context is None:
             self.context = super(Page, self).get_context()
-            self.context['content'] = Markup(markdown.markdown(self.content))
+            self.context['content'] = Markup(self.get_html_content())
             self.context['raw_content'] = self.content
         return self.context
 
@@ -147,3 +153,25 @@ class Page(BaseContent):
         if isinstance(date, int) or isinstance(date, float):
             date = datetime.fromtimestamp(int(date))
         self.modification_date = date
+
+    def get_html_content(self):
+        if not self.html_content:
+            self.html_content = markdown.markdown(self.content)
+        return self.html_content
+
+    def get_plain_content(self):
+        if not self.plain_content:
+            self.plain_content = lxml.html.fromstring(self.get_html_content()).text_content()
+        return self.plain_content
+
+    def get_description(self):
+        if not self.description:
+            if not self.frontmatter.get('description', None):
+                plain_content = self.get_plain_content()
+                self.description = plain_content[0:config.description_length]
+                if len(plain_content) > config.description_length:
+                    self.description += '...'
+            else:
+                self.description = self.frontmatter.get('description')
+
+        return self.description
