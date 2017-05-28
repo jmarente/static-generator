@@ -100,20 +100,51 @@ class Page(object):
 
     # End of compatibility methods.
 
+    @property
     def has_next(self):
         return self.number < self.paginator.num_pages
 
+    @property
     def has_previous(self):
         return self.number > 1
 
+    @property
     def has_other_pages(self):
-        return self.has_previous() or self.has_next()
+        return self.has_previous or self.has_next
 
-    def next_page_number(self):
+    @property
+    def next_number(self):
         return self.paginator.validate_number(self.number + 1)
 
-    def previous_page_number(self):
+    @property
+    def previous_number(self):
         return self.paginator.validate_number(self.number - 1)
+
+    @property
+    def previous_url(self):
+        url = ''
+        if self.has_previous:
+            previous_page = self.paginator.get_page(self.number - 1)
+            url = previous_page.get_url()
+        return url
+
+    @property
+    def next_url(self):
+        url = ''
+        if self.has_next:
+            next_page = self.paginator.get_page(self.number + 1)
+            url = next_page.get_url()
+        return url
+
+    @property
+    def last_url(self):
+        page = self.paginator.get_page(self.paginator.num_pages)
+        return page.get_url()
+
+    @property
+    def first_url(self):
+        page = self.paginator.get_page(1)
+        return page.get_url()
 
     def start_index(self):
         """
@@ -139,8 +170,12 @@ class Page(object):
         index = self.number
         url = self.paginator.content.get_url()
         if index != 1:
-            url = '/'.join([url, 'page', index])
+            url = '/'.join([url, 'page', str(index)])
+
+        url = '/' + url.lstrip('/')
+
         return url
+    url=property(get_url)
 
     def get_path(self):
         index = self.number
