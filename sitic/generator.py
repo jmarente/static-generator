@@ -15,12 +15,16 @@ class Generator(object):
 
     def __init__(self):
         self.content_factory = ContentFactory()
+
+    def build_contents(self):
+        self.content_factory.initialize()
         for root, directory, files in os.walk(config.content_path):
             supported_files = [os.path.join(root, f) for f in files
                     if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
             self.content_factory.build_contents(supported_files)
 
     def gen(self):
+        self.build_contents()
         self.create_public_folder()
         self.move_static_folder()
 

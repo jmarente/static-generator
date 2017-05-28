@@ -22,7 +22,16 @@ class ContentFactory(object):
 
     homepages = {}
 
-    def __init__(self):
+    def initialize(self):
+        self.contents = defaultdict(list)
+        self.expired_contents = defaultdict(list)
+
+        self.taxonomy_definitions = {}
+        self.taxonomies = defaultdict(dict)
+        self.sections = defaultdict(dict)
+        self.rss = defaultdict(list)
+
+        self.homepages = {}
         for lang in config.get_languages():
             self.homepages[lang] = homepage = Homepage(lang)
             self.rss[lang].append(Rss(lang, homepage))
