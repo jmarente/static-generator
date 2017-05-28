@@ -30,6 +30,8 @@ class BaseContent(object):
                 parts = [self.language] + url.split('/')
                 url = '/'.join(parts)
 
+            url = '/' + url.lstrip('/')
+
             self._url = url
 
         return self._url
