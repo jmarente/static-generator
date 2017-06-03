@@ -1,0 +1,84 @@
+++++++++++++++++
+title='Post 7'
+categories = ['category1', 'category2']
+++++++++++++++++
+
+h1. This is a Heading 1
+
+This might be an introductory paragraph on the general topic.
+
+h2. Heading 2 gets more specific
+
+Now we're getting into the details.
+
+Even Mr. Sedaris, a noted luddite, has finally succumbed to doing his writing on a computer.  The Internet, however, remains an idiotic trifle:
+
+bq. I've never seen the Internet. I don't have email. I just enjoy lying on the couch and reading a magazine. When people say, "You should visit my Web page," I'm always perplexed by it. Why? What do you do there?
+
+Haven't we all pondered that at one time or another?
+
+A standard Lorem Ipsum passage has been used since the 1500s:
+
+bq.:http://www.lipsum.com/ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+bq.. This is one paragraph.
+
+Another paragraph, also part of the quote.
+
+p. A normal paragraph ends the quote.
+
+Textile has several advantages over HTML:
+
+* It's easier on the eyes
+* You don't have to write all those HTML tags
+** By not writing the tags yourself, you're less likely to make coding mistakes
+** It requires fewer keystrokes
+*** You don't wear out the keys on your keyboard as fast
+*** You won't wear out your fingers as fast
+* You can write it much quicker
+
+How to make a PB&J:
+
+# Gather bread, peanut butter, and jelly
+# Slice the bread if necessary
+# Assemble the sandwich
+## Spread peanut butter on one slice of bread
+## Put jelly on another slice
+## Put the two slices together
+# Enjoy
+
+Three reasons to walk to work:
+
+# It saves fuel
+# It's good for your health
+** Walking burns calories
+** Time outside means lower stress
+# It's good for the environment
+
+- coffee := Hot and black
+- tea := Also hot, but a little less black
+- milk :=
+Nourishing beverage for baby cows.
+
+Cold drink that goes great with cookies. =:
+
+42.7% of all statistics are made up on the spot.[1]
+
+fn1. "Dr. Katz":http://en.wikiquote.org/wiki/Steven_Wright
+
+|_. name|_. age|
+|Walter|5|
+|Florence|6|
+
+|{background:#ddd}. Cell with background|Normal|
+|\2. Cell spanning 2 columns|
+|/2. Cell spanning 2 rows|one|
+|two|
+|>. Right-aligned cell|<. Left-aligned cell|
+
+table(#prices).
+|Adults|$5|
+|Children|$2|
+
+div. A simple div.
+
