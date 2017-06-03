@@ -9,6 +9,7 @@ from sitic.utils import constants
 from sitic.template import Render
 from sitic.logging import logger
 from sitic.content.sitemap import Sitemap
+from sitic.scoper import Scoper
 
 class Generator(object):
     context = {}
@@ -57,6 +58,7 @@ class Generator(object):
             contents = [homepage] + contents + taxonomies_contents + sections + rss
 
             for content in contents:
+                self.context['scoper'] = Scoper()
                 if content.is_paginable():
                     self.generate_paginable(render, content)
                 else:
