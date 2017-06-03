@@ -25,10 +25,15 @@ class Render(object):
         for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
             self.environment.filters[name] = function
 
-    def render(self, content, output_path, context):
+    def render(self, content, output_path, context, meta_tag):
         template = self.get_content_template(content)
         if template:
-            template.stream(**context).dump(output_path)
+
+            content = template.render(**context)
+            content = content.replace('</head>', "{}\n\n</head>".format(meta_tag))
+
+            with open(output_path, 'w') as output_file:
+                output_file.write(content)
         else:
             logger.warning('No template found for content {}'.format(content.file_path))
 

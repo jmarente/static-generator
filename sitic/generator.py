@@ -58,6 +58,16 @@ class Generator(object):
 
             all_contents = [homepage] + contents + taxonomies_contents + sections + rss
 
+            self.search = Search(language, contents + sections)
+
+            meta_data = {
+                'search-index': self.search.get_url(),
+                'language': language,
+            }
+
+            meta_values = ['data-{}="{}"'.format(key, value) for key, value in meta_data.items()]
+            self.meta_tag = '<meta name="sitic" {}/>'.format(' '.join(meta_values))
+
             for content in all_contents:
                 self.context['scoper'] = Scoper()
                 if content.is_paginable():
@@ -68,8 +78,7 @@ class Generator(object):
 
             self.generate_regular(render, sitemap)
 
-            search_index = Search(language, contents + sections)
-            search_index.create_file()
+            self.search.create_file()
 
             self.remove_expired(expired_contents)
 
@@ -105,7 +114,7 @@ class Generator(object):
 
         self.create_path(content_path)
         self.context['node'] = content.get_context()
-        render.render(content, content_path, self.context)
+        render.render(content, content_path, self.context, self.meta_tag)
 
     def generate_paginable(self, render, content):
         page_size = config.paginable or content.pages_count()
@@ -119,7 +128,7 @@ class Generator(object):
 
             self.create_path(page_path)
             self.context['node']['paginator'] = paginator
-            render.render(content, page_path, self.context)
+            render.render(content, page_path, self.context, self.meta_tag)
 
     def remove_expired(self, expired_contents):
         for content in expired_contents:
