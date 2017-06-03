@@ -1,5 +1,6 @@
 # -*- condig: utf-8 -*-
 import os
+from copy import deepcopy
 
 from six.moves.urllib import parse
 
@@ -49,7 +50,7 @@ class BaseContent(object):
         return self.simple_context
 
     def get_context(self):
-        self.context = self.get_simple_context()
+        self.context = deepcopy(self.get_simple_context())
         return self.context
 
     def to_publish(self):

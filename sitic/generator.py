@@ -29,6 +29,10 @@ class Generator(object):
         self.move_static_folder()
 
         for language in config.get_languages():
+
+            # initialize context every loop
+            self.context['site'] = {}
+
             render = Render(language)
             sitemap = Sitemap(language)
 
@@ -36,7 +40,10 @@ class Generator(object):
             expired_contents = self.content_factory.expired_contents[language]
 
             taxonomies = self.content_factory.get_taxonomies(language)
+            taxonomies_contents = self.get_taxonomies_content(taxonomies)
             sections = self.content_factory.get_sections(language)
+
+            self.add_taxonomies_to_context(taxonomies)
 
             homepage = self.content_factory.homepages[language]
             homepage.pages = contents
@@ -47,9 +54,7 @@ class Generator(object):
 
             menus = menu_builder.build()
 
-            contents = [homepage] + contents + taxonomies + sections + rss
-
-            self.context['site'] = {}
+            contents = [homepage] + contents + taxonomies_contents + sections + rss
 
             for content in contents:
                 if content.is_paginable():
@@ -116,3 +121,15 @@ class Generator(object):
             # Removes expired content previously published
             if content.is_expired() and os.path.isfile(content_path):
                 os.remove(content_path)
+
+    def get_taxonomies_content(self, taxonomies):
+        taxonomies_content = []
+        for t in taxonomies.values():
+            taxonomies_content += list(t.values())
+        return taxonomies_content
+
+    def add_taxonomies_to_context(self, taxonomies):
+        self.context['site']['taxonomies'] = {}
+        for plural_definition in taxonomies:
+            definition_taxonomies = list(taxonomies[plural_definition].values())
+            self.context['site']['taxonomies'][plural_definition] = definition_taxonomies

@@ -1,6 +1,7 @@
 # -*- condig: utf-8 -*-
 import os
 from datetime import datetime
+from collections import defaultdict
 
 import lxml.html
 import markdown
@@ -33,7 +34,7 @@ class Page(BaseContent):
         self.language = language
 
         self.draft = boolean(self.frontmatter.pop('draft', None))
-        self.taxonomies = []
+        self.taxonomies = defaultdict(list)
 
         date_fields = ['publication_date', 'expiration_date']
         self.modification_date = datetime.now()
@@ -60,6 +61,7 @@ class Page(BaseContent):
             self.simple_context['modification_date'] = self.modification_date
             self.simple_context['publication_date'] = self.get_publication_date()
             self.simple_context['description'] = self.get_description()
+            self.simple_context['taxonomies'] = self.format_taxonomies()
         return self.simple_context
 
     def get_context(self):
@@ -91,9 +93,10 @@ class Page(BaseContent):
                 and self.expiration_date <= now
 
     def add_taxonomy(self, taxonomy):
-        if taxonomy not in self.taxonomies:
-            self.taxonomies.append(taxonomy)
-            if taxonomy.definition.plural in self.frontmatter:
+        plural_definition = taxonomy.definition.plural
+        if taxonomy not in self.taxonomies[plural_definition]:
+            self.taxonomies[plural_definition].append(taxonomy)
+            if plural_definition in self.frontmatter:
                 del self.frontmatter[taxonomy.definition.plural]
 
     def get_templates(self):
@@ -175,3 +178,10 @@ class Page(BaseContent):
                 self.description = self.frontmatter.get('description')
 
         return self.description
+
+    def format_taxonomies(self):
+        formatted = {}
+        for plural_definition in self.taxonomies:
+            formatted[plural_definition] = [t.get_simple_context() for t in self.taxonomies[plural_definition]]
+
+        return formatted

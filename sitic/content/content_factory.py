@@ -109,15 +109,19 @@ class ContentFactory(object):
         for singular, plural in config.get_taxonomies().items():
             terms = content.frontmatter.get(plural, [])
             definition = self.taxonomy_definitions[singular]
+
+            if plural not in self.taxonomies[content.language]:
+                self.taxonomies[content.language][plural] = {}
+
             for term in terms:
                 term = term.lower()
-                if term not in self.taxonomies[content.language]:
-                    self.taxonomies[language][term] = taxonomy = Taxonomy(term, definition, language)
+                if term not in self.taxonomies[content.language][plural]:
+                    self.taxonomies[language][plural][term] = taxonomy = Taxonomy(term, definition, language)
                     self.rss[language].append(Rss(language, taxonomy))
-                self.taxonomies[language][term].add_page(content)
+                self.taxonomies[language][plural][term].add_page(content)
 
     def get_taxonomies(self, language):
-        return list(self.taxonomies[language].values())
+        return self.taxonomies[language]
 
     def get_sections(self, language):
         return list(self.sections[language].values())
