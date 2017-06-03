@@ -5,9 +5,11 @@ from collections import defaultdict
 
 import lxml.html
 import markdown
+import textile
+from docutils import core
 from jinja2.utils import Markup
 
-from sitic.utils import boolean, get_valid_date
+from sitic.utils import boolean, get_valid_date, constants
 from sitic.config import config
 from sitic.content.base_content import BaseContent
 
@@ -23,13 +25,14 @@ class Page(BaseContent):
     template_fields = ['template', 'type', 'section', 'name']
     relative_path = []
 
-    def __init__(self, frontmatter, content, name, file_path, relative_path = [], language = None, section = None):
+    def __init__(self, frontmatter, content, name, extension, file_path, relative_path = [], language = None, section = None):
         self.frontmatter = frontmatter or {}
         self.content = content or ""
         self.name = name
         self.section = section
         self.relative_path = relative_path
         self.file_path = file_path
+        self.extension = extension
 
         self.language = language
 
@@ -159,7 +162,13 @@ class Page(BaseContent):
 
     def get_html_content(self):
         if not self.html_content:
-            self.html_content = markdown.markdown(self.content)
+            extension = '.' + self.extension.lstrip('.')
+            if extension in constants.TEXTILE_EXTENSIONS:
+                self.html_content = textile.textile(self.content)
+            elif extension in constants.REESTRUCTURED_TEXT_EXTENSIONS:
+                self.html_content = core.publish_parts(self.content, writer_name='html')['html_body']
+            else:
+                self.html_content = markdown.markdown(self.content)
         return self.html_content
 
     def get_plain_content(self):

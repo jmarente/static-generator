@@ -62,6 +62,7 @@ class ContentFactory(object):
         languages = config.get_languages()
         filename_parts = filename.split('.')
         name = "_".join(filename_parts[0:-1])
+        extension = filename_parts[-1]
         if len(filename_parts) > 2:
             posible_lang = filename_parts[-2]
             language = posible_lang if posible_language in languages else language
@@ -70,7 +71,7 @@ class ContentFactory(object):
 
         page_path = path_chunks[0:-1]
         section = None
-        page = Page(frontmatter, content, name, relative_path, page_path, language)
+        page = Page(frontmatter, content, name, extension, relative_path, page_path, language)
         page.set_modification_date(os.path.getmtime(content_path))
         page_is_section = False
         page_is_homepage = False
