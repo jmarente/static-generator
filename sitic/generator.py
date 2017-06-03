@@ -58,9 +58,6 @@ class Generator(object):
 
             all_contents = [homepage] + contents + taxonomies_contents + sections + rss
 
-            search_index = Search(language, contents + sections)
-            search_index.create_file()
-
             for content in all_contents:
                 self.context['scoper'] = Scoper()
                 if content.is_paginable():
@@ -70,6 +67,9 @@ class Generator(object):
                 sitemap.contents.append(content)
 
             self.generate_regular(render, sitemap)
+
+            search_index = Search(language, contents + sections)
+            search_index.create_file()
 
             self.remove_expired(expired_contents)
 

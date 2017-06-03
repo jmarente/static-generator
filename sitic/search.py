@@ -16,7 +16,6 @@ class Search(object):
     def get_index(self):
 
         for content in self.contents:
-            print(content)
             content_context = content.get_context()
             page_index = {
                 'title': content_context['title'],

@@ -65,7 +65,7 @@ class ContentFactory(object):
         extension = filename_parts[-1]
         if len(filename_parts) > 2:
             posible_lang = filename_parts[-2]
-            language = posible_lang if posible_language in languages else language
+            language = posible_lang if posible_lang in languages else language
             name = "_".join(filename_parts[0:-2])
 
 
