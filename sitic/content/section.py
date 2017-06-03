@@ -50,3 +50,9 @@ class Section(PaginableContent):
         if self.content_page:
             weight = self.content_page.weight
         return weight
+
+    def get_plain_content(self):
+        self.plain_content = ''
+        if self.content_page:
+            self.plain_content = self.content_page.get_plain_content()
+        return self.plain_content

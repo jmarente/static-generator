@@ -6,7 +6,7 @@
   {{ content.title }}
 {% endfor %}
 <h2>Paginator pages:</h2>
-{% for content in paginator.page %}
+{% for content in node.paginator.page %}
   {{ content.title }}
 {% endfor %}
 {% endblock %}

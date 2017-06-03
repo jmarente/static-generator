@@ -10,6 +10,7 @@ from sitic.template import Render
 from sitic.logging import logger
 from sitic.content.sitemap import Sitemap
 from sitic.scoper import Scoper
+from sitic.search import Search
 
 class Generator(object):
     context = {}
@@ -55,9 +56,12 @@ class Generator(object):
 
             menus = menu_builder.build()
 
-            contents = [homepage] + contents + taxonomies_contents + sections + rss
+            all_contents = [homepage] + contents + taxonomies_contents + sections + rss
 
-            for content in contents:
+            search_index = Search(language, contents + sections)
+            search_index.create_file()
+
+            for content in all_contents:
                 self.context['scoper'] = Scoper()
                 if content.is_paginable():
                     self.generate_paginable(render, content)
