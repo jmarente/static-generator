@@ -38,11 +38,6 @@
     <![endif]-->
   </head>
   <body>
-    <!-- Preloader Start -->
-    <div class="preloader">
-      <div class="rounder"></div>
-    </div>
-    <!-- Preloader End -->
 
     <div id="main">
       <div class="container">
@@ -81,7 +76,7 @@
             <div class="col-md-12 page-body">
               <div class="row">
                 <div class="sub-title">
-                  <h2>My Blog</h2>
+                  <h2>{% if node.title %} {{ node.title }} {% else %}My Blog{% endif %}</h2>
                 </div>
 
                 <div class="col-md-12 content-page">

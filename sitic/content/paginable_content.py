@@ -28,11 +28,14 @@ class PaginableContent(BaseContent):
             pages = self.get_pages()
             self.simple_context = super(PaginableContent, self).get_simple_context()
             self.simple_context['page_count'] = len(self.pages)
+            self.simple_context['title'] = self.name.title()
             if len(pages):
                 self.simple_context['modification_date'] = pages[0].modification_date
             if self.content_page:
                 self.simple_context['page'] = self.content_page.get_simple_context()
                 del self.simple_context['page']['url']
+                if self.simple_context['page'].get('title', None):
+                    self.simple_context['title'] = self.simple_context['page']['title']
         return self.simple_context
 
     def get_context(self):
