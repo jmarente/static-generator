@@ -1,0 +1,11 @@
+.post-taxonomies > .title {
+    display: inline-block;
+}
+
+.post-taxonomies > .knowledge {
+    display: inline-block;
+}
+
+.post-taxonomies a {
+    color: inherit; /* blue colors for links too */
+}

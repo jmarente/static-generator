@@ -1,5 +1,6 @@
 ++++++++++++++++
 title='Post 6'
+categories = ['category1', 'category2']
 ++++++++++++++++
 
 ## Variarum loricaeque

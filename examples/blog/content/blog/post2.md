@@ -1,6 +1,7 @@
 ++++++++++++++++
 title='Post 2'
 description='Post 2 description'
+tags=['tag1', 'tag2', 'tag3']
 ++++++++++++++++
 
 ## Variarum loricaeque

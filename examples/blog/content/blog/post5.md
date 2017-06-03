@@ -1,5 +1,7 @@
 ++++++++++++++++
 title='Post 5'
+tags=['tag5']
+categories = ['category2']
 ++++++++++++++++
 
 ## Variarum loricaeque
