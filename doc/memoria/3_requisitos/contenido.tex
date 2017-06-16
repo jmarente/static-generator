@@ -1,0 +1,154 @@
+En este capítulo procederemos a describir de manera formal los objetivos que se
+presentaron de manera genérica en el apartado 1.3, Objetivos.
+
+En particular, se detallan:
+
+\begin{itemize}
+\item Los objetivos del sistema, que resumen a muy grandes rasgos la funcionalidad del proyecto.
+\item Los requisitos funcionales, que definen las funciones del sistema software
+y sus componentes.
+\item Los requisitos de información, que detallan los datos que el sistema usará
+durante el desarrollo y ejecución para llevar a cabo de forma adecuada su
+funcionalidad.
+\item Los requisitos no funcionales, que, en general, especifican criterios de diversas
+categorías que el software debe cumplir para garantizar un buen nivel
+de calidad más allá de su funcionamiento.
+\end{itemize}
+
+Para terminar el capítulo se presentan diversas alternativas tecnológicas para cubrir
+las necesidades surgidas en los requerimientos del sistema, detallando las
+decisiones tomadas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objetivos del sistema}
+
+El objetivo principal de Sitic, definido a alto nivel es el siguientes:
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Crear contenido HTML a partir ficheros de texto plano\\
+
+        \hline
+
+        Descripción & Sitic permitirá generar una web completamente estática a partir
+        de ficheros de texto plano, que se escribirán siguiendo alguno de los lenguajes de
+        marcado soportados. \\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{OBJ-1, objetivo del sistema 1}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Catálogo de requisitos}
+
+Se presentan a continuación los requisitos del sistema, tanto a nivel funcional
+como de información y no funcionales.
+
+\subsection{Requisitos funcionales}
+
+En esta subsección se introducen los requisitos funcionales, que describen las funciones
+del sistema software.
+
+\subsection{Requisitos de información}
+
+A continuación se presentan los requisitos de información, que describen los datos
+necesarios que requiere la aplicación para operar.
+
+\subsection{Requisitos no funcionales}
+
+Seguidamente se presentan los requisitos no funcionales, que especifican criterios
+usados para juzgar la operación del software a través de varias categorias, más
+allá de su comportamiento específico.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Alternativas de solución}
+
+En esta sección, se presentan diferentes alternativas tecnológicas que permiten
+satisfacer los requerimientos del sistema, presentando las alternativas elegidas y
+detallando las razones de esta decisión.
+
+\subsection{Biblioteca para crear simples interfaces por línea de comandos}
+
+Dada la mayor familiaridad del desarrollador con el lenguaje, solo se barajaron
+frameworks de desarrollo basados en el lenguaje Python.
+
+\begin{itemize}
+\item \textbf{Click}: paquete de Python para crear interfaces de línea de comandos hermosas de
+una manera composible con el código tan pequeño como sea necesario. Es el "Kit de creación de interfaz de
+línea de comandos". Es altamente configurable pero viene con los defectos sensatos fuera de la caja. Su objetivo es
+hacer que el proceso de escritura de herramientas de línea de comandos sea rápido y divertido, al tiempo
+que evita cualquier frustración causada por la imposibilidad de implementar una CLI API.
+\item \textbf{Fire}: es una biblioteca para generar automáticamente interfaces de línea de comandos
+desde cualquier objeto Python.
+\item \textbf{Argparse}: pertenece a la biblioteca estandar de python y facilita la escritura de interfaces
+de línea de comandos fáciles de usar. El programa define qué argumentos requiere, y argparse descubrirá cómo
+analizar los que están fuera de sys.argv. El módulo argparse también genera automáticamente mensajes de ayuda
+y uso y emite errores cuando los usuarios dan al programa argumentos inválidos.
+\end{itemize}
+
+Se tomó la decision de optar por \textbf{Click} ya que parecía más sencillo y las opciones que ofrecía sería mucho
+más útiles.
+
+\subsection{Sistema de templates}
+
+El sistema contará con un motor de templates que permitirá al usuario definir y extenderlas de forma que pueda reutilizar
+prácticamente todo el código HTML que genere para las propias templates de su sitio. Las altenativas barajadas son:
+
+
+\begin{itemize}
+\item \textbf{Jinja}: es un motor de plantillas completo para Python. Cuenta con soporte unicode completo,
+un entorno de ejecución de espacio de trabajo integrado opcional, ampliamente utilizado y licenciado por BSD.
+\item \textbf{Chamaleon}: es un motor de plantilla HTML / XML para Python. Está diseñado para generar
+la salida de documentos de una aplicación web, normalmente marcado HTML o XML.
+\end{itemize}
+
+Finalmente se decidió usar \textbf{Jinja} por ser el sistema de template más robusto y com mayor número de utilidades.
+
+\subsection{Lenguajes de marcado soportados}
+
+El sistema convertira los contenidos escritos en ficheros de texto plano a HTML, estos ficheros deberá de estar escritos
+usando algun lenguage de marcado. Las opciones que se barajaron fueron las siguientes:
+
+\begin{itemize}
+\item \textbf{Markdown}: Markdown es un lenguaje de marcado ligero que trata de conseguir la máxima legibilidad y facilidad 
+de publicación tanto en su forma de entrada como de salida, inspirándose en muchas convenciones existentes para marcar mensajes 
+de correo electrónico usando texto plano. Se distribuye bajo licencia BSD.
+\item \textbf{RestructuredText}: es un lenguaje de marcas ligero creado para escribir textos con formato definido de manera cómoda 
+y rápida. Es parte del proyecto Docutils dentro de la comunidad de Python. Es una evolución de Structured Text.
+\item \textbf{Textile}: es un lenguaje de marcado ligero que partiendo de un texto con marcas genera código HTML.
+Se utiliza para generar cualquier tipo de contenido escrito que deba ser publicado en internet.
+\item \textbf{Wikitexto}: es un texto elaborado mediante un lenguaje de marcado especial para la creación de páginas wikis,
+en servidores que tengan instalado algún software para wikis. El lenguaje de marcado para wikis se denomina lenguaje wikitexto
+y no existe un estándar que defina su sintaxis, sus características y su estructura, como la tiene el lenguaje HTML. Por el 
+contrario, depende del software wiki utilizado.
+\end{itemize}
+
+En un primer momento se decidió usar \textbf{Markdown}, ya que parecía el mas intuitivo, sencillo y el más usado por la comunidad. Finalmente,
+se decidió también por dar soporte a \textbf{RestructuredText} y \textbf{Textile}, ofreciendo al usuario la posibilidad de elegir aquel
+con el que se sienta más cómodo.
+
+\subsection{Formato de configuración para los metadatos de los ficheros}
+
+En cada fichero de texto plano, se podrá definir una serie de metadatos, usando un formato concreto. Las alternativas pensadas fueron 
+las siguientes:
+
+\begin{itemize}
+\item \textbf{JSON}: es un formato de texto ligero para el intercambio de datos. JSON es un subconjunto de la notación literal de 
+objetos de JavaScript aunque hoy, debido a su amplia adopción como alternativa a XML, se considera un formato de lenguaje independiente.
+\item \textbf{TOML}: es un formato de archivo de configuración que es fácil de leer debido a la semántica obvia que pretende ser 
+"mínima". TOML está diseñado para asignar sin ambigüedad a un diccionario.
+\item \textbf{YAML}: formato de serialización de datos legible por humanos inspirado en lenguajes como XML, C, Python, Perl,
+\end{itemize}
+
+
+Finalmente se decidió usar dos altenativas, tanto \textbf{YAML} como \textbf{TOML}, de forma que el usuario use aquel que encuentre más
+sencillo.
