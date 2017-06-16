@@ -1,0 +1,196 @@
+%%
+%% memoria.tex
+%%
+\documentclass[a4paper, 12pt]{book}
+
+\pdfminorversion=4
+
+\pagestyle{headings}
+
+% Paquete para dibujos
+\usepackage{tikz}
+
+% Márgenes, hace que los márgenes laterales sean iguales
+\usepackage[a4paper,top=3cm,right=3cm,left=3cm,bottom=3cm]{geometry}
+
+% Referencias externas
+\usepackage{xr-hyper}
+
+% Paquete para generar enlaces clickables
+\usepackage[pdftex, breaklinks=false, colorlinks=true, linkcolor=black, anchorcolor=black, urlcolor=blue, citecolor=red]{hyperref}
+
+% Encoding y tratamiento de fuentes
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+% Paquete con el entorno tabularx, que define un tipo de celda X que hace word-wrapping
+\usepackage{tabularx}
+
+% Paquete con el entorno longtable y longtabu para tablas de varias páginas
+\usepackage{longtable}
+
+% Provee la flag H para forzar los floats en el sitio donde los pongas
+\usepackage{float}
+
+% Provee el comando \captionof para dar etiquetas a elementos no flotados
+\usepackage{caption}
+
+% Paquete que provee el comando \FloatBarrier para poner una barrera para floats
+\usepackage{placeins}
+
+% Paquete para controlar el interlineado a nivel de entorno
+\usepackage{setspace}
+
+% Paquete para la fuente charter
+\usepackage{charter}
+
+% Paquete para la fuente para códigos
+\usepackage{inconsolata}
+
+% Paquete para la fuente helvética
+\usepackage[scaled=0.92]{helvet}
+
+% Paquete para GNUPlot
+% \usepackage{gnuplottex}
+
+% Guiones de hyphenado
+\usepackage{hyphenat}
+
+% Extra ToC listings
+\usepackage{tocbibind}
+
+% Gráficos
+\usepackage{graphicx}
+
+% Para poner figuras una al lado de otra
+\usepackage[lofdepth,lotdepth]{subfig}
+
+% Paquete para figuras giradas
+\usepackage{rotating}
+
+% Borra la indentación de párrafos y añade separación entre ellos
+\usepackage{parskip}
+
+% Paquete para quitar la numeración de las páginas en blanco
+\usepackage{emptypage}
+
+% Cálculos de márgenes
+\usepackage{calc}
+
+% Entornos para tablas y figuras giradas
+\usepackage{rotating}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquetes en local (directorio 'paquetes')
+
+% Automatiza el resaltado de sintaxis usando pygments
+% \usepackage{paquetes/minted}
+
+% \usemintedstyle[console]{vs}
+%
+% \newminted[bashcode]{console}{} % tango vs
+% \newminted{python}{}
+
+
+% Soporte de acrónimos
+% \usepackage[printonlyused]{paquetes/acronym-custom}
+
+% Cambia el nombre del apéndice de bibliografía
+% \addto\captionsspanish{
+% \renewcommand\bibname{Bibliografía y referencias}
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% Órdenes LaTeX variadas
+\input{0_inicio/ordenes.tex}
+
+% Portada
+\input{0_inicio/portada.tex}
+\cleardoublepage
+
+% Segunda portada
+\input{0_inicio/subportada.tex}
+\cleardoublepage
+
+% Texto de licencia (pequeño)
+\input{0_inicio/fdl_short.tex}
+\cleardoublepage
+
+% Agradecimientos
+\input{0_inicio/agradecimientos.tex}
+\cleardoublepage
+
+% Resumen
+\input{0_inicio/resumen.tex}
+\cleardoublepage
+
+% Índices varios
+\tableofcontents
+\listoffigures
+
+% Cambia el nombre del índice de tablas
+\renewcommand{\listtablename}{Índice de tablas}
+\renewcommand{\tablename}{Tabla}
+\listoftables
+
+%\setlength{\parskip}{1.2ex plus 0.4ex minus 0.1ex}
+
+\chapter{Introducción}
+\label{chap:introduccion}
+\input{1_introduccion/contenido.tex}
+
+\chapter{Planificación}
+\label{chap:calendario}
+\input{2_calendario/contenido.tex}
+
+\chapter{Requisitos del sistema}
+\label{chap:requisitos}
+\input{3_requisitos/contenido.tex}
+
+\chapter{Análisis}
+\label{chap:analisis}
+\input{4_analisis/contenido.tex}
+
+\chapter{Diseño}
+\label{chap:diseno}
+\input{5_diseno/contenido.tex}
+
+\chapter{Implementación}
+\label{chap:implementacion}
+\input{6_implementacion/contenido.tex}
+
+\chapter{Pruebas}
+\label{chap:pruebas}
+\input{7_pruebas/contenido.tex}
+
+\chapter{Conclusiones}
+\label{chap:conclusiones}
+\input{8_conclusiones/contenido.tex}
+
+\appendix
+
+\chapter{Manual de instalación}
+\label{chap:manual_instalacion}
+\input{A1_manual_instalacion/contenido.tex}
+
+\chapter{Manual de usuario}
+\label{chap:manual_usuario}
+\input{A2_manual_usuario/contenido.tex}
+
+\chapter{GNU Free Documentation License}
+\label{sec:fdl}
+\input{0_inicio/fdl.tex}
+
+ \bibliographystyle{paquetes/hispa-annote}
+\bibliography{0_inicio/bibliografia}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
