@@ -56,16 +56,206 @@ como de información y no funcionales.
 En esta subsección se introducen los requisitos funcionales, que describen las funciones
 del sistema software.
 
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Generación de HTML a partie de ficheros\\
+
+        \hline
+
+        Descripción & El sistema debe de poder generar páginas HTMLs a patir
+        del contenido de ficheros de texto plano.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-1, requisito funcional 1: generación}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Internacionalización\\
+
+        \hline
+
+        Descripción & Se deberán de poder configurar tantos idiomas con se desee
+        generando sitios independientes por idiomas de sólo aquellos contenidos
+        en el idioma generado.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-2, requisito funcional 2: internacionalización}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Búsqueda\\
+
+        \hline
+
+        Descripción & Debe de ser posible realizar búsquedas de contenidos en la web generada.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-3, requisito funcional 3: búsqueda}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Categorización\\
+
+        \hline
+
+        Descripción & Los contenidos deben de poder ser categorizable en secciones y taxonomías,
+        dando como resultado grupos de contenidos en el sistio generado.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-4, requisito funcional 4: categorización}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Paginación\\
+
+        \hline
+
+        Descripción & La herramienta debe de proporcional paginación en los contenido agrupados, 
+        evitando así generar páginas demasiado grandes.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-5, requisito funcional 5: paginación}
+\end{center}
+
 \subsection{Requisitos de información}
 
 A continuación se presentan los requisitos de información, que describen los datos
 necesarios que requiere la aplicación para operar.
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Configuración del sitio\\
+
+        \hline
+
+        Descripción & El sitio tendrá un fichero de configuración básica: 
+        \begin{itemize}
+            \item Idiomas
+            \item Atributos referentes al sitio(paginación, urls, etc)
+            \item Menús
+        \end{itemize}\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-6, req. de información 6: configuración}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Fichero con contenido\\
+
+        \hline
+
+        Descripción & Los ficheros de contenido se compondrá de:
+        \begin{itemize}
+            \item Metadatos
+            \item Contenido
+            \item Menús
+        \end{itemize}\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-7, req. de información 7: fichero}
+\end{center}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Plantillas HTML\\
+
+        \hline
+
+        Descripción & Plantillas que se usarán para renderizar los contenidos\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-8, req. de información 8: plantillas}
+\end{center}
 
 \subsection{Requisitos no funcionales}
 
 Seguidamente se presentan los requisitos no funcionales, que especifican criterios
 usados para juzgar la operación del software a través de varias categorias, más
 allá de su comportamiento específico.
+
+\subsubsection{Requisitos de fiabilidad}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Generación robusta\\
+
+        \hline
+
+        Descripción & El sitio generado debería deberá ser completamente fiable
+        en el sentido que se generen tantos contenidos como los definidos.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-9, req, no funcional 9: generación robusta}
+\end{center}
+
+\subsubsection{Requisitos de accesibilidad y usabilidad}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Alta capacidad de configuración\\
+
+        \hline
+
+        Descripción & El sistema deberá de ser tan configurable como sea
+        posible, de forma que cualquier usuario lo pueda adapar a sus
+        necesidades lo máximo posible.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-10, req. no funcional 10: configuración}
+\end{center}
+
+\subsubsection{Requisitos de eficiencia}
+
+\begin{center}
+
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        Título & Generación de gran cantidad de documentos\\
+
+        \hline
+
+        Descripción & El sistema debería de ser capaz de generar un sitio a
+        partir de una gran cantidad de contenidos en un tiempo razonable.\\
+
+        \hline
+    \end{tabularx}
+    \captionof{table}{RQF-11, req. no funcional 11: eficiencia }
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -119,16 +309,16 @@ El sistema convertira los contenidos escritos en ficheros de texto plano a HTML,
 usando algun lenguage de marcado. Las opciones que se barajaron fueron las siguientes:
 
 \begin{itemize}
-\item \textbf{Markdown}: Markdown es un lenguaje de marcado ligero que trata de conseguir la máxima legibilidad y facilidad 
-de publicación tanto en su forma de entrada como de salida, inspirándose en muchas convenciones existentes para marcar mensajes 
+\item \textbf{Markdown}: Markdown es un lenguaje de marcado ligero que trata de conseguir la máxima legibilidad y facilidad
+de publicación tanto en su forma de entrada como de salida, inspirándose en muchas convenciones existentes para marcar mensajes
 de correo electrónico usando texto plano. Se distribuye bajo licencia BSD.
-\item \textbf{RestructuredText}: es un lenguaje de marcas ligero creado para escribir textos con formato definido de manera cómoda 
+\item \textbf{RestructuredText}: es un lenguaje de marcas ligero creado para escribir textos con formato definido de manera cómoda
 y rápida. Es parte del proyecto Docutils dentro de la comunidad de Python. Es una evolución de Structured Text.
 \item \textbf{Textile}: es un lenguaje de marcado ligero que partiendo de un texto con marcas genera código HTML.
 Se utiliza para generar cualquier tipo de contenido escrito que deba ser publicado en internet.
 \item \textbf{Wikitexto}: es un texto elaborado mediante un lenguaje de marcado especial para la creación de páginas wikis,
 en servidores que tengan instalado algún software para wikis. El lenguaje de marcado para wikis se denomina lenguaje wikitexto
-y no existe un estándar que defina su sintaxis, sus características y su estructura, como la tiene el lenguaje HTML. Por el 
+y no existe un estándar que defina su sintaxis, sus características y su estructura, como la tiene el lenguaje HTML. Por el
 contrario, depende del software wiki utilizado.
 \end{itemize}
 
@@ -138,13 +328,13 @@ con el que se sienta más cómodo.
 
 \subsection{Formato de configuración para los metadatos de los ficheros}
 
-En cada fichero de texto plano, se podrá definir una serie de metadatos, usando un formato concreto. Las alternativas pensadas fueron 
+En cada fichero de texto plano, se podrá definir una serie de metadatos, usando un formato concreto. Las alternativas pensadas fueron
 las siguientes:
 
 \begin{itemize}
-\item \textbf{JSON}: es un formato de texto ligero para el intercambio de datos. JSON es un subconjunto de la notación literal de 
+\item \textbf{JSON}: es un formato de texto ligero para el intercambio de datos. JSON es un subconjunto de la notación literal de
 objetos de JavaScript aunque hoy, debido a su amplia adopción como alternativa a XML, se considera un formato de lenguaje independiente.
-\item \textbf{TOML}: es un formato de archivo de configuración que es fácil de leer debido a la semántica obvia que pretende ser 
+\item \textbf{TOML}: es un formato de archivo de configuración que es fácil de leer debido a la semántica obvia que pretende ser
 "mínima". TOML está diseñado para asignar sin ambigüedad a un diccionario.
 \item \textbf{YAML}: formato de serialización de datos legible por humanos inspirado en lenguajes como XML, C, Python, Perl,
 \end{itemize}

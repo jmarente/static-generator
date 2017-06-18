@@ -1,0 +1,76 @@
+El diseño de casos de pruebas para un proyecto de las características de \emph{Sitic}
+es algo complicado, ya que estamos en un escenario simulando como interactúan muchísimos
+elementos entre sí. Pero las pruebas son algo necesario si deseamos un software con una
+calidad aceptable.
+
+Todos los módulos que componen la aplicación han sido probados individualmente, como pueden
+ser aquellos módulos encargados de la gestión de idiomas, generación de contenidos o categorización.
+
+También se realizaron pruebas de integración, ya que había módulos, una vez probado en solitario, 
+debían realizar distintas acciones junto con otros módulos.
+
+Otras pruebas que se realizaron fueron de generación, tanto yo como
+personas ajenas al desarrollo de proyecto probaron el
+mismo ofreciendo sus opiniones sobre aspectos que deberían ser modificados o
+errores que aparecían a lo largo de la ejecución y en el resultado obtenido.
+
+En definitiva, la organización de los casos de pruebas fue la siguiente:
+
+\begin{enumerate}
+    \item Tras finalizar la implementación de cada módulo, se realizaban pruebas unitarias sobre estos.
+    \item A medida que distintos módulo que anteriormente probados individualmente, debían colaborar entre ellos, se
+    llevaban a cabo pruebas de integración.
+    \item Con las distintas versiones usables se realizaban pruebas de generación.
+    \item Pruebas de interfaz sobre los distintos menús que se implementaban.
+\end{enumerate}
+
+\section{Pruebas unitarias}
+
+Esta pruebas se realizaron junto a la fase de implementación, conforme se implementaban nuevos módulos necesarios para la aplicación
+se realizaban pruebas individuales sobre estos módulos. De esta forma se buscaban todos los caminos posibles que podría dar cada
+módulo, teniendo en cuenta aquellos que fueran más predispuesto a fallos.
+
+De esta forma todas las sentencias se ejecutaban como mínimo una vez y los posibles fallos se encontraban de una forma más sencilla.
+Por lo que también eran más fácil localizar donde estaba el problema y afrontar la solución de este.
+
+\subsection{Análisis del código con Pylint.}
+
+Una vez que se comprobaba el correcto funcionamiento del módulo implementado, se le pasaba el analizador de código pylint, con el
+fin de que el código siguiera un estándar uniforme y que estuviera exento de cualquier tipo de errores o signos de mala calidad.
+
+Pylint proporciona una nota de 1 a 10 al código analizado. Se intentó que todos y cada uno de los módulos tuvieran al menos
+una nota mínima de 7. Finalmente se obtuvo una nota de 8.25 en todo el código conjunto de la aplicación.
+
+\section{Pruebas de integración}
+
+Conforme aparecían nuevos módulos, cuya implementación era necesaria y a su vez estos requerían el uso de otro módulos que
+posteriormente habían sido probados individualmente, se realizaban pruebas de integración entre dichos módulos.
+
+Conforme se avanzaba en el desarrollo, se realizaban pruebas de integración a mayor escala. No solo entre módulos
+del mismo sistema, sino entre varios sistemas.
+
+Una de las mejores formas que se pesaron para realizar este tipo de pruebas, es desarrollar una web que usuara todos los elementos
+que se iban implementando.
+
+\section{Pruebas de generación}
+
+Cada vez que estaban disponibles nuevas versiones estables de la herramienta, se pedían la ayuda a personas,
+totalmente ajenas al desarrollo, que probaran las distintas versiones disponibles. De esta forma cada uno 
+de los colaboradores daba su opinión sobre  distintos aspectos como la usablidiad, dificultad, respuesta o eficiencia. 
+Tras recopilar la información que todos ellos proporcionaron, se procedía a realizar los ajustes
+necesarios a los distintos parámetros requeridos.
+
+Entre los distintos aspectos a probar que se le recomendaban a los
+colaboradores que hicieran especial hincapié, son los siguiente:
+
+\begin{itemize}
+\item \textbf{Internacionalización}: definción de varios idiomas con contenidos divididos, así como pruebas de generar 
+los mismos contenidos sin ningún idioma configurado.
+\item \textbf{Urls de ficheros}: definir distinas urls en los ficheros, comprobando que la generación se la ruta
+se generaba de forma correcta, en función de la rutas definidas
+\item \textbf{Paginación}: configurar distinos valores para la paginación de elementos por página, así como la desactivación
+del mismo, comprobando que se generaban tantas páginas estáticas por sección/taxonomías como páginas debería de tener.
+\item \textbf{Menús}: Definición de menús con elementos estáticas y dinámicos.
+\item \textbf{Categorización}: definir distintas taxonomías y mezclarlas entre los idiomas, comprobando finalmente que cada
+contenido se había organizado de la forma correcta.
+\end{itemize}
