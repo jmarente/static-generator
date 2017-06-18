@@ -85,21 +85,21 @@
 % Paquetes en local (directorio 'paquetes')
 
 % Automatiza el resaltado de sintaxis usando pygments
-% \usepackage{paquetes/minted}
+\usepackage{paquetes/minted}
 
-% \usemintedstyle[console]{vs}
-%
-% \newminted[bashcode]{console}{} % tango vs
-% \newminted{python}{}
+\usemintedstyle[console]{vs}
+
+\newminted[bashcode]{console}{} % tango vs
+\newminted{python}{}
 
 
 % Soporte de acrónimos
-% \usepackage[printonlyused]{paquetes/acronym-custom}
+\usepackage[printonlyused]{paquetes/acronym-custom}
 
 % Cambia el nombre del apéndice de bibliografía
-% \addto\captionsspanish{
-% \renewcommand\bibname{Bibliografía y referencias}
-% }
+\addto\captionsspanish{
+\renewcommand\bibname{Bibliografía y referencias}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -185,7 +185,7 @@
 \label{sec:fdl}
 \input{0_inicio/fdl.tex}
 
- \bibliographystyle{paquetes/hispa-annote}
+\bibliographystyle{abbrv}
 \bibliography{0_inicio/bibliografia}
 
 \end{document}

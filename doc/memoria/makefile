@@ -3,9 +3,9 @@ DOC = $(NOM).tex
 RES = resumen
 RESU = $(RES).tex
 
-PDF = pdflatex
+PDF = pdflatex --shell-escape
 BIB = bibtex
-LATEX = latex
+LATEX = latex --shell-escape
 DVI = dvipdf
 
 # Por defecto: compila usando BibTeX para las referencias bibliográficas
@@ -21,12 +21,6 @@ latex-bib:
 
 latex:
 	$(LATEX) $(DOC) && $(LATEX) $(DOC)
-
-resumen:
-	$(PDF) $(RESU) && $(BIB) $(RES) | make resumen-pdf
-
-resumen-pdf:
-	$(PDF) $(RESU) && $(PDF) $(RESU)
 
 # Pasa de .dvi a .pdf
 dvi-pdf:
