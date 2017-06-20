@@ -137,20 +137,112 @@ ma, desarrollado a partir de los requisitos descritos anteriormente.
 
 \subsubsection{Caso de uso: configuración del sitio}
 
+\begin{description}
+    \item[Descripción] El usuario debe de poder configurar todas las opciones disponibles 
+        a través de un fichero general de configuración
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El \textit{Usuario} escribe el contenido del fichero de configuración.
+            \item El \textit{Usuario} ejecuta la ejecución de contenido.
+            \item El sitio se genera satisfactoria siguiendo todo los parámetros configurados.
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[3a] Existe algún error de formato en el fichero y el sistema avisa al usuario.
+        \end{description}
+\end{description}
+
 \subsubsection{Caso de uso: creación de contenidos}
+
+\begin{description}
+    \item[Descripción] El usuario debe de poder definir contenidos y generarlos en HTML.
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El \textit{Usuario} define contenidos en la carpeta de contenidos.
+            \item El \textit{Usuario} ejecuta la generación del sitio.
+            \item El contenido de los ficheros es generado correctamente en HTML
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[2a] El formato de alguno de los ficheros no es correcto y el sistema informa al usuario.
+        \end{description}
+\end{description}
+
+\subsubsection{Caso de uso: metadatos de contenidos}
+
+\begin{description}
+    \item[Descripción] El usuario debe de poder definir metadatos en los ficheros, al inicio.
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El usuario añade al inicio del fichero metadatos que necesita en la renderización de éstos.
+            \item El usuario ejecuta la generación del sitio.
+            \item El usuario puede usar esos metadatos al renderizar los contenidos en la templates.
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[2a] Los metadatos no siguen el formato correcto y el sistema notifica al usuario.
+        \end{description}
+\end{description}
 
 \subsubsection{Caso de uso: clasificación de contenidos}
 
+\begin{description}
+    \item[Descripción] El usuario debe de poder definir taxonomías y poder usarlas en los ficheros
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El usuario define las taxonomías necesarías en el fichero de configuración.
+            \item El usuario usa las taxonomías en los metadatos de los ficheros para clasificarlos.
+            \item El usuario ejecuta la generación del sitio.
+            \item Se generan tantas urls como taxonomías definidas con los contenidos asociados.
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[3a] Se produce algún error en la generación y el sistema avisa al usuario.
+        \end{description}
+\end{description}
+
 \subsubsection{Caso de uso: internacionalicación}
 
-\subsubsection{Caso de uso: definición de taxonomías}
+\begin{description}
+    \item[Descripción] El usuario debe de poder definir más de un idioma.
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El \textit{Usuario} define los idiomas deseados en la configuración.
+            \item El \textit{Usuario} define contenido en todos esos idiomas.
+            \item El \textit{Usuario} genera el sitio.
+            \item El sitio se genera con cada contenido definido en el idioma que le corresponde
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[3a] Existe algún problema en alguna de las configuraciones, el sistema avisa del error
+                y cancela la ejecución.
+        \end{description}
+\end{description}
 
 \subsubsection{Caso de uso: definición de plantillas}
 
-\subsubsection{Caso de uso: generación del sitio}
-
+\begin{description}
+    \item[Descripción] El usuario debe de poder definir plantillas HTML en función del tipo de contenido.
+    \item[Actores] \textit{Usuario}.
+    \item[Escenario principal] $\quad$
+        \begin{enumerate}
+            \item El \textit{Usuario} define distintas templates en función del tipo de contenido.
+            \item El \textit{Usuario} genera el sitio.
+            \item El sitio renderiza correctamente los contenidos en las templates correspondientes.
+        \end{enumerate}
+    \item[Flujo alternativo] $\quad$
+        \begin{description}
+            \item[3a] Existe algún problema en la generación y el sistema avisa del error
+                y cancela la ejecución.
+        \end{description}
+\end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Modelo de interfaz de usuario}
+% \section{Modelo de interfaz de usuario}
