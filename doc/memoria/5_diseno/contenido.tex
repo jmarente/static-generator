@@ -1,0 +1,101 @@
+
+En este capítulo se presentan los detalles de diseño del proyecto, basándonos en el
+análisis mostrado en los anteriores apartados. Se detallan la arquitectura general
+y el diseño físico de datos entre otros aspectos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Arquitectura del sistema}
+
+\subsection{Arquitectura física}
+
+En este apartado, describimos los principales componentes hardware que forman
+la arquitectura física de nuestro sistema.
+
+\paragraph{Hardware}
+El hardware mínimo indispensable para la correcta ejecución del motor del
+proyecto se detalla en la siguiente lista:
+
+\begin{itemize}
+    \item 512MiB de memoria RAM como mínimo.
+    \item 10GiB de disco duro como mínimo.
+\end{itemize}
+
+\paragraph{Software}
+
+En cuanto al software necesario para la ejecución del proyecto, se detallan los
+siguientes elementos, que es necesario instalar para desplegar el sistema:
+
+\begin{itemize}
+    \item Sistema operativo \textbf{GNU/Linux}, preferiblemente basado en paquetería Debian.
+    \item Código fuente del proyecto \textbf{Sitic}.
+    \item Intérprete de \textbf{Python}, versión mínima 2.7.
+    \item Soporte de entornos virtuales \textbf{VirtualEnv} para la encapsulación de dependencias.
+\end{itemize}
+
+\subsection{Arquitectura lógica}
+
+La arquitectura lógica del sistema está formada por los elementos software
+(servicios, aplicaciones, librerías, frameworks, etc.) que componen el software base,
+más el software desarrollado para cumplir los requisitos de la aplicación. En esta
+sección se muestra la organización de los distintos elementos software que 
+componen el proyecto así como la comunicación entre ellos.
+
+En la figura XX se puede ver un esquema de cómo se comunican los diferentes
+elementos que conforma el sistema a alto nivel. En detalle, el flujo que sigue
+en cada capa es el siguiente:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Diseño detallado de componentes}
+
+En esta sección se detalla el diseño concreto de algunos componentes de la aplicación, 
+especificando las clases involucradas y el flujo de mensajes entre ellas.
+
+En particular, se han elegido el proceso parseo y generación de contenidos
+por ser el que mayor importancia y complejidad tiene.
+
+\subsubsection{Parseo y generación de contenidos}
+
+El proceso de parseo y generación de contenidos es un proceso que involcra bastantes
+elementos y es el componente esencial de la herramienta.
+
+En primer lugar, cuando el usuario ejecuta la generación de contenidos, ejecutando el comando
+principal de la herramienta, el sistema recorre todos y cada uno de los ficheros que se encuentran
+en la carpeta de contenidos definida.
+
+Cada fichero lo separa en dos partes, la parte que contiene los metadatos del contenido y la parte que
+contiene el contenido redactado. Una vez hecho esto parsea cada una de las partes para convertilos en 
+un tipo de datos que sea de fácil manipulación, los metadatos los convierte a un tipo de datos
+diccionario del lenguage Python y el contenido en sí, lo parsea en función de la extensión que se le
+haya puesto al fichero, que determinará que lenguaje de marcado hemos utilizado.
+
+Una vez que todos los ficheros han sido parseados, determinar qué ficheros se van a generar, ya que
+el usuario puede haber definido en los metadatos de estos que el fichero haya caducado o que simplemente
+no esté listo para ser publicado aún y esté marcado como borrador.
+
+Teniendo ya los ficheros que se van a publicar, se recopilan el resto de contenidos a partir de estos, es decir,
+todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonmías, 
+ya que si, por ejemplo, existe una sección con un único contenido, se evita que dicha sección se genere 
+completamente vacía.
+
+Tras esto, se recorre cada uno de los ficheros, determinando que template se debe usar como base para renderizarlos, 
+y se le comunica al motor de templates Jinja, el contenido que debe de renderizar en la template.
+
+Por último, el sistema mueve todos los ficheros estáticos(CSS, imágenes, Javascript) que la web pueda necesitar 
+a la carpeta con todos los contenidos generados.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Diagrama de clases de diseño}
+
+En la figura XX se muestra el diagrama de clases de diseño.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Diseño de interfaz de usuario}

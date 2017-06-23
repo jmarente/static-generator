@@ -1,0 +1,183 @@
+Como complemento a la lectura de este capítulo se recomienda tener una copia
+local del repositorio del proyecto, disponible para su libre descarga desde
+el repositorio oficial.
+
+\section{Entorno de construcción}
+
+\subsection{Herramientas de diseño y desarrollo}
+
+\subsection{Gestión de dependencias}
+
+Para facilitar la gestión de las dependencias del proyecto se han utilizado VirtualEnv
+y VirtualEnvWrapper. Estas herramientas permiten generar
+entornos virtuales para cada proyecto, en los que se instalan las dependencias necesarias.
+Estos entornos se activan y desactivan, de forma que las bibliotecas instaladas en
+el entorno virtual de un proyecto no son accesibles desde el entorno del
+otro proyecto. Esto evita la polución del nivel general de bibliotecas y facilita el
+control estricto de las versiones de las dependencias.
+
+Junto a virtualenv, la herramienta pip permite guardar en un fichero anexo
+la lista de dependencias de un proyecto, de forma que sea fácil reinstalarlas todas
+si hubiese que repetir la instalación en otro sistema.
+
+\subsection{Control de versiones}
+
+Todo el código fuente del proyecto se encuentra alojado en un repositorio público
+en GitHub, haciendo uso de los planes gratuitos. GitHub es una repositorio que
+utiliza el sistema de control de versiones Git. Además del alojamiento de
+código, GitHub provee numerosas funcionalidades adicionales, tanto a nivel
+social (permitiendo a las repositorios tener followers, por ejemplo) como a nivel funcional
+(ofreciendo sistemas de tickets, estadísticas, etcétera).
+
+El uso de un control de versiones es fundamental por varios motivos. En primer
+lugar, sirve como sistema de copia de seguridad. En segundo lugar, permite deshacer
+cambios en el código que no funcionen bien, siendo siempre posible volver
+atrás. Por último, sirve como cuaderno de bitácora improvisado, ya que se guarda
+el historial de commits que el desarrollador va enviando junto a los mensajes,
+siendo posible ver en una línea temporal el progreso del trabajo.
+
+\subsection{Lenguaje de programación}
+
+Como se ha comentado en numerosas ocasiones en la presente memoria, el lenguaje
+de programación elegido para el desarrollo del proyecto es Python, un
+lenguaje interpretado de alto nivel desarrollado por Guido Van Rossum en 1991.
+Python soporta múltiples paradigmas de programación, desde la orientación a objetos
+hasta la programación funcional, pasando por el clásico estilo imperativo. Su
+principal uso ha sido como lenguaje de scripting, pero también tiene su hueco en
+contextos más amplios como lenguaje principal.
+
+Su facilidad de aprendizaje, lo simple de su sintaxis (basada en la indentación
+para marcar los bloques) y su extensibilidad (sobre todo gracias al uso de métodos
+mágicos y metaprogramación) han hecho que el lenguaje sea muy popular y su uso
+en los últimos años se haya expandido enormemente.
+
+\subsection{Bibliotecas de terceros}
+
+En el proyecto se han utilizado un gran número de bibliotecas auxiliares para
+facilitar el desarrollo y ampliar la funcionalidad de forma sencilla.
+
+\paragraph{Jinja2}
+Es un lenguaje de plantillas moderno y diseñado para Python, modelado a partir de las plantillas de Django.
+Es rápido, ampliamente utilizado y seguro con el entorno de ejecución.
+
+Características:
+
+\begin{itemize}
+    \item Sistema de escapado de HTML para la prevención XSS.
+    \item Herencia de la plantillas.
+    \item Compilación opcional de plantillas por adelantado.
+    \item Fácil de depurar.
+    \item Sintaxis configurable.
+\end{itemize}
+
+\paragraph{Watchdog}
+
+API para monitorizar eventos en el sistema de ficheros.
+
+\begin{itemize}
+    \item Multiplataforma.
+    \item Herramientas para responder a cambios en directorios.
+\end{itemize}
+
+\paragraph{Click}
+
+Es un paquete de Python para crear interfaces de línea de comandos de una manera
+sencilla. Es el "Kit de creación de interfaz de
+línea de comandos". Es altamente configurable.
+
+Caraterísticas:
+
+\begin{itemize}
+    \item Anidamiento arbitrario de comandos.
+    \item Generación de ayuda automática.
+    \item Soporta la carga de subcomandos en tiempo de ejecución.
+\end{itemize}
+
+\paragraph{Six}
+
+Proporciona utilidades simples para envolver las diferencias entre Python 2 y Python 3. Pretende
+que soporte las bases de código que funcionan tanto en Python 2 como en 3 sin modificación.
+Consta de un solo archivo Python, por lo que es muy sencillo de añadir a un proyecto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Organización del código fuente}
+
+En esta sección se detalla la organización del código fuente del proyecto,
+describiendo la utilidad de los ficheros y directorios.
+
+El código fuente presente en la repositorio~\cite{repo} cuenta con los siguientes
+elementos en el directorio raíz:
+
+\begin{itemize}
+    \item \texttt{doc}: directorio con toda la documentación del proyecto.
+    \item \texttt{examples}: directorio con ejemplos de webs haciendo uso de la herramienta.
+    \item \texttt{sitic}: código fuente.
+    \item \texttt{README.md}: fichero de presentación para la repositorio.
+    \item \texttt{requirements.txt}: fichero con dependencias instalables con Pip.
+\end{itemize}
+
+\subsection{Código fuente}
+
+El código se encuentra íntegramente contenido en el directorio sitic del proyecto, que contiene lo siguiente:
+
+\begin{itemize}
+\item \texttt{cli parser.py}: definición de comandos disponibles.
+\item \texttt{compilemessages.py}: comando para compilar traducciones.
+\item \texttt{config.py}: encargado de parsea la configuración.
+\item \texttt{content}: directorio con los ficheros que gestionan los contenidos.
+    \begin{itemize}
+        \item \texttt{base content.py}: implementa el contenido base del que heredan el resto de contenidos.
+       \item \texttt{content factory.py}: implementa el patrón factory para obtener contenidos.
+       \item \texttt{frontmatter handlers.py}: parseado de metadatos de contenidos.
+       \item \texttt{homepage.py}: implementa la homepage.
+       \item \texttt{menu builder.py}: implementa el menú.
+       \item \texttt{menu.py}: implementa un elemento del menú.
+       \item \texttt{page parser.py}: implementa el parseador de contenidos.
+       \item \texttt{page.py}: implementa el contenido escrito por el usuario.
+       \item \texttt{paginable content.py}: implementación de contenidos paginables.
+       \item \texttt{paginator.py}: implementa paginación de secciontes y taxonomías.
+       \item \texttt{rss.py}: implementa el rss.
+       \item \texttt{section.py}: implementa las secciones.
+       \item \texttt{sitemap.py}: implementa el sitemap de la web.
+       \item \texttt{taxonomy.py}: implementa las taxonomías.
+    \end{itemize}
+
+\item \texttt{files}: directorio con plantillas necesarios.
+    \begin{itemize}
+        \item \texttt{pot template.jinja}: plantilla de fichero de traducciones.
+       \item \texttt{rss.xml}: plantilla para la generación del RSS.
+       \item \texttt{search.js}: fichero javascript necesario para la búsqueda.
+       \item \texttt{sitemap.xml}: plantilla de sitemap.xml.
+    \end{itemize}
+
+\item \texttt{generator.py}: generador de contenidos.
+\item \texttt{logging.py}: logging de la aplicación.
+\item \texttt{makemessages.py}: comando para obtener todos los mensajes traducibles del sitio web.
+\item \texttt{scoper.py}: implementa funcionalidad para modificación de variables en las plantillas.
+\item \texttt{search.py}: implementa el buscador.
+\item \texttt{server.py}: comando para montar servidor local de pruebas.
+\item \texttt{template}: directorio con el código encargado de la renderización de las plantillas.
+    \begin{itemize}
+        \item \texttt{filters.py}: filtros propios para usar en plantillas.
+       \item \texttt{render.py}: renderizador de plantillas.
+    \end{itemize}
+
+\item \texttt{utils}: directorio con código común entre distintos módulos.
+    \begin{itemize}
+        \item \texttt{constants.py}: constantes del proyecto.
+       \item \texttt{enums.py}: enumerados usados en el proyecto.
+    \end{itemize}
+
+\item \texttt{watcher.py}: Comando encargado de regenerar el contenido cada vez que existe algún cambio.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detalles de implementación}
+
+\subsubsection{Implementación de búsqueda}
+
+\subsubsection{Implementación de taxonomías}
