@@ -64,7 +64,7 @@ del sistema software.
 
         \hline
 
-        Descripción & El sistema debe de poder generar páginas HTMLs a patir
+        Descripción & El sistema debe de poder generar páginas HTMLs a partir
         del contenido de ficheros de texto plano.\\
 
         \hline
@@ -113,7 +113,7 @@ del sistema software.
         \hline
 
         Descripción & Los contenidos deben de poder ser categorizable en secciones y taxonomías,
-        dando como resultado grupos de contenidos en el sistio generado.\\
+        dando como resultado grupos de contenidos en el sitio generado.\\
 
         \hline
     \end{tabularx}
@@ -199,7 +199,7 @@ necesarios que requiere la aplicación para operar.
 \subsection{Requisitos no funcionales}
 
 Seguidamente se presentan los requisitos no funcionales, que especifican criterios
-usados para juzgar la operación del software a través de varias categorias, más
+usados para juzgar la operación del software a través de varias categorías, más
 allá de su comportamiento específico.
 
 \subsubsection{Requisitos de fiabilidad}
@@ -231,7 +231,7 @@ allá de su comportamiento específico.
         \hline
 
         Descripción & El sistema deberá de ser tan configurable como sea
-        posible, de forma que cualquier usuario lo pueda adapar a sus
+        posible, de forma que cualquier usuario lo pueda adaptar a sus
         necesidades lo máximo posible.\\
 
         \hline
@@ -279,19 +279,19 @@ hacer que el proceso de escritura de herramientas de línea de comandos sea ráp
 que evita cualquier frustración causada por la imposibilidad de implementar una CLI API.
 \item \textbf{Fire}: es una biblioteca para generar automáticamente interfaces de línea de comandos
 desde cualquier objeto Python.
-\item \textbf{Argparse}: pertenece a la biblioteca estandar de python y facilita la escritura de interfaces
+\item \textbf{Argparse}: pertenece a la biblioteca estándar de python y facilita la escritura de interfaces
 de línea de comandos fáciles de usar. El programa define qué argumentos requiere, y argparse descubrirá cómo
 analizar los que están fuera de sys.argv. El módulo argparse también genera automáticamente mensajes de ayuda
 y uso y emite errores cuando los usuarios dan al programa argumentos inválidos.
 \end{itemize}
 
-Se tomó la decision de optar por \textbf{Click} ya que parecía más sencillo y las opciones que ofrecía sería mucho
+Se tomó la decisión de optar por \textbf{Click} ya que parecía más sencillo y las opciones que ofrecía sería mucho
 más útiles.
 
 \subsection{Sistema de templates}
 
 El sistema contará con un motor de templates que permitirá al usuario definir y extenderlas de forma que pueda reutilizar
-prácticamente todo el código HTML que genere para las propias templates de su sitio. Las altenativas barajadas son:
+prácticamente todo el código HTML que genere para las propias templates de su sitio. Las alternativas barajadas son:
 
 
 \begin{itemize}
@@ -301,12 +301,12 @@ un entorno de ejecución de espacio de trabajo integrado opcional, ampliamente u
 la salida de documentos de una aplicación web, normalmente marcado HTML o XML.
 \end{itemize}
 
-Finalmente se decidió usar \textbf{Jinja} por ser el sistema de template más robusto y com mayor número de utilidades.
+Finalmente se decidió usar \textbf{Jinja} por ser el sistema de template más robusto y con mayor número de utilidades.
 
 \subsection{Lenguajes de marcado soportados}
 
-El sistema convertira los contenidos escritos en ficheros de texto plano a HTML, estos ficheros deberá de estar escritos
-usando algun lenguage de marcado. Las opciones que se barajaron fueron las siguientes:
+El sistema convertirá los contenidos escritos en ficheros de texto plano a HTML, estos ficheros deberá de estar escritos
+usando algún lenguaje de marcado. Las opciones que se barajaron fueron las siguientes:
 
 \begin{itemize}
 \item \textbf{Markdown}: Markdown es un lenguaje de marcado ligero que trata de conseguir la máxima legibilidad y facilidad
@@ -340,5 +340,5 @@ objetos de JavaScript aunque hoy, debido a su amplia adopción como alternativa 
 \end{itemize}
 
 
-Finalmente se decidió usar dos altenativas, tanto \textbf{YAML} como \textbf{TOML}, de forma que el usuario use aquel que encuentre más
+Finalmente se decidió usar dos alternativas, tanto \textbf{YAML} como \textbf{TOML}, de forma que el usuario use aquel que encuentre más
 sencillo.

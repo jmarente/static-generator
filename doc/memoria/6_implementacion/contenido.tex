@@ -6,6 +6,15 @@ el repositorio oficial.
 
 \subsection{Herramientas de diseño y desarrollo}
 
+Como editor principal se ha utilizado Vim, una versión mejorada del editor de
+texto vi, presente en todos los sistemas UNIX.
+
+Se ha utilizado draw.io para la generación de diagramas de casos de uso,
+secuencia, diagramas de flujo y similares. Se trata de una herramienta web, 
+actualmente integrable en Google Drive, con un enorme número de elementos de
+dibujo y la capacidad de exportar en un gran número de formatos, entre ellos en
+formato vectorial PDF (Portable Document Format).
+
 \subsection{Gestión de dependencias}
 
 Para facilitar la gestión de las dependencias del proyecto se han utilizado VirtualEnv
@@ -137,7 +146,7 @@ El código se encuentra íntegramente contenido en el directorio sitic del proye
        \item \texttt{page parser.py}: implementa el parseador de contenidos.
        \item \texttt{page.py}: implementa el contenido escrito por el usuario.
        \item \texttt{paginable content.py}: implementación de contenidos paginables.
-       \item \texttt{paginator.py}: implementa paginación de secciontes y taxonomías.
+       \item \texttt{paginator.py}: implementa paginación de secciones y taxonomías.
        \item \texttt{rss.py}: implementa el rss.
        \item \texttt{section.py}: implementa las secciones.
        \item \texttt{sitemap.py}: implementa el sitemap de la web.
@@ -178,6 +187,298 @@ El código se encuentra íntegramente contenido en el directorio sitic del proye
 
 \section{Detalles de implementación}
 
+En esta sección se describen algunos detalles en la implementación del proyecto
+que han resultado de interés suficiente para ser dignos de mención, ya sea por los
+conflictos que dieron, por su complejidad o por otras razones subjetivas.
+
+\subsubsection{Implementación estructura de ficheros}
+
+Uno de los primeros retos a la hora de la implementación, era ofrecer al usuario una forma sencilla de dividir
+el contenido de los ficheros y los metadatos de estos.
+
+Para que fuera sencillo tanto para los usuario, como para la herramienta poder diferencias esas dos partes
+de forma inequívoca, se decidió que los ficheros de contenidos usará delimitadores que marcaran que
+parte eran metadatos y debía ser tratados como tal y que parte era el contenido real del fichero.
+
+Dado que el sistema ofrece escribir los metadatos en dos formatos, \texttt{YAML} y \texttt{TOML}, se decidió que cada
+uno tuviera su propio carácter delimitador:
+
+\begin{itemize}
+    \item El formato \texttt{TOML} usaría el carácter +.
+    \item El formato \texttt{YAML} usaría el carácter -.
+\end{itemize}
+
+A continuación se puede ver un ejemplo de un fichero de contenido \texttt{Markdown} con los metadatos en formato
+\texttt{TOML}:
+
+\begin{verbatim}
+++++++++++++++++
+title='Post 1'
+tags=['tag1', 'tag2']
+description="Post 1 description"
+++++++++++++++++
+
+## Variarum loricaeque
+
+Lorem markdownum mihi. Avidoque doloris stabit; omen turaque est, ante ergo
+nostraque, tibi.
+
+    cpl_monitor_clean += html_window(management_ddl * 3, hacker);
+    ccd -= -3;
+    alignment_sdram += netbios_optical_party.webHardening(recycle_horizontal(5,
+            networkCmsOpen, bandwidth_computer - text), -1);
+
+## Curam vires adhuc domum
+
+Tendere posuisse fatorum pharetras e diversis *lacertos*: ius cum vacuaque denos
+quem, ausa transit puero. Undique foret et restatque supremaque accessi utile
+mollire [bracchia Othryn](http://www.ratibus.net/curvavit.html) manumque; vimque
+exprobravit sola ferrum diverso inania terramque. Qui illic et Romulus, ad erat
+Pergama daedalus annis, fudit.
+
+> Hunc medio, Argus plus pro lecto nimiumque dextera. Inde pondere ipse,
+> lacertos [Troianae](http://faciunt.net/) habet rex, membra, lacrimisque
+> onerosa. Dedi grata vani visurus corpora pariter ferarum **est quodque
+> stimuletur**, vestri discrimina sceptrum, abit doceri septem iuvenumque. Ego
+> est forte inpetus coniugis, auras inania regnat, tum languescuntque Byblida
+> nisi, mentes. Vident candidus flectitur humana.
+\end{verbatim}
+
+Internamente el sistema automáticamente divide el contenido del fichero en dos partes y las procesa por separado.
+A continuación se puede ver el fragmento de código que se encarga de realizar dicha tarea:
+
+\begin{pythoncode}
+# -*- condig: utf-8 -*-
+
+from sitic.content.frontmatter_handlers import YamlHander, TomlHandler
+
+
+handlers = [handler() for handler in [YamlHander, TomlHandler]]
+
+def __get_handler(text):
+    text_handler = None
+
+    for handler in handlers:
+        if handler.has_format(text):
+            text_handler = handler
+            break
+
+    return handler
+
+
+def __parse(text, handler):
+    text = text.strip()
+    metadata = {}
+
+    handler = handler or __get_handler(text)
+    if not handler:
+        return metadata, text
+
+
+    try:
+        metadata, text = handler.split(text)
+    except ValueError:
+        return metadata, text
+
+    metadata = handler.load(metadata)
+
+    return metadata, text
+
+
+def load(file_path, handler=None):
+    text = ''
+
+    with open(file_path, 'r') as f:
+        text = f.read()
+
+    text = text.strip()
+    handler = handler or __get_handler(text)
+    return loads(text, handler)
+\end{pythoncode}
+
 \subsubsection{Implementación de búsqueda}
 
-\subsubsection{Implementación de taxonomías}
+Hoy en día, cualquier página web de un tamaño considerable con una cantidad de contenidos lo suficientemente
+grande como para ser difícil encontrar cualquier contenido antiguo navegador por la misma, necesita un
+buscador con el que se puedan encontrar de forma sencilla los contenidos.
+
+Dado que \texttt{Sitic} genera un sitio web completamente estático, lo que implica que no tenemos ningún
+servidor al que hacerle peticiones con los términos que se desean buscar, se decidió implementar
+una búsqueda acorde a las características de la herramienta.
+
+Para conseguirlo, la implementación consistía en varias partes, la primera de ellas, generar un índice de contenidos
+en un fichero JSON que incluyera todos los contenidos publicados.
+
+EL JSON resultante tendría el siguiente formato:
+
+\begin{jsoncode}
+[
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 1",
+        "url": "/blog/post1"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 2",
+        "url": "/blog/post2"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 6",
+        "url": "/blog/post6"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 5",
+        "url": "/blog/post5"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi. Avct...",
+        "title": "Post 3",
+        "url": "/blog/post3"
+    },
+    {
+        "content": "This is a Heading 1\n\n\tThis might be an intro...",
+        "title": "Post 7",
+        "url": "/blog/post7"
+    },
+    {
+        "content": "\nBasic self-documenting ReStructured Text exa...",
+        "title": "Post 8",
+        "url": "/blog/post8"
+    },
+]
+\end{jsoncode}
+
+Este fichero se añadiría a la carpeta del sitio generado.
+
+La tercera parte requería implementar la lógica necesaria en \texttt{Javascript}que usara el indice generado
+y devolviera los resultados encontrados. Para ellos se hizo usa de la biblioteca para \texttt{Lunr.js} para
+\texttt{Javascript} que permite realizar búsquedas en índices adaptados a su formato.
+
+La tercera y última parte de la implementación consiste en que el usuario pueda de forma sencilla añadir dicho buscador en
+su web, para ello, se debe de añadir un formulario con un id específico que el código Javascript anteriormente
+comentado consultará y por último generar una plantilla llamada \texttt{search-results.js} con un bloque
+determinado donde se mostrarán los resultados de la búsqueda.
+
+\subsubsection{Implementación internacionalización}
+
+Para ofrecer internacionalización en las posibles webs que se desarrollen usando \texttt{Sitic}, se ha hecho uso
+de la famosa biblioteca \texttt{gettext}, que es compatible con el motor de templates usado \texttt{Jinja2}.
+
+En primer lugar, el usuario debe de poder configurar qué idiomas van a estar disponibles en su web. Esto debe hacerlo
+en el fichero configuración del sitio. A continuación podéis ver una configuración para dos idiomas, estableciendo como
+idioma principal el inglés:
+
+\begin{verbatim}
+main_language: 'en'
+
+languages:
+    en:
+		title: "English"
+    es:
+		title: "Español"
+\end{verbatim}
+
+Una vez hecho esto, el usuario deberá indicar al sistema de que idioma se trata cada contenido, añadiendo como sufijo
+justo antes de la extensión, el código del idioma, en el caso de que no se añada ninguno, el sistema supondrá que
+el formato del fichero es el idioma marcado como principal.
+
+En el caso de las templates, el usuario tiene disponible un filtro propio de \texttt{Jinja2}. A continuación
+se puede ver el uso di dicho filtro en una template:
+
+\begin{minted}{html}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="header">{% trans %}This is a test{% endtrans %}</div>
+    <p>{% trans user='test'%}Hello {{ user }}!{% endtrans %}</p>
+    <p>
+      {% trans count=list|length %}
+      There is {{ count }} {{ name }} object.
+      {% pluralize %}
+      There are {{ count }} {{ name }} objects.
+      {% endtrans %}
+    </p>
+    <p>{{ gettext('Hello World!') }}</p>
+    <p>{{ ngettext('%(num)d apple', '%(num)d apples', apples|count) }}</p>
+    <p>{{ _('Hello World!') }}</p>
+    <p>{% trans %}this is multine
+    translation{% endtrans %}</p>
+    <p>
+    {% trans test='value' %}This is is another multiline{{ test }}{% endtrans %}
+    </p>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Hey!! <a href="#">Click me!</a>.
+      {% endblock %}
+    </div>
+    {% block scripts %}
+    {% endblock %}
+  </body>
+</html>
+\end{minted}
+
+Por último, si el usuario tuviera que crear y manipular de forma totalmente manual los ficheros
+necesarios por \texttt{gettext}, esto sería de poca utilidad. Por ello se implementaron dos comando
+que hiciera la vida mucho más fácil al usuario:
+
+\begin{itemize}
+	\item \textbf{makemessages}: Extrae las cadenas de traducciones y genera los ficheros .po necesarios.
+	\item \textbf{compilemessages}: Compila los ficheros .po en .mo usados por gettext.
+\end{itemize}
+
+A continuación se puede ver un fragmento del código de \texttt{makemessages}:
+
+\begin{pythoncode}
+def run(self):
+
+    self.extract_translations()
+    self.generate_pot_file()
+    self.generate_po_file()
+    self.delete_pot_file()
+
+def extract_translations(self):
+    for root, directory, files in os.walk(config.templates_path):
+        for f in files:
+            if not f.endswith(tuple(constants.VALID_TEMPLATES_EXTENSIONS)):
+                continue
+            file_path = os.path.join(root, f)
+            relative_file_path = file_path.replace(config.base_path, '')
+            with open(file_path, 'r') as content:
+                translations = self.env.extract_translations(content.read())
+                for t in translations:
+                    t = list(t)
+                    t.insert(0, relative_file_path)
+                    self.translations.append(t)
+
+def generate_pot_file(self):
+    pot_template = self.env.get_template('pot_template.jinja')
+    pot_content = pot_template.render({'translations': self.translations})
+
+    if not os.path.isdir(config.locales_path):
+        os.makedirs(config.locales_path)
+
+    with open(self.pot_file_path, 'w', encoding='utf-8') as f:
+        f.write(pot_content)
+
+    msguniq_args = ['msguniq'] + self.msguniq_options + [self.pot_file_path]
+    output, errors, status = call_subprocess(msguniq_args)
+
+    if status != constants.STATUS_OK and errors:
+        logger.error("errors happened while running msguniq\n{}".format(errors))
+        sys.exit(1)
+    elif errors:
+        logger.error(errors)
+
+    # Replace pot file with msguniq output
+    with open(self.pot_file_path, 'w', encoding='utf-8') as f:
+        f.write(output)
+\end{pythoncode}

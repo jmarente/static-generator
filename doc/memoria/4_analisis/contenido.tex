@@ -31,7 +31,7 @@ conceptual.
 
 \subsection{Sitio web}
 
-Represetan el sitio web generado a partir de todos los contenidos que lo componen.
+Representan el sitio web generado a partir de todos los contenidos que lo componen.
 
 Relaciones:
 \begin{itemize}
@@ -41,11 +41,11 @@ Relaciones:
 
 \subsection{Configuración}
 
-Represetan la configuración básica del sitio.
+Representan la configuración básica del sitio.
 
 Relaciones:
 \begin{itemize}
-    \item Pertence a un sitio web.
+    \item Pertenece a un sitio web.
 \end{itemize}
 
 \subsection{Idioma}
@@ -54,7 +54,7 @@ Representa a los idiomas disponibles en sitio.
 
 Relaciones:
 \begin{itemize}
-    \item Pertence a un sitio web.
+    \item Pertenece a un sitio web.
 \end{itemize}
 
 \subsection{Contenido base}
@@ -101,7 +101,7 @@ Relaciones:
 
 \subsection{Taxonomías}
 
-Representa la clasificacion de contenidos.
+Representa la clasificación de contenidos.
 
 Relaciones:
 \begin{itemize}
@@ -120,11 +120,11 @@ Relaciones:
 
 \subsection{Feed RSS}
 
-Representa la representación RSS de un contendo paginable
+Representa la representación RSS de un contenido paginable
 
 Relaciones:
 \begin{itemize}
-    \item Pertence a un contenido paginable.
+    \item Pertenece a un contenido paginable.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,17 +132,26 @@ Relaciones:
 
 \section{Modelo de casos de uso}
 
-El modelo de casos de uso representa las interacciones entre los actores y el siste-
-ma, desarrollado a partir de los requisitos descritos anteriormente.
+El modelo de casos de uso representa las interacciones entre los actores y el sistema, 
+desarrollado a partir de los requisitos descritos anteriormente.
 
 \subsubsection{Actores}
 
-En este apartado se describen los diversos roles que juegan los usuarios del sistema. 
+En este apartado se describen los diversos roles que juegan los usuarios del sistema.
 Para ese caso en concreto, sólo existirá un usuario ya que es el propio usuario
 el que realiza todas las acciones para la generación de los contenidos.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.1\textwidth]{4_analisis/actor}
+    \caption{Diagrama de actores}
+    \label{fig:actores}
+\end{figure}
+
+\subsubsection{Caso de uso: configuración del sitio}
+
 \begin{description}
-    \item[Descripción] El usuario debe de poder configurar todas las opciones disponibles 
+    \item[Descripción] El usuario debe de poder configurar todas las opciones disponibles
         a través de un fichero general de configuración
     \item[Actores] \textit{Usuario}.
     \item[Escenario principal] $\quad$
@@ -198,7 +207,7 @@ el que realiza todas las acciones para la generación de los contenidos.
     \item[Actores] \textit{Usuario}.
     \item[Escenario principal] $\quad$
         \begin{enumerate}
-            \item El usuario define las taxonomías necesarías en el fichero de configuración.
+            \item El usuario define las taxonomías necesarias en el fichero de configuración.
             \item El usuario usa las taxonomías en los metadatos de los ficheros para clasificarlos.
             \item El usuario ejecuta la generación del sitio.
             \item Se generan tantas urls como taxonomías definidas con los contenidos asociados.
@@ -245,6 +254,13 @@ el que realiza todas las acciones para la generación de los contenidos.
                 y cancela la ejecución.
         \end{description}
 \end{description}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{4_analisis/casos_de_uso}
+    \caption{Casos de uso}
+    \label{fig:actores}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

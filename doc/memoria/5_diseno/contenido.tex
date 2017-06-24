@@ -59,17 +59,24 @@ por ser el que mayor importancia y complejidad tiene.
 
 \subsubsection{Parseo y generación de contenidos}
 
-El proceso de parseo y generación de contenidos es un proceso que involcra bastantes
+El proceso de parseo y generación de contenidos es un proceso que involucra bastantes
 elementos y es el componente esencial de la herramienta.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.1\textwidth]{5_diseno/diagrama_secuencia}
+    \caption{Diagrama de secuencia}
+    \label{fig:diagrama_secuencia}
+\end{figure}
 
 En primer lugar, cuando el usuario ejecuta la generación de contenidos, ejecutando el comando
 principal de la herramienta, el sistema recorre todos y cada uno de los ficheros que se encuentran
 en la carpeta de contenidos definida.
 
 Cada fichero lo separa en dos partes, la parte que contiene los metadatos del contenido y la parte que
-contiene el contenido redactado. Una vez hecho esto parsea cada una de las partes para convertilos en 
+contiene el contenido redactado. Una vez hecho esto parsea cada una de las partes para convertirlos en 
 un tipo de datos que sea de fácil manipulación, los metadatos los convierte a un tipo de datos
-diccionario del lenguage Python y el contenido en sí, lo parsea en función de la extensión que se le
+diccionario del lenguaje Python y el contenido en sí, lo parsea en función de la extensión que se le
 haya puesto al fichero, que determinará que lenguaje de marcado hemos utilizado.
 
 Una vez que todos los ficheros han sido parseados, determinar qué ficheros se van a generar, ya que
@@ -77,7 +84,7 @@ el usuario puede haber definido en los metadatos de estos que el fichero haya ca
 no esté listo para ser publicado aún y esté marcado como borrador.
 
 Teniendo ya los ficheros que se van a publicar, se recopilan el resto de contenidos a partir de estos, es decir,
-todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonmías, 
+todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonomías, 
 ya que si, por ejemplo, existe una sección con un único contenido, se evita que dicha sección se genere 
 completamente vacía.
 
@@ -93,7 +100,28 @@ a la carpeta con todos los contenidos generados.
 
 \section{Diagrama de clases de diseño}
 
-En la figura XX se muestra el diagrama de clases de diseño.
+A continuación se muestra el diagrama de clases de diseño. Que se ha tenido que dividir en dos partes
+para su correcto visionado.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{5_diseno/clases_de_diseno1}
+    \caption{Diagrama de clases de diseño 1}
+    \label{fig:clases_diseno}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{5_diseno/clases_de_diseno2}
+    \caption{Diagrama de clases de diseño 2}
+    \label{fig:clases_diseno}
+\end{figure}
+
+En el diagrama de clases de pueden apreciar clases que no están relacionadas
+con ninguna otra del diagrama. Estas clases a las que nos referimos siguen un patrón Singleton, que
+permite que cualquier clases pueda acceder a ella desde cualquier parte del sistema. Sólo existirá una
+única instancia de cada una de las clases Singleton, que se creará en la primera llamada que se realice a
+ellas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
