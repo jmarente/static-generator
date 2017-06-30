@@ -1,0 +1,129 @@
+A continuación se presentan las instrucciones de instalación de la herramienta.
+
+Antes de continuar se presentan los requisitos de hardware y software mínimos
+para la correcta ejecución de la plataforma web.
+
+\paragraph{Hardware}
+
+\begin{itemize}
+\item 512MiB de memoria RAM como mínimo.
+\item 10GiB de disco duro como mínimo.
+\item Acceso a Internet.
+\end{itemize}
+
+\paragraph{Software}
+
+\begin{itemize}
+\item Sistema operativo \textbf{GNU/Linux}, preferiblemente basado en paquetería Debian.
+\item Intérprete de \textbf{Python}, versión mínima 2.7 o 3.5.
+\item Soporte de entornos virtuales \textbf{VirtualEnv} para la encapsulación de dependencias.
+\end{itemize}
+
+\section{Instalación}
+
+\subsection{Descarga de código}
+
+Antes de continuar se presentan los requisitos de hardware y software mínimos
+para la correcta ejecución de la herramiente.
+
+Para instalar la plataforma web es necesario clonar el repositorio~\cite{repositorio}
+con el código de la aplicación. Primero, creamos una ubicación donde alojar el
+código desde la terminal:
+
+\begin{bashcode}
+$ mkdir ~/sitic -p
+$ cd ~/sitic
+\end{bashcode}
+
+Una vez ahí, instalamos el software de control de versiones \textbf{git} y
+clonamos el repositorio desde Github:
+
+\begin{bashcode}
+$ sudo apt-get install git
+$ git clone https://github.com/josemarente/sitic.git .--
+\end{bashcode}
+
+\subsubsection{Instalación de dependencias}
+
+Como se ha comentado previamente, el proyecto utiliza \textbf{virtualenv} y
+\textbf{virtualenvwrapper} para una gestión más limpia de las dependencias. La
+instalación de estos dos elementos es sencilla, en primer lugar se instala el
+gestor de paquetes y los dos paquetes mencionados:
+
+\begin{bashcode}
+$ sudo apt-get install python-pip
+$ sudo pip install virtualenv
+$ sudo pip install virtualenvwrapper
+\end{bashcode}
+
+En segundo lugar, añadimos el código de \textit{bootstrapping} de
+virtualenvwrapper a nuestro perfil de terminal, habitualmente \texttt{.bashrc}:
+
+\begin{bashcode}
+$ cat >> ~/.bashrc
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+EOF
+\end{bashcode}
+
+Hecho esto, será necesario reiniciar la terminal o volver a cargar el perfil del a terminal,
+para el caso de \texttt{.bashrc}, se puede hacer de la siguiente forma:
+
+\begin{bashcode}
+$ source ~/.bashrc
+\end{bashcode}
+
+Tras esto, podremos crear el entorno virtual e instalar las dependencias:
+
+\begin{bashcode}
+$ mkvirtualenv sitic
+$ sudo apt-get install python-dev
+$ pip install -r requirements.txt
+\end{bashcode}
+
+El proceso de instalación de dependencias puede tardar entre 5 y 10 minutos aproximadamente.
+
+\subsection{Comando sitic}
+
+Por último sólo quedaría que sitic estuviera disponible en el sistema de forma global, es decir,
+que podamos ejecutar su comando sin necesidad de en que ruta está y sin necesidad de poner la ruta completa
+para lanzarlos, para ello bastaría con hacer un enlace simbólico del ejecutable de sitic en
+\texttt{/usr/local/bin} de la siguiente manera:
+
+\begin{bashcode}
+$ ln -s ~/sitic/main.py /usr/local/bin/sitic
+\end{bashcode}
+
+\section{Pruebas de implantación}
+
+Para probar que la instalación es correcta, lo ideal es que pruebe la aplicación
+a fondo, revisando toda la funcionalidad. El itinerario que se recomienda es el
+siguiente. Si tiene dudas sobre cómo realizar alguna de las acciones descritas,
+revise el~\nameref{chap:manual_usuario}.
+
+El primer paso antes de nada es lanzar la batería de tests que viene incluida en
+el proyecto, mediante el comando
+
+\begin{verbatim}
+$ python tests.py test
+\end{verbatim}
+
+Todos los tests deberían funcionar correctamente. Si no lo hacen, es que ha
+habido un fallo en el sistema o en la aplicación.
+
+Tras esto, el código clonado dispone de varios ejemplos implementados usando la herramienta,
+por lo que bastaría con ir a a la carpeta \texttt{examples} y ejecutar sitic en cualquier
+de los ejemplos disponibles. Los comandos para este caso serían los siguientes:
+
+\begin{bashcode}
+$ workon sitic
+$ cd ~/sitic/examples/blog
+$ sitic
+\end{bashcode}
+
+En el caso de que la generación del sitio de ejemplo no se llevara a cabo
+correctamente, es que no se habrá realizado adecuadamente alguno de los pasos de instalación.
