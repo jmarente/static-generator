@@ -12,18 +12,18 @@ Se pueden alojar en cualquier lugar, incluyendo Heroku, GitHub Pages, Firebase H
 S3 entre otros. Los sitios de Sitic se ejecutan sin dependencias en tiempos de ejecución costosos como Ruby, Python
 o PHP y sin dependencias en ninguna base de datos.
 
-\subsection{En qué se diferencia con los generador dinámicos}
+\subsection{En qué se diferencia con los generadores dinámicos}
 
 Los generadores de sitios web generan contenidos en ficheros HTML. La mayoría son "generadores dinámicos".
 Esto significa que el servidor HTTP (que es el programa que se ejecuta en su sitio web con el que el navegador del
-usuario habla) ejecuta el generador para crear un nuevo archivo HTML cada vez que un usuario desea ver una página.
+usuario habla) ejecuta el generador para crear un nuevo fichero HTML cada vez que un usuario desea ver una página.
 
 Crear la página de forma dinámica significa que la máquina que aloja el servidor HTTP tiene que tener suficiente
 memoria y CPU para ejecutar el generador de forma eficaz durante todo el día. Si no, entonces el usuario tiene que
 esperar a que la página se genere.
 
 Nadie quiere que los usuarios esperen más de lo necesario, por lo que los generadores de sitios dinámicos programaron
-sus sistemas para almacenar en caché los ficheros HTML. Cuando un archivo se almacena en caché, una copia de él se
+sus sistemas para almacenar en caché los ficheros HTML. Cuando un fichero se almacena en caché, una copia de él se
 almacena temporalmente en el equipo. Es mucho más rápido para que el servidor HTTP envíe esa copia la próxima vez que
 se solicite la página que para generarla desde cero.
 
@@ -40,13 +40,13 @@ servidor HTTP incorporado. Cuando ejecuta el servidor, Sitic procesa todo su con
 un servidor HTTP en su máquina para que pueda ver cómo son las páginas.
 
 El segundo componente se utiliza cuando esté listo para publicar su sitio web en el equipo que ejecuta su sitio web.
-Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} del archivo de
+Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} del fichero de
 configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente con la mayoría
 de las empresas de alojamiento.
 
 \subsection{Características principales}
 
-En términos técnicos, Sitic toma un directorio fuente de archivos y plantillas y los usa como entrada para crear un sitio web completo.
+En términos técnicos, Sitic toma un directorio fuente de ficheros y plantillas y los usa como entrada para crear un sitio web completo.
 
 Sitic cuenta con las siguientes características:
 
@@ -79,3 +79,258 @@ Sitic cuenta con las siguientes características:
 \item Soporte para los metadatos TOML y YAML en los contenidos
 \item Páginas completamente personalizables
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Estructura de ficheros}
+
+Sitic toma un directorio y lo usa como entrada para crear una página web completa.
+
+El nivel más alto del directorio principal tendrá los siguientes elementos:
+
+\begin{verbatim}
++--content/
++--data/
++--locales/
++--templates/
++--static/
++--sitic.yml
+\end{verbatim}
+
+El proposito para cada fichero/directorio se decribe a continuación:
+
+\begin{itemize}
+    \item \textbf{content}: Aquí es donde se almacenan los contenidos de la web, se crearán
+        sub-directorios para crear las distintas secciones de la web. Supongamos, que nuestra web
+        tiene cuatro secciones: \texttt{blog}, \texttt{news}, \texttt{about} y \texttt{contact},
+        entonces será necesario crear una carpeta para cada una de ellas.
+    \item \textbf{data}: Este directorio contiene distintos ficheros de configuración que pueden
+        ser usado mientras se genera la web. El contenido de estos ficheros puede estar en format
+        YAML, JSON o TOML.
+    \item \textbf{locales}: Ficheros con las traducciones de las cadenas usadas en las templates.
+    \item \textbf{templates}: Los contenidos dentro de este directorio especifican como se covnertirán
+        los contenidos en una web estática.
+    \item \textbf{static}: Directorio usado almacenar todos los contenidos estáticos que la web
+        necesitará como imñagenes, CSS, Javascript u otro tipo de contenido estático.
+    \item \textbf{sitic.yml}: Todo proyecto hecho con sitic debe de tener un fichero
+        de configuración en la raíz del proyecto. Este debe de tener el nombre \texttt{sitic.yml},
+        usando el formato YAML~\cite{yaml}. Esta configuración se aplica a todo el siti completo,
+        que incluye la \texttt{base\_url} y \texttt{title} de la página web.
+\end{itemize}
+
+\subsection{Ejemplo}
+Un ejemplo de completo tendría el siguiente aspecto:
+
+\begin{verbatim}
++-- content
+|   +-- about.md
+|   +-- blog
+|       +-- post1.md
+|       +-- post2.md
+|       +-- post3.textile
+|       +-- post4.rst
++-- locales
++-- dara
++-- sitic.yml
++-- static
+|   +-- css
+|   +-- fonts
+|   +-- images
+|   +-- js
++-- templates
+    +-- base.html
+    +-- default
+    |   +-- list.html
+    |   +-- page.html
+    +-- section
+        +-- about.html
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Configuración}
+
+La estructura de directorios de un sitio web de Sitic, o más exactamente de los ficheros de origen
+que contienen su contenido y plantillas, proporciona la mayor parte de la información de configuración
+que Sitic necesita. Por lo tanto, en esencia, muchos sitios web realmente no necesitan un fichero de
+configuración. Esto se debe a que Sitic está diseñado para reconocer ciertos patrones de uso típicos
+(y los espera por defecto).
+
+Sin embargo, Sitic busca un fichero de configuración con un nombre en particular en la raíz del directorio
+fuente de su sitio web. El fichero que busca es \texttt{./sitic.yaml}.
+
+En este fichero de configuración para su sitio web, puede incluir instrucciones precisas a Sitic sobre cómo
+debe procesar su sitio, así como definir sus menús y establecer varios otros parámetros de todo el sitio.
+
+\subsection{Ejemplos}
+
+A continuación se muestra el fichero de configuración básico:
+
+\begin{yamlcode}
+base_url: "http://sitic.example.com/"
+\end{yamlcode}
+
+Seguidamente podemos un fichero un poco más completo con distintos elementos:
+
+\begin{yamlcode}
+base_url: "www.sitic.net"
+paginable: "1"
+main_language: "en"
+
+lazy_menu: "main"
+
+sitemap:
+    change_frequency: "monthly"
+    priority: 0.5
+
+menus:
+    main:
+        - title: "title test"
+          url: "/test-url"
+          id: "test1"
+        - title: "title test2"
+          url: "/test-url2"
+          id: "test2-custom"
+          parent: "test1"
+    footer:
+        - title: "title footer"
+          url: "/test-url-footer"
+          id: "test-footer"
+
+
+languages:
+    en:
+    es:
+        menus:
+            footer:
+                - title: "title footer"
+                  url: "/test-url-footer"
+                  id: "test-footer"
+\end{yamlcode}
+
+En este último ejemplo se pueden ver distintas configuraciones, como la configuración de menús o
+idiomas, de las que hablaremos mas en detalle en las siguientes secciones.
+
+% TODO: List all configurable variables in the config file
+% \subsection{Variables configurables}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Contenidos}
+
+\subsection{Organización}
+
+El contenido debe estar organizado de la misma manera que se pretende que aparezca en la web.
+Sin ningún tipo de configuración adicional, el siguiente ejemplo funcionará:
+
+\begin{verbatim}
+content/
++-- about.md            // http://example.com/about
++-- blog                // http://example.com/blog/
+    +-- post1.md        // http://example.com/blog/post1
+    +-- post2.md        // http://example.com/blog/post2
+    +-- post3.textile   // http://example.com/blog/post3
+    +-- post3.rst       // http://example.com/blog/post4
+\end{verbatim}
+
+Como se puede apreciar, Sitic usará la ruta definida en en el disco a partir del directorio \texttt{content},
+para definir la url del contenido, esto se puede sobreescribir usando el atributo \texttt{url} en los metadatos
+de los contenidos.
+
+Se puede usar el nivel de anidaciones que se desee, Sitic tomará siempre como \texttt{sección} los
+directotios que se encuentren en el primer nivel.
+
+\subsection{Formatos soportados}
+
+Sitic soporta los siguientes formatos para los contenidos:
+
+\begin{itemize}
+    \item \textbf{Markdown}: Se identificarán aquellos ficheros con la extensión \texttt{.md}.
+    \item \textbf{reStructuredText}: ficheros con la textensión \texttt{.textile}
+    \item \textbf{Textile}: ficheros con cualquier de las extensiones \texttt{.txt} \texttt{.rst} \texttt{.rest} \texttt{.restx}
+\end{itemize}
+
+\subsection{Metadatos}
+
+Sitic usa ficheros con encabezados para definir los metadatos, comúnmente llamados \texttt{front matter}.
+Sitic usa la organización proporcionada para su contenido para minimizar cualquier
+configuración adicional, aunque se puede sobrescribir en los metadatos.
+
+Estos metadatos se identificarán a partir de unos caracteres delimitadores, los formatos soportados son:
+
+\begin{itemize}
+    \item \textbf{TOML}: identificado por +++.
+    \item \textbf{YAML}: identificado por ---.
+\end{itemize}
+
+\textbf{Ejemplo de TOML}:
+
+\begin{verbatim}
++++
+title='Post 2'
+description='Post 2 description'
+tags=['tag1', 'tag2', 'tag3']
++++
+
+El contenido va aquí
+\end{verbatim}
+
+\textbf{Ejemplo de YAML}:
+
+\begin{verbatim}
+---
+title: 'Post 2'
+description: 'Post 2 description'
+tags: ['tag1', 'tag2', 'tag3']
+---
+
+El contenido va aquí
+\end{verbatim}
+
+% TODO
+\subsubsection{Variables}
+
+\subsection{Secciones}
+
+Sitic cree que usted organiza su contenido con un propósito. La estructura usada
+para organizar el contenido de origen se utiliza para organizar el sitio generado. Siguiendo
+este patrón Sitic utiliza el nivel superior de su organización de contenido como la Sección.
+
+Sitic creará automáticamente páginas para cada raíz de sección que enumere todo el contenido
+de esa sección. Consulte la sección dedicada a las plantillas para obtener detalles sobre 
+la personalización de la forma en que aparecen.
+
+Las páginas de sección también pueden tener un fichero de contenido con metadatos.
+
+\subsection{Taxonomías}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Plantillas}
+
+\subsection{Ruta de plantilla en función del tipo de contenido}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Internacionalización}
+
+\subsection{Configuración}
+\subsection{Contenido}
+\subsection{Plantillas}
+\subsection{Generación y gestión}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Comandos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO
+% \section{Otras herramientas}
