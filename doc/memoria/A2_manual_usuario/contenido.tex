@@ -109,10 +109,10 @@ El proposito para cada fichero/directorio se decribe a continuación:
         ser usado mientras se genera la web. El contenido de estos ficheros puede estar en format
         YAML, JSON o TOML.
     \item \textbf{locales}: Ficheros con las traducciones de las cadenas usadas en las templates.
-    \item \textbf{templates}: Los contenidos dentro de este directorio especifican como se covnertirán
+    \item \textbf{templates}: Los contenidos dentro de este directorio especifican como se convertirán
         los contenidos en una web estática.
     \item \textbf{static}: Directorio usado almacenar todos los contenidos estáticos que la web
-        necesitará como imñagenes, CSS, Javascript u otro tipo de contenido estático.
+        necesitará como imágenes, CSS, Javascript u otro tipo de contenido estático.
     \item \textbf{sitic.yml}: Todo proyecto hecho con sitic debe de tener un fichero
         de configuración en la raíz del proyecto. Este debe de tener el nombre \texttt{sitic.yml},
         usando el formato YAML~\cite{yaml}. Esta configuración se aplica a todo el siti completo,
@@ -240,8 +240,8 @@ Como se puede apreciar, Sitic usará la ruta definida en en el disco a partir de
 para definir la url del contenido, esto se puede sobreescribir usando el atributo \texttt{url} en los metadatos
 de los contenidos.
 
-Se puede usar el nivel de anidaciones que se desee, Sitic tomará siempre como \texttt{sección} los
-directotios que se encuentren en el primer nivel.
+Se puede usar el nivel de directorios que se desee, Sitic tomará siempre como \texttt{sección} los
+directorios que se encuentren en el primer nivel.
 
 \subsection{Formatos soportados}
 
@@ -249,7 +249,7 @@ Sitic soporta los siguientes formatos para los contenidos:
 
 \begin{itemize}
     \item \textbf{Markdown}: Se identificarán aquellos ficheros con la extensión \texttt{.md}.
-    \item \textbf{reStructuredText}: ficheros con la textensión \texttt{.textile}
+    \item \textbf{reStructuredText}: ficheros con la extensión \texttt{.textile}
     \item \textbf{Textile}: ficheros con cualquier de las extensiones \texttt{.txt} \texttt{.rst} \texttt{.rest} \texttt{.restx}
 \end{itemize}
 
@@ -300,12 +300,25 @@ para organizar el contenido de origen se utiliza para organizar el sitio generad
 este patrón Sitic utiliza el nivel superior de su organización de contenido como la Sección.
 
 Sitic creará automáticamente páginas para cada raíz de sección que enumere todo el contenido
-de esa sección. Consulte la sección dedicada a las plantillas para obtener detalles sobre 
+de esa sección. Consulte la sección dedicada a las plantillas para obtener detalles sobre
 la personalización de la forma en que aparecen.
 
-Las páginas de sección también pueden tener un fichero de contenido con metadatos.
+Las páginas de sección también pueden tener un fichero de contenido con metadatos. Para ello basta con
+definir un fichero con el nombre \texttt{index.md}, se tomará como el contenido propio de la sección en
+lugar de un contenido de la sección.
+
+\subsubsection{Secciones como ficheros}
+
+Puede existir ocasiones en las que queramos tener una sección que carecerá de contenidos adicionales,
+es decir, que no tendrá otros contenidos relacionados que se listarán dentro de la página de la sección.
+
+En ese caso, cualquier fichero definido en la raíz del directorio de contenidos, se tomará como una sección
+en la que se podrá definir directamente el contenido y metadatos sin necesidad de seguir el proceso de creación
+de carpetas y fichero \texttt{index.md}.
 
 \subsection{Taxonomías}
+
+\subsection{Página inicial}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
