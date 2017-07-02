@@ -113,7 +113,7 @@ El proposito para cada fichero/directorio se decribe a continuación:
         los contenidos en una web estática.
     \item \textbf{static}: Directorio usado almacenar todos los contenidos estáticos que la web
         necesitará como imágenes, CSS, Javascript u otro tipo de contenido estático.
-    \item \textbf{sitic.yml}: Todo proyecto hecho con sitic debe de tener un fichero
+    \item \textbf{sitic.yml}: Todo proyecto hecho con Sitic debe de tener un fichero
         de configuración en la raíz del proyecto. Este debe de tener el nombre \texttt{sitic.yml},
         usando el formato YAML~\cite{yaml}. Esta configuración se aplica a todo el siti completo,
         que incluye la \texttt{base\_url} y \texttt{title} de la página web.
@@ -169,13 +169,13 @@ debe procesar su sitio, así como definir sus menús y establecer varios otros p
 A continuación se muestra el fichero de configuración básico:
 
 \begin{yamlcode}
-base_url: "http://sitic.example.com/"
+base_url: "http://Sitic.example.com/"
 \end{yamlcode}
 
 Seguidamente podemos un fichero un poco más completo con distintos elementos:
 
 \begin{yamlcode}
-base_url: "www.sitic.net"
+base_url: "www.Sitic.net"
 paginable: "1"
 main_language: "en"
 
@@ -318,14 +318,241 @@ de carpetas y fichero \texttt{index.md}.
 
 \subsection{Taxonomías}
 
+Sitic también ofrece la posibilidad del uso de taxonomías, por defecto existen dos tipos de taxonomías,
+las \texttt{tags} y \texttt{categories}. Pero Sitic también ofrece al usuario la opción de configurar
+nuevas taxonomías desde el fichero general de configuración.
+
+\subsection{Definiendo nuevas taxonomías}
+
+Para configurar nuevas taxonomías debemos hacerlo, añadiendo un nuevo elemento \texttt{taxonomies}, junto
+con las definiciones en plural y singular de las nuevas taxonomías, un ejemplo, sería el siguiente:
+
+\begin{verbatim}
+taxonomies:
+    tag: "tags"
+    category: "categories"
+    series: "series"
+\end{verbatim}
+
+\subsection{Relacionando taxonomías y contenidos}
+
+Una ves que las taxonomías ya están definidas en la configuración, la forma en la que se deben de relacionar
+con los contenidos, es a través de los metadatos de este, creando una variable con el nombre plural de la
+taxonomía, seguido de cada uno de los términos de la taxonomía a la que pertenece el contenido.
+
+A continuación se muestra un ejemplo usando las taxonomías \texttt{tags} y \texttt{categories}, en un fichero
+con los metadatos en formato \texttt{TOML}:
+
+\begin{verbatim}
++++
+title='Post 2'
+description='Post 2 description'
+tags=['tag1', 'tag2', 'tag3']
+categories=['cat1', 'cat3']
++++
+
+El contenido va aquí
+\end{verbatim}
+
+
 \subsection{Página inicial}
+
+La página inicial de una web, suele ser de un aspecto distinto al del resto de secciones o contenidos
+de la web, para añadir un fichero con contenidos y metadatos, a la página inicial de un sitio
+construido con Sitic, simplemente tendremos que añadir un fichero \texttt{index.md} en la raíz de
+la carpeta de contenidos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Plantillas}
 
-\subsection{Ruta de plantilla en función del tipo de contenido}
+Sitic usa la librería \texttt{Jinja2}~\cite{jinja} como motor de plantillas. Tiene todas las funcionalidades
+necesarias para construir plantillas de forma rápida y personalizable.
+
+Si nunca has usado \texttt{Jinja2} anteriormente, te recomiendo visitar si página oficinal~\cite{jinja},
+donde podrás ver todas las funcionalidades que ofrece y todas disponibles en Sitic.
+
+Entre otras funcionalidades, ofrece la posibilidad de extender plantillas reduciendo así el número de
+código duplicado entre plantillas.
+
+\subsection{Tipos de plantillas}
+
+Existen tres tipos de plantillas que se definen a continuación:
+
+\begin{itemize}
+    \item \textbf{Page}: Template para renderizar un único contenido.
+    \item \textbf{List}: Template para listar contenidos, como pueden ser las secciones y las taxonomías.
+    \item \textbf{Index}: La template para la página inicial de tu web.
+\end{itemize}
+
+\subsection{Ruta de plantillas}
+
+Como se ha comentado anteriormente, el directorio \texttt{templates}, es donde se deben de añadir todas
+las plantillas. Por defecto un Sitio hecho con Sitic debe de tener un directorio \texttt{default}, con las
+siguientes plantillas:
+
+\begin{itemize}
+    \item \textbf{page.html}: Template por defecto para todas las páginas.
+    \item \textbf{list.html}: Template por defecto para secciones, taxonomía y homepage.
+\end{itemize}
+
+Pero Sitic te ofrece la posibilidad de personalizar las plantillas en función del tipo que sean.
+
+\subsubsection{Page}
+
+La plantilla para un contenido normal puede estar en cualquier de las siguientes rutas. Sitic buscará
+la plantilla en el orden que se muestra a continuación:
+
+\begin{itemize}
+    \item /templates/\texttt{TYPE}/\texttt{TEMPLATE}.html
+    \item /templates/\texttt{SECTION}/\texttt{TEMPLATE}.html
+    \item /templates/\texttt{TYPE}/page.html
+    \item /templates/\texttt{SECTION}/page.html
+    \item /templates/default/page.html
+\end{itemize}
+
+Tanto \texttt{TYPE} como \texttt{TEMPLATE}, son los valores que se definan en los metadatos del contenido
+en variable con el mismo nombre, totalmente en minúsculas.
+
+En el caso de \texttt{SECTION}, se usa el nombre de la sección a la que pertenezca el contenido.
+
+\subsubsection{Sección}
+
+Para las secciones las rutas que Sitic busca son las siguientes:
+
+\begin{itemize}
+    \item /templates/section/\texttt{SECTION}.html
+    \item /templates/\texttt{SECTION}/section.html
+    \item /templates/\texttt{SECTION}/list.html
+    \item /templates/default/section.html
+    \item /templates/default/list.html
+\end{itemize}
+
+\subsubsection{Taxonomía}
+
+En el caso de las taxonomias:
+
+\begin{itemize}
+    \item /templates/taxonomy/\texttt{SINGULAR}.html
+    \item /templates/taxonomy/list.html
+    \item /templates/default/taxonomy.html
+    \item /templates/default/list.html
+\end{itemize}
+
+\subsubsection{Homepage}
+
+Por último en la home:
+
+\begin{itemize}
+    \item /templates/index.html
+    \item /templates/default/list.html
+    \item /templates/default/page.html
+\end{itemize}
+
+\subsection{Elementos disponibles en las plantillas}
+
+Cada plantilla dispondrá de una serie de elementos en función del tipo de plantilla de la que estemos
+hablando.
+
+Todas las plantillas tendrán acceso a la variable \texttt{site} en la que estarán todos los parámetros
+presentes en la configuración del sitio y además tendrá acceso a la variable \texttt{node}, que representará
+el nodo que se está renderizando, ya sea una página, sección o taxonomía. En este elementos están disponibles
+todo los atributos de dicho elemento.
+
+\subsection{Ejemplo}
+
+A continuación se muestra una seria de ejemplo de uso de plantillas.
+
+En primer lugar podemos ver la plantilla base de una web:
+
+\begin{verbatim}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tag -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>DevBlog - Personal Blog Template</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  </head>
+  <body>
+
+    <div id="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="col-md-12 page-body">
+              <div class="row">
+                <div class="sub-title">
+                  <h2>
+                    {% if node.title %}
+                        {{ node.title }}
+                    {% else %}
+                        My Blog
+                    {% endif %}
+                  </h2>
+                </div>
+                <div class="col-md-12 content-page">
+                  {% block content %}
+                  {% endblock %}
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/static/js/scripts.js"></script>
+  </body>
+
+</html>
+\end{verbatim}
+
+A continuación podemos ver la template de un contenido, extendiendo de la plantilla base y definiendo
+el contenido necesario, así como haciendo uso de las taxonomías.
+
+\begin{verbatim}
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12 blog-post">
+
+  <div class="post-title">
+    <h1>{{ node.title }}</h1>
+  </div>
+
+  {{ scoper.set('total', [1, 0]) }}
+  {% for definition in node.taxonomies %}
+    <div class="post-taxonomies">
+    {% set values = node.taxonomies[definition] %}
+    <p class="title">{{ definition }}:</p>
+    <ul class="knowledge">
+      {% for value in values %}
+        {{ scoper.add('total', 1) }}
+        <li class="bg-color-4"><a href="{{ value.url }}">{{ value.name }}</a></li>
+      {% endfor %}
+    </ul>
+    </div>
+  {% endfor %}
+
+  <div class="post-info">
+    <span>
+        {{ node.publication_date | datetimeformat("%d %B, %Y") }}
+        {% if node.author %}
+            / by <a href="#" target="_blank">{{ node.author }}</a>
+        {% endif %}
+    </span>
+  </div>
+
+  <p>Total: {{ scoper.get('total') }}</p>
+  {{ node.content }}
+</div>
+{% endblock %}
+\end{verbatim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
