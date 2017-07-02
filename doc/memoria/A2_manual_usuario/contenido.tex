@@ -559,15 +559,120 @@ el contenido necesario, así como haciendo uso de las taxonomías.
 
 \section{Internacionalización}
 
+Sitic ofrece la posibilidad de tener una web multi-idioma, haciendo uso de la poderosa herramienta
+gettext~\cite{gettext}, que Python soporta de base.
+
 \subsection{Configuración}
+
+Para que Sitic sepa que el sitio contendrá más de un idioma, es necesario configurarlo, a continuación
+podemos ver un ejemplo:
+
+\begin{verbatim}
+main_language: 'en'
+
+languages:
+    en:
+        name: 'English'
+    es:
+        name: 'Español'
+        menus:
+            footer:
+                - title: 'title footer'
+                  url: '/test-url-footer'
+                  id: 'test-footer'
+\end{verbatim}
+
+De esta forma configuramos dos idiomas, indicándole a Sitic que el idioma inglés, es el idioma principal
+de la web. En el caso de que no se especificara qué idioma es el principal, Sitic tomaría cualquier de
+los configurados como principal.
+
 \subsection{Contenido}
+
+A la hora de escribir contenidos en distinto idiomas, sólo es necesario añadir el idioma al que pertenece el
+contenido en al nombre de éste, justo antes de la extensión del fichero. En el caso de que no se indique el
+idioma, Sitic dará por hecho de que el contenido pertenece al idioma principal configurado.
+
+En el siguiente ejemplo, se puede ver un ejemplo con una sección con contenidos en inglés y español:
+
+\begin{verbatim}
+content/
++-- section
+|   +-- content1.es.md
++   +-- content1.md
+\end{verbatim}
+
 \subsection{Plantillas}
+
+Para ver como traducir las cadenas presentes en las plantillas, los mejor es visitar la página oficial de
+Jinja2~\cite{jinja}, donde se explican los distintos filtros disponibles.
+
 \subsection{Generación y gestión}
+
+Sitic ofrece la posibilidad de generar los ficheros .po y .mo, usado por gettext para realizar la traducción
+de un sitio. Para ello ofrece dos comandos.
+
+\paragraph{makemessages}
+
+Este comando buscará todas las cadenas traducibles definidas en las templates y generará los ficheros .po
+en la carpeta locales.
+
+\begin{bashcode}
+$ sitic makemessages
+\end{bashcode}
+
+Un ejemplo de la carpeta locales generada por sitic:
+
+\begin{verbatim}
+locales/
++-- en
+|   +-- LC_MESSAGES
+|       +-- sitic.po
++-- es
+|   +-- LC_MESSAGES
++       +-- sitic.po
+\end{verbatim}
+
+
+\paragraph{compilemessages}
+
+Una vez que hayamos completado los ficheros .po con las traducciones necesarias, es necesario compilar dichos
+ficheros, para que gettext pueda obtener las traducciones correctamente. El comando para generar los ficheros
+.mo necesario es:
+
+\begin{bashcode}
+$ sitic compilemessages
+\end{bashcode}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Comandos}
+
+En esta sección se indican los distintos comandos disponibles en sitic, aparte de los ya comentados
+en secciones anteriores.
+
+\paragraph{watch}
+
+Con el objetivo de no tener que estar generando el sitio cada vez que se produce algún cambio en algunos
+de los fichero que compone la web, está disponible el comando \texttt{watch}, que constantemente está
+comprobando si existe algún cambio en algún fichero para regenerar el sitio.
+
+\begin{bashcode}
+$ sitic watch
+\end{bashcode}
+
+\paragraph{servidor}
+
+Con el siguiente comando, Sitic levanta un servidor local en el puerto que se desee, siendo por defecto
+el 8000, de forma que el usuario pueda probar el funcionamiente de su web sin necesidad de instalar y
+configurar ningún otro software:
+
+\begin{bashcode}
+$ sitic server
+\end{bashcode}
+
+Este comando a su vez incluye la funcionalidad del comando anteriormente comentado \texttt{watch}. Este
+comando está pensado para usarse durante el proceso de desarrollo de un sitio.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
