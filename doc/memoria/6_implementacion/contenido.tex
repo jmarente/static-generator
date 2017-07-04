@@ -6,10 +6,10 @@ el repositorio oficial.
 
 \subsection{Herramientas de diseño y desarrollo}
 
-Como editor principal se ha utilizado Vim, una versión mejorada del editor de
+Como editor principal se ha utilizado Vim~\cite{vim}, una versión mejorada del editor de
 texto vi, presente en todos los sistemas UNIX.
 
-Se ha utilizado draw.io para la generación de diagramas de casos de uso,
+Se ha utilizado draw.io~\cite{draw.io} para la generación de diagramas de casos de uso,
 secuencia, diagramas de flujo y similares. Se trata de una herramienta web, 
 actualmente integrable en Google Drive, con un enorme número de elementos de
 dibujo y la capacidad de exportar en un gran número de formatos, entre ellos en
@@ -17,15 +17,15 @@ formato vectorial PDF (Portable Document Format).
 
 \subsection{Gestión de dependencias}
 
-Para facilitar la gestión de las dependencias del proyecto se han utilizado VirtualEnv
-y VirtualEnvWrapper. Estas herramientas permiten generar
+Para facilitar la gestión de las dependencias del proyecto se han utilizado VirtualEnv~\cite{virtualenv}
+y VirtualEnvWrapper~\cite{virtualenvwrapper}. Estas herramientas permiten generar
 entornos virtuales para cada proyecto, en los que se instalan las dependencias necesarias.
 Estos entornos se activan y desactivan, de forma que las bibliotecas instaladas en
 el entorno virtual de un proyecto no son accesibles desde el entorno del
 otro proyecto. Esto evita la polución del nivel general de bibliotecas y facilita el
 control estricto de las versiones de las dependencias.
 
-Junto a virtualenv, la herramienta pip permite guardar en un fichero anexo
+Junto a virtualenv, la herramienta pip~\cite{pip} permite guardar en un fichero anexo
 la lista de dependencias de un proyecto, de forma que sea fácil reinstalarlas todas
 si hubiese que repetir la instalación en otro sistema.
 
@@ -33,7 +33,7 @@ si hubiese que repetir la instalación en otro sistema.
 
 Todo el código fuente del proyecto se encuentra alojado en un repositorio público
 en GitHub, haciendo uso de los planes gratuitos. GitHub es una repositorio que
-utiliza el sistema de control de versiones Git. Además del alojamiento de
+utiliza el sistema de control de versiones Git~\cite{git}. Además del alojamiento de
 código, GitHub provee numerosas funcionalidades adicionales, tanto a nivel
 social (permitiendo a las repositorios tener followers, por ejemplo) como a nivel funcional
 (ofreciendo sistemas de tickets, estadísticas, etcétera).
@@ -48,7 +48,7 @@ siendo posible ver en una línea temporal el progreso del trabajo.
 \subsection{Lenguaje de programación}
 
 Como se ha comentado en numerosas ocasiones en la presente memoria, el lenguaje
-de programación elegido para el desarrollo del proyecto es Python, un
+de programación elegido para el desarrollo del proyecto es Python~\cite{python}, un
 lenguaje interpretado de alto nivel desarrollado por Guido Van Rossum en 1991.
 Python soporta múltiples paradigmas de programación, desde la orientación a objetos
 hasta la programación funcional, pasando por el clásico estilo imperativo. Su
@@ -65,7 +65,7 @@ en los últimos años se haya expandido enormemente.
 En el proyecto se han utilizado un gran número de bibliotecas auxiliares para
 facilitar el desarrollo y ampliar la funcionalidad de forma sencilla.
 
-\paragraph{Jinja2}
+\paragraph{Jinja2~\cite{jinja}}
 Es un lenguaje de plantillas moderno y diseñado para Python, modelado a partir de las plantillas de Django.
 Es rápido, ampliamente utilizado y seguro con el entorno de ejecución.
 
@@ -79,7 +79,7 @@ Características:
     \item Sintaxis configurable.
 \end{itemize}
 
-\paragraph{Watchdog}
+\paragraph{Watchdog~\cite{watchdog}}
 
 API para monitorizar eventos en el sistema de ficheros.
 
@@ -88,7 +88,7 @@ API para monitorizar eventos en el sistema de ficheros.
     \item Herramientas para responder a cambios en directorios.
 \end{itemize}
 
-\paragraph{Click}
+\paragraph{Click~\cite{click}}
 
 Es un paquete de Python para crear interfaces de línea de comandos de una manera
 sencilla. Es el "Kit de creación de interfaz de
@@ -102,7 +102,7 @@ Caraterísticas:
     \item Soporta la carga de subcomandos en tiempo de ejecución.
 \end{itemize}
 
-\paragraph{Six}
+\paragraph{Six~\cite{six}}
 
 Proporciona utilidades simples para envolver las diferencias entre Python 2 y Python 3. Pretende
 que soporte las bases de código que funcionan tanto en Python 2 como en 3 sin modificación.
@@ -116,14 +116,14 @@ Consta de un solo archivo Python, por lo que es muy sencillo de añadir a un pro
 En esta sección se detalla la organización del código fuente del proyecto,
 describiendo la utilidad de los ficheros y directorios.
 
-El código fuente presente en la repositorio~\cite{repo} cuenta con los siguientes
+El código fuente presente en el repositorio~\cite{repositorio} cuenta con los siguientes
 elementos en el directorio raíz:
 
 \begin{itemize}
     \item \texttt{doc}: directorio con toda la documentación del proyecto.
     \item \texttt{examples}: directorio con ejemplos de webs haciendo uso de la herramienta.
     \item \texttt{sitic}: código fuente.
-    \item \texttt{README.md}: fichero de presentación para la repositorio.
+    \item \texttt{README.md}: fichero de presentación para el repositorio.
     \item \texttt{requirements.txt}: fichero con dependencias instalables con Pip.
 \end{itemize}
 

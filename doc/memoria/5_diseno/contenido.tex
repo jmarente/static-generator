@@ -39,19 +39,44 @@ siguientes elementos, que es necesario instalar para desplegar el sistema:
 La arquitectura lógica del sistema está formada por los elementos software
 (servicios, aplicaciones, librerías, frameworks, etc.) que componen el software base,
 más el software desarrollado para cumplir los requisitos de la aplicación. En esta
-sección se muestra la organización de los distintos elementos software que 
+sección se muestra la organización de los distintos elementos software que
 componen el proyecto así como la comunicación entre ellos.
 
-En la figura XX se puede ver un esquema de cómo se comunican los diferentes
+En la figura~\ref{fig:arquitectura-logica}  se puede ver un esquema de cómo se comunican los diferentes
 elementos que conforma el sistema a alto nivel. En detalle, el flujo que sigue
 en cada capa es el siguiente:
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{5_diseno/arquitectura_logica}
+    \caption{Arquitectura lógica}
+    \label{fig:arquitectura-logica}
+\end{figure}
+
+De esta forma, en este apartado de arquitectura lógica, vamos a describir todos los elementos
+software que componen el software base de la aplicación, además del propio software a desarrollar.
+De esta forma, podemos citar los siguientes componentes software:
+
+\begin{itemize}
+    \item Primeramente, como acabamos de comentar, nos encontramos el elemento software que
+        compone a nuestro proyecto, como ya se ha descrito anteriormente, un generador de sitios web estáticos.
+    \item Esta herrameinta está desarrollado haciendo uso del lenguaje de programación Python, por lo que es
+        indispensable que la máquina donde se use la herramienta, tenga el lenguaje disponible.
+    \item A su vez, dicho proyecto se ejecutará usando una terminal. La terminal del sistema debe de
+        tener como requisito poder ejecutar código Python.
+    \item Por último, el sistema operativo donde se vaya a instalar todos los componentes anteriores,
+        debe de tener soporte tanto para el servidor web donde vamos a incluir nuestro proyecto,
+        como para la tecnología Python, ya que el resto de componentes comentados, funcionan
+        sobre estas dos piezas. Por suerte, Python es un lenguaje de programación multiplataforma,
+        el cual tiene soporte para los principales sistemas operativos existentes en la actualidad.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diseño detallado de componentes}
 
-En esta sección se detalla el diseño concreto de algunos componentes de la aplicación, 
+En esta sección se detalla el diseño concreto de algunos componentes de la aplicación,
 especificando las clases involucradas y el flujo de mensajes entre ellas.
 
 En particular, se han elegido el proceso parseo y generación de contenidos
@@ -74,7 +99,7 @@ principal de la herramienta, el sistema recorre todos y cada uno de los ficheros
 en la carpeta de contenidos definida.
 
 Cada fichero lo separa en dos partes, la parte que contiene los metadatos del contenido y la parte que
-contiene el contenido redactado. Una vez hecho esto parsea cada una de las partes para convertirlos en 
+contiene el contenido redactado. Una vez hecho esto parsea cada una de las partes para convertirlos en
 un tipo de datos que sea de fácil manipulación, los metadatos los convierte a un tipo de datos
 diccionario del lenguaje Python y el contenido en sí, lo parsea en función de la extensión que se le
 haya puesto al fichero, que determinará que lenguaje de marcado hemos utilizado.
@@ -84,14 +109,14 @@ el usuario puede haber definido en los metadatos de estos que el fichero haya ca
 no esté listo para ser publicado aún y esté marcado como borrador.
 
 Teniendo ya los ficheros que se van a publicar, se recopilan el resto de contenidos a partir de estos, es decir,
-todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonomías, 
-ya que si, por ejemplo, existe una sección con un único contenido, se evita que dicha sección se genere 
+todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonomías,
+ya que si, por ejemplo, existe una sección con un único contenido, se evita que dicha sección se genere
 completamente vacía.
 
-Tras esto, se recorre cada uno de los ficheros, determinando que template se debe usar como base para renderizarlos, 
+Tras esto, se recorre cada uno de los ficheros, determinando que template se debe usar como base para renderizarlos,
 y se le comunica al motor de templates Jinja, el contenido que debe de renderizar en la template.
 
-Por último, el sistema mueve todos los ficheros estáticos(CSS, imágenes, Javascript) que la web pueda necesitar 
+Por último, el sistema mueve todos los ficheros estáticos(CSS, imágenes, Javascript) que la web pueda necesitar
 a la carpeta con todos los contenidos generados.
 
 
@@ -118,7 +143,7 @@ para su correcto visionado.
 \end{figure}
 
 En el diagrama de clases de pueden apreciar clases que no están relacionadas
-con ninguna otra del diagrama. Estas clases a las que nos referimos siguen un patrón Singleton, que
+con ninguna otra del diagrama. Estas clases a las que nos referimos siguen un patrón Singleton~\cite{singleton}, que
 permite que cualquier clases pueda acceder a ella desde cualquier parte del sistema. Sólo existirá una
 única instancia de cada una de las clases Singleton, que se creará en la primera llamada que se realice a
 ellas.
