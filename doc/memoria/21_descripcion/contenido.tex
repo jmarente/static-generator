@@ -1,14 +1,14 @@
 \section{Descripción}
 
-Sitic es un framework para sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
-A diferencia de otros sistemas que construyen dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
+Sitic es un framework para hacer sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
+A diferencia de otros sistemas que genera dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
+un única vez, 
 cuando creas su contenido. Dado que los sitios web se ven con mucha más frecuencia de lo que se edita,
-Sitic está optimizado para la visualización del sitio web mientras proporciona una gran experiencia de escritura.
 
-Los sitios construidos con Sitic son bastante más rápidos y muy seguros, que un sitio generado de forma dinámica.
-Se pueden alojar en cualquier lugar, incluyendo Heroku, GitHub Pages, Firebase Hosting, Google Cloud Storage o Amazon
-S3 entre otros. Los sitios de Sitic se ejecutan sin dependencias en tiempos de ejecución costosos como Ruby, Python
-o PHP y sin dependencias en ninguna base de datos.
+Los sitios construidos con Sitic son bastante más rápidos y seguros que un sitio generado de forma dinámica.
+Se pueden alojar en cualquier lugar, incluyendo GitHub Pages, Google Cloud Storage o Amazon
+S3 entre otros. Los sitios de Sitic se ejecutan sin depender de tiempos de ejecución costosos como Ruby, Python
+o PHP y sin dependencia de ninguna base de datos.
 
 \subsection{Diferencia con los generadores dinámicos}
 
@@ -21,9 +21,9 @@ memoria y CPU para ejecutar el generador de forma eficaz durante todo el día. S
 esperar a que la página se genere.
 
 Nadie quiere que los usuarios esperen más de lo necesario, por lo que los generadores de sitios dinámicos programaron
-sus sistemas para almacenar en caché los ficheros HTML. Cuando un fichero se almacena en caché, una copia de él se
-almacena temporalmente en el equipo. Es mucho más rápido para que el servidor HTTP envíe esa copia la próxima vez que
-se solicite la página que para generarla desde cero.
+sus sistemas para almacenar en caché los ficheros HTML. Cuando un fichero se almacena en caché, una copia se
+almacena temporalmente en el equipo. Es mucho más rápido que el servidor envíe esa copia la próxima vez que
+se solicite la página en lugar generarla desde cero.
 
 Sitic intenta llevar el almacenamiento en caché un paso más allá. Todos los ficheros HTML se representan en su máquina.
 Puede revisar los ficheros antes de copiarlos en la máquina que aloja el servidor HTTP. Dado que los ficheros HTML
@@ -31,20 +31,21 @@ no se generan dinámicamente, decimos que Sitic es un "generador estático".
 
 No tener que ejecutar la generación de HTML cada vez que se recibe una petición tiene varias ventajas. Entre ellas,
 la más notable es el rendimiento, los servidores HTTP son muy buenos en el envío de ficheros. Tan bueno que puede
-servir eficazmente el mismo número de páginas con una fracción de la memoria y la CPU necesaria para un sitio dinámico.
+servir eficazmente el mismo número de páginas con una fracción de memoria y CPU necesaria para un sitio dinámico.
 
 Sitic tiene dos componentes para ayudarle a construir y probar su sitio web. El que probablemente usará más a menudo es el
 servidor HTTP incorporado. Cuando ejecuta el servidor, Sitic procesa todo su contenido en ficheros HTML y luego ejecuta
 un servidor HTTP en su máquina para que pueda ver cómo son las páginas.
 
-El segundo componente se utiliza cuando esté listo para publicar su sitio web en el equipo que ejecuta su sitio web.
-Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} del fichero de
-configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente con la mayoría
-de las empresas de alojamiento.
+El segundo componente se utiliza una vez que el sitio esté listo para ser publicado.
+Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} 
+del fichero de configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente 
+con la mayoría de las empresas de alojamiento.
 
 \subsection{Características principales}
 
-En términos técnicos, Sitic toma un directorio fuente de ficheros y plantillas y los usa como entrada para crear un sitio web completo.
+En términos técnicos, Sitic toma un directorio fuente de ficheros 
+y plantillas y los usa como entrada para crear un sitio web completo.
 
 Sitic cuenta con las siguientes características:
 
@@ -53,7 +54,7 @@ Sitic cuenta con las siguientes características:
 \begin{itemize}
 \item Tiempos de generación rápidos
 \item Fácil instalación
-\item Aloje su sitio en cualquier lugar
+\item Posibilidad de alojar su sitio en cualquier lugar
 \end{itemize}
 
 \paragraph{Organización}

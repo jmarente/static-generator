@@ -2,15 +2,15 @@ En este capítulo se explicarán en detalle las instrucciones de uso de la herra
 
 \section{Introducción a Sitic}
 
-Sitic es un framework para sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
-A diferencia de otros sistemas que construyen dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
+Sitic es un framework para hacer sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
+A diferencia de otros sistemas que genera dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
+un única vez, 
 cuando creas su contenido. Dado que los sitios web se ven con mucha más frecuencia de lo que se edita,
-Sitic está optimizado para la visualización del sitio web mientras proporciona una gran experiencia de escritura.
 
-Los sitios construidos con Sitic son bastante más rápidos y muy seguros, que un sitio generado de forma dinámica.
-Se pueden alojar en cualquier lugar, incluyendo Heroku, GitHub Pages, Firebase Hosting, Google Cloud Storage o Amazon
-S3 entre otros. Los sitios de Sitic se ejecutan sin dependencias en tiempos de ejecución costosos como Ruby, Python
-o PHP y sin dependencias en ninguna base de datos.
+Los sitios construidos con Sitic son bastante más rápidos y seguros que un sitio generado de forma dinámica.
+Se pueden alojar en cualquier lugar, incluyendo GitHub Pages, Google Cloud Storage o Amazon
+S3 entre otros. Los sitios de Sitic se ejecutan sin depender de tiempos de ejecución costosos como Ruby, Python
+o PHP y sin dependencia de ninguna base de datos.
 
 \subsection{En qué se diferencia con los generadores dinámicos}
 
@@ -23,9 +23,9 @@ memoria y CPU para ejecutar el generador de forma eficaz durante todo el día. S
 esperar a que la página se genere.
 
 Nadie quiere que los usuarios esperen más de lo necesario, por lo que los generadores de sitios dinámicos programaron
-sus sistemas para almacenar en caché los ficheros HTML. Cuando un fichero se almacena en caché, una copia de él se
-almacena temporalmente en el equipo. Es mucho más rápido para que el servidor HTTP envíe esa copia la próxima vez que
-se solicite la página que para generarla desde cero.
+sus sistemas para almacenar en caché los ficheros HTML. Cuando un fichero se almacena en caché, una copia se
+almacena temporalmente en el equipo. Es mucho más rápido que el servidor envíe esa copia la próxima vez que
+se solicite la página en lugar generarla desde cero.
 
 Sitic intenta llevar el almacenamiento en caché un paso más allá. Todos los ficheros HTML se representan en su máquina.
 Puede revisar los ficheros antes de copiarlos en la máquina que aloja el servidor HTTP. Dado que los ficheros HTML
@@ -33,20 +33,21 @@ no se generan dinámicamente, decimos que Sitic es un "generador estático".
 
 No tener que ejecutar la generación de HTML cada vez que se recibe una petición tiene varias ventajas. Entre ellas,
 la más notable es el rendimiento, los servidores HTTP son muy buenos en el envío de ficheros. Tan bueno que puede
-servir eficazmente el mismo número de páginas con una fracción de la memoria y la CPU necesaria para un sitio dinámico.
+servir eficazmente el mismo número de páginas con una fracción de memoria y CPU necesaria para un sitio dinámico.
 
 Sitic tiene dos componentes para ayudarle a construir y probar su sitio web. El que probablemente usará más a menudo es el
 servidor HTTP incorporado. Cuando ejecuta el servidor, Sitic procesa todo su contenido en ficheros HTML y luego ejecuta
 un servidor HTTP en su máquina para que pueda ver cómo son las páginas.
 
-El segundo componente se utiliza cuando esté listo para publicar su sitio web en el equipo que ejecuta su sitio web.
-Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} del fichero de
-configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente con la mayoría
-de las empresas de alojamiento.
+El segundo componente se utiliza una vez que el sitio esté listo para ser publicado.
+Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} 
+del fichero de configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente 
+con la mayoría de las empresas de alojamiento.
 
 \subsection{Características principales}
 
-En términos técnicos, Sitic toma un directorio fuente de ficheros y plantillas y los usa como entrada para crear un sitio web completo.
+En términos técnicos, Sitic toma un directorio fuente de ficheros 
+y plantillas y los usa como entrada para crear un sitio web completo.
 
 Sitic cuenta con las siguientes características:
 
@@ -55,7 +56,7 @@ Sitic cuenta con las siguientes características:
 \begin{itemize}
 \item Tiempos de generación rápidos
 \item Fácil instalación
-\item Aloje su sitio en cualquier lugar
+\item Posibilidad de alojar su sitio en cualquier lugar
 \end{itemize}
 
 \paragraph{Organización}
@@ -159,10 +160,10 @@ configuración. Esto se debe a que Sitic está diseñado para reconocer ciertos 
 (y los espera por defecto).
 
 Sin embargo, Sitic busca un fichero de configuración con un nombre en particular en la raíz del directorio
-fuente de su sitio web. El fichero que busca es \texttt{./sitic.yaml}.
+de su sitio web. El fichero en concreto debe tener el nombre \texttt{./sitic.yaml}.
 
-En este fichero de configuración para su sitio web, puede incluir instrucciones precisas a Sitic sobre cómo
-debe procesar su sitio, así como definir sus menús y establecer varios otros parámetros de todo el sitio.
+En este fichero de configuración puede incluir las instrucciones necesarias de cómo se
+debe procesar su sitio, así como definir sus menús y establecer otras opciones.
 
 \subsection{Ejemplos}
 
@@ -224,7 +225,7 @@ idiomas, de las que hablaremos mas en detalle en las siguientes secciones.
 \subsection{Organización}
 
 El contenido debe estar organizado de la misma manera que se pretende que aparezca en la web.
-Sin ningún tipo de configuración adicional, el siguiente ejemplo funcionará:
+Sin ningún tipo de configuración adicional, a countinuacón se puede apreciar un ejemplo sencillo:
 
 \begin{verbatim}
 content/
@@ -295,7 +296,7 @@ El contenido va aquí
 
 \subsection{Secciones}
 
-Sitic cree que usted organiza su contenido con un propósito. La estructura usada
+Sitic esta hecho de forma que la organización su contenido tenga un propósito. La estructura usada
 para organizar el contenido de origen se utiliza para organizar el sitio generado. Siguiendo
 este patrón Sitic utiliza el nivel superior de su organización de contenido como la Sección.
 
@@ -324,7 +325,8 @@ nuevas taxonomías desde el fichero general de configuración.
 
 \subsection{Definiendo nuevas taxonomías}
 
-Para configurar nuevas taxonomías debemos hacerlo, añadiendo un nuevo elemento \texttt{taxonomies}, junto
+Para configurar nuevas taxonomías debemos hacerlo, añadiendo un nuevo elemento \texttt{taxonomies}
+a la configuración principal, junto
 con las definiciones en plural y singular de las nuevas taxonomías, un ejemplo, sería el siguiente:
 
 \begin{verbatim}
@@ -575,11 +577,6 @@ languages:
         name: 'English'
     es:
         name: 'Español'
-        menus:
-            footer:
-                - title: 'title footer'
-                  url: '/test-url-footer'
-                  id: 'test-footer'
 \end{verbatim}
 
 De esta forma configuramos dos idiomas, indicándole a Sitic que el idioma inglés, es el idioma principal
