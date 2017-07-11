@@ -25,7 +25,7 @@
     <span>{{ node.publication_date | datetimeformat("%d %B, %Y") }}{% if node.author %}/ by <a href="#" target="_blank">{{ node.author }}</a>{% endif %}</span>
   </div>
 
-  <p>Total: {{ scoper.get('total') }}</p>
+  <!--p>Total: {{ scoper.get('total') }}</p-->
   {{ node.content }}
 </div>
 {% endblock %}
