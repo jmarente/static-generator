@@ -11,6 +11,7 @@ from sitic.logging import logger
 from sitic.content.sitemap import Sitemap
 from sitic.scoper import Scoper
 from sitic.search import Search
+from sitic.content.rss import Rss
 
 class Generator(object):
     context = {}
@@ -74,7 +75,10 @@ class Generator(object):
                     self.generate_paginable(render, content)
                 else:
                     self.generate_regular(render, content)
-                sitemap.contents.append(content)
+
+                # FIXME: temporary fix
+                if not isinstance(content, Rss):
+                    sitemap.contents.append(content)
 
             self.generate_regular(render, sitemap)
 
