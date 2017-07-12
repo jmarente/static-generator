@@ -6,7 +6,7 @@ calidad aceptable.
 Todos los módulos que componen la aplicación han sido probados individualmente, como pueden
 ser aquellos módulos encargados de la gestión de idiomas, generación de contenidos o categorización.
 
-También se realizaron pruebas de integración, ya que había módulos, una vez probado en solitario, 
+También se realizaron pruebas de integración, ya que había módulos, una vez probado en solitario,
 debían realizar distintas acciones junto con otros módulos.
 
 Otras pruebas que se realizaron fueron de generación, tanto yo como
@@ -52,11 +52,27 @@ del mismo sistema, sino entre varios sistemas.
 Una de las mejores formas que se pesaron para realizar este tipo de pruebas, es desarrollar una web que usara todos los elementos
 que se iban implementando.
 
+\section{Pruebas de aceptación}
+
+Conforme se avanzaba en el desarrollo del proyecto y se conseguían versiones estables del mismo, se
+envíaban estas versiones, junto con el manual del proyecto, a un grupo de usuarios con los conocimientos
+necesarios, capaces de interpretar los requerimientos especificados por los futuros usuarios de la herramienta.
+
+El manual se iba actualizando con las nuevas funcionalidades que se iban añadiendo. De forma que
+los usuarios pudieran identificar y probar correctamente todas las características de la herramienta.
+
+Cada uno de estos usuarios devolvía un pequeño informe sobre la herramienta, en la que detallaban los distintos
+problemas que se habían encontrado, errores que necesitaban ser corregidos y su opinión sobre
+funcionalidades, indicando cuales podría ser ampliadas para que fueran más útiles o más sencillas de usar.
+
+Con cada uno de estos informes, se trabajaba para mejorar la herramienta en la siguientes versiones, dando
+prioridad a aquellas que se consideraban más críticas.
+
 \section{Pruebas de generación}
 
 Cada vez que estaban disponibles nuevas versiones estables de la herramienta, se pedían la ayuda a personas,
-totalmente ajenas al desarrollo, que probaran las distintas versiones disponibles. De esta forma cada uno 
-de los colaboradores daba su opinión sobre  distintos aspectos como la usabilidad, dificultad, respuesta o eficiencia. 
+totalmente ajenas al desarrollo, que probaran las distintas versiones disponibles. De esta forma cada uno
+de los colaboradores daba su opinión sobre  distintos aspectos como la usabilidad, dificultad, respuesta o eficiencia.
 Tras recopilar la información que todos ellos proporcionaron, se procedía a realizar los ajustes
 necesarios a los distintos parámetros requeridos.
 
@@ -64,7 +80,7 @@ Entre los distintos aspectos a probar que se le recomendaban a los
 colaboradores que hicieran especial hincapié, son los siguiente:
 
 \begin{itemize}
-\item \textbf{Internacionalización}: definición de varios idiomas con contenidos divididos, así como pruebas de generar 
+\item \textbf{Internacionalización}: definición de varios idiomas con contenidos divididos, así como pruebas de generar
 los mismos contenidos sin ningún idioma configurado.
 \item \textbf{Urls de ficheros}: definir distintas urls en los ficheros, comprobando que la generación se la ruta
 se generaba de forma correcta, en función de la rutas definidas
