@@ -52,3 +52,5 @@ examples/*/public/*
 *.fot
 *.cb
 *.cb2
+*.bbl
+*.blg
