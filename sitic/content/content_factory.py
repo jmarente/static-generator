@@ -36,7 +36,16 @@ class ContentFactory(object):
             self.homepages[lang] = homepage = Homepage(lang)
             self.rss[lang].append(Rss(lang, homepage))
 
-    def build_contents(self, contents_path):
+    def build_contents(self):
+        self.initialize()
+        for root, directory, files in os.walk(config.content_path):
+            supported_files = [os.path.join(root, f) for f in files
+                    if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
+            self._build_contents(supported_files)
+
+        self.build_routed_contents()
+
+    def _build_contents(self, contents_path):
         self.taxonomy_definitions = {
             singular: TaxonomyDefinition(singular, plural)
             for singular, plural in config.get_taxonomies().items()
@@ -137,3 +146,6 @@ class ContentFactory(object):
             self.rss[language].append(Rss(language, section))
 
         return section
+
+    def build_routed_contents(self):
+        pass

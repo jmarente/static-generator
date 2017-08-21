@@ -20,11 +20,7 @@ class Generator(object):
         self.content_factory = ContentFactory()
 
     def build_contents(self):
-        self.content_factory.initialize()
-        for root, directory, files in os.walk(config.content_path):
-            supported_files = [os.path.join(root, f) for f in files
-                    if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
-            self.content_factory.build_contents(supported_files)
+        self.content_factory.build_contents()
 
     def gen(self):
         self.build_contents()
