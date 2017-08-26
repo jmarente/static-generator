@@ -35,7 +35,7 @@ class Render(object):
             with open(output_path, 'w') as output_file:
                 output_file.write(content)
         else:
-            logger.warning('No template found for content {}'.format(content.file_path))
+            logger.warning('No template found for content - {}'.format(content))
 
     def get_content_template(self, content):
         template = None

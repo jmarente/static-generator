@@ -17,10 +17,11 @@ class Search(object):
 
         for content in self.contents:
             content_context = content.get_context()
+            get_plain_content = getattr(content, 'get_plain_content', None)
             page_index = {
                 'title': content_context['title'],
                 'url': content.get_url(),
-                'content': content.get_plain_content(),
+                'content': get_plain_content() if callable(get_plain_content) else '',
             }
 
             self.index.append(page_index)

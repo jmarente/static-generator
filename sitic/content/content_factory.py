@@ -1,5 +1,6 @@
 # -*- condig: utf-8 -*-
 import os
+import json
 from collections import defaultdict
 
 from sitic.config import config
@@ -7,8 +8,10 @@ from sitic.content import Page, page_parser
 from sitic.content.taxonomy import TaxonomyDefinition, Taxonomy
 from sitic.content.section import Section
 from sitic.content.homepage import Homepage
+from sitic.content.routed_page import RoutedPage
 from sitic.content.rss import Rss
 from sitic.utils import constants
+from sitic.logging import logger
 
 
 class ContentFactory(object):
@@ -148,4 +151,59 @@ class ContentFactory(object):
         return section
 
     def build_routed_contents(self):
-        pass
+        routing_content = self.get_routing_content()
+
+        for content in routing_content:
+            try:
+                routed_page = self.handle_routed_content(content)
+            except Exception as e:
+                logger.warning('Routed config with data {} could not be handle. Error: {}'
+                               .format(json.dumps(content), str(e)))
+
+            language = routed_page.language
+            if routed_page.to_publish():
+                self.contents[language].append(routed_page)
+            elif routed_page.is_expired():
+                self.expired_contents[language].append(routed_page)
+
+    def handle_routed_content(self, content):
+
+        languages = config.get_languages()
+
+        if not isinstance(content, dict):
+            logger.warning('Every element in the routing file must be a dictionary: {}'.format(e.message))
+            return
+
+        language = config.main_language
+        if 'language' in content:
+            language = content['language'] if content['language'] in languages else language
+            del content['language']
+
+        section_name = None
+        if 'section' in content:
+            section_name = content.get('section')
+            del content['section']
+
+        routed_page = RoutedPage(content, language)
+
+        if routed_page.to_publish():
+            section = self._get_section(section_name, language)
+            section.add_page(routed_page)
+
+            self.update_taxonomies(routed_page)
+
+        return routed_page
+
+    def get_routing_content(self):
+        content = []
+        if os.path.isfile(config.routing_path):
+            with open(config.routing_path) as routing_file:
+                try:
+                    content = json.load(routing_file)
+                except Exception as e:
+                    logger.warning('Routing file could not be parsed: {}'.format(e.message))
+
+        if not isinstance(content, list):
+            logger.warning('Routing file wrong format: {}'.format(e.message))
+            content = []
+        return content

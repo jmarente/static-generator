@@ -32,6 +32,7 @@ class _Config():
     sitemap = None
     rss_limit = constants.DEFAULT_RSS_LIMIT
     description_length = constants.DEFAULT_DESCRIPTION_LENGTH
+    routing_path = None
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
@@ -44,6 +45,7 @@ class _Config():
         self.static_path = os.path.join(self.base_path, constants.DEFAULT_STATIC_PATH)
         self.templates_path = os.path.join(self.base_path, constants.DEFAULT_TEMPLATES_PATH)
         self.locales_path = os.path.join(self.base_path, constants.DEFAULT_LOCALES_PATH)
+        self.routing_path = os.path.join(self.base_path, constants.DEFAULT_ROUTING_FILE_PATH)
 
         path_options = ['public_path', 'content_path', 'static_path']
         with open(self.config_path, 'r') as config_file:
