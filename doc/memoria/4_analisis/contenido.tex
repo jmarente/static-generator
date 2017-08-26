@@ -39,6 +39,12 @@ Relaciones:
     \item Está compuesto por una configuración.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Contiene todos los elementos necesarios en un sitio web.
+    \item Se encarga de representar los elementos de la forma adecuada.
+\end{itemize}
+
 \subsection{Configuración}
 
 Representa la configuración básica.
@@ -48,6 +54,13 @@ Relaciones:
     \item Pertenece a un sitio web.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Almacena todos los elementos configurables del sitio web.
+    \item Aplica valores determinados a los parámetros no especificados.
+    \item Provee a cada una de las partes los parámetros de configuración necesarios.
+\end{itemize}
+
 \subsection{Idioma}
 
 Representa los idiomas disponibles.
@@ -55,6 +68,13 @@ Representa los idiomas disponibles.
 Relaciones:
 \begin{itemize}
     \item Pertenece a un sitio web.
+\end{itemize}
+
+Objetivos:
+\begin{itemize}
+    \item Contiene los distintos idiomas disponibles en la web.
+    \item Gestiona los contenidos que están en cada idioma.
+    \item Gestiona la traduccion de la interfaz general del sitio web.
 \end{itemize}
 
 \subsection{Contenido base}
@@ -68,6 +88,11 @@ Relaciones:
     \item Se relaciona con un idioma.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Convertir los contenidos añadidos por los usuarios en formato HTML.
+\end{itemize}
+
 \subsection{Contenido paginable}
 
 Representa a un contenido, que a su vez está compuesto por otros contenidos, lo que implica
@@ -76,6 +101,12 @@ que es paginable.
 Relaciones:
 \begin{itemize}
     \item Extiende un contenido base.
+\end{itemize}
+
+Objetivos:
+\begin{itemize}
+    \item Organizar cada uno de los contenidos de los que está compuesto en distintas páginas.
+    \item Facilitar al usuario la gestión de las páginas.
 \end{itemize}
 
 \subsection{Página}
@@ -89,6 +120,12 @@ Relaciones:
     \item Se clasifica en varias taxonomías.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Convertir a HTML los contenidos escritos en el lenguaje de marcado usado por el usuario.
+    \item Gestionar los metadatos definidos por los usuarios en cada contenido.
+\end{itemize}
+
 \subsection{Sección}
 
 Representa a un conjunto de contenidos.
@@ -97,6 +134,12 @@ Relaciones:
 \begin{itemize}
     \item Está compuesto por varias páginas.
     \item Extiende un contenido base.
+\end{itemize}
+
+Objetivos:
+\begin{itemize}
+    \item Agrupar y clasificar páginas.
+    \item Permitir mostrar las páginas en las distintas secciones a las que pertenece.
 \end{itemize}
 
 \subsection{Taxonomías}
@@ -109,6 +152,12 @@ Relaciones:
     \item Contiene varias páginas.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Agrupar y clasificar páginas de una forma más concreta.
+    \item Permitir mostrar las páginas en las distintas taxonomías a las que pertenece.
+\end{itemize}
+
 \subsection{Template}
 
 Representa la template HTML en la que se renderiza un contenido
@@ -118,6 +167,12 @@ Relaciones:
     \item Se relaciona con un contenido.
 \end{itemize}
 
+Objetivos:
+\begin{itemize}
+    \item Renderizar el contenido en una plantilla HTML.
+    \item Personalizar la forma en la que aparecerán los contenidos.
+\end{itemize}
+
 \subsection{Feed RSS}
 
 Representa la representación RSS de un contenido paginable
@@ -125,6 +180,11 @@ Representa la representación RSS de un contenido paginable
 Relaciones:
 \begin{itemize}
     \item Pertenece a un contenido paginable.
+\end{itemize}
+
+Objetivos:
+\begin{itemize}
+    \item Lista los contenidos en formato que puedan ser procesador por lectores RSS.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,7 +218,7 @@ el que realiza todas las acciones para la generación de los contenidos.
         \begin{enumerate}
             \item El \textit{Usuario} escribe el contenido del fichero de configuración.
             \item El \textit{Usuario} ejecuta la ejecución de contenido.
-            \item El sitio se genera satisfactoria siguiendo todo los parámetros configurados.
+            \item El sitio se genera satisfactoria siguiendo todos los parámetros configurados.
         \end{enumerate}
     \item[Flujo alternativo] $\quad$
         \begin{description}

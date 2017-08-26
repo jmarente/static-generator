@@ -24,23 +24,23 @@ para la correcta ejecución de la plataforma web.
 \subsection{Descarga de código}
 
 Antes de continuar se presentan los requisitos de hardware y software mínimos
-para la correcta ejecución de la herramiente.
+para la correcta ejecución de la herramienta.
 
 Para instalar la plataforma web es necesario clonar el repositorio~\cite{repositorio}
 con el código de la aplicación. Primero, creamos una ubicación donde alojar el
 código desde la terminal:
 
 \begin{bashcode}
-$ mkdir ~/sitic -p
-$ cd ~/sitic
+    $ mkdir ~/sitic -p
+    $ cd ~/sitic
 \end{bashcode}
 
 Una vez ahí, instalamos el software de control de versiones \textbf{git} y
 clonamos el repositorio desde Github:
 
 \begin{bashcode}
-$ sudo apt-get install git
-$ git clone https://github.com/josemarente/sitic.git .--
+    $ sudo apt-get install git
+    $ git clone https://github.com/josemarente/sitic.git .--
 \end{bashcode}
 
 \subsubsection{Instalación de dependencias}
@@ -51,38 +51,38 @@ instalación de estos dos elementos es sencilla, en primer lugar se instala el
 gestor de paquetes y los dos paquetes mencionados:
 
 \begin{bashcode}
-$ sudo apt-get install python-pip
-$ sudo pip install virtualenv
-$ sudo pip install virtualenvwrapper
+    $ sudo apt-get install python-pip
+    $ sudo pip install virtualenv
+    $ sudo pip install virtualenvwrapper
 \end{bashcode}
 
 En segundo lugar, añadimos el código de \textit{bootstrapping} de
 virtualenvwrapper a nuestro perfil de terminal, habitualmente \texttt{.bashrc}:
 
 \begin{bashcode}
-$ cat >> ~/.bashrc
+    $ cat >> ~/.bashrc
 
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]
-then
-source /usr/local/bin/virtualenvwrapper.sh
-fi
+    if [ -f /usr/local/bin/virtualenvwrapper.sh ]
+    then
+    source /usr/local/bin/virtualenvwrapper.sh
+    fi
 
-EOF
+    EOF
 \end{bashcode}
 
 Hecho esto, será necesario reiniciar la terminal o volver a cargar el perfil del a terminal,
 para el caso de \texttt{.bashrc}, se puede hacer de la siguiente forma:
 
 \begin{bashcode}
-$ source ~/.bashrc
+    $ source ~/.bashrc
 \end{bashcode}
 
 Tras esto, podremos crear el entorno virtual e instalar las dependencias:
 
 \begin{bashcode}
-$ mkvirtualenv sitic
-$ sudo apt-get install python-dev
-$ pip install -r requirements.txt
+    $ mkvirtualenv sitic
+    $ sudo apt-get install python-dev
+    $ pip install -r requirements.txt
 \end{bashcode}
 
 El proceso de instalación de dependencias puede tardar entre 5 y 10 minutos aproximadamente.
@@ -95,7 +95,7 @@ para lanzarlos, para ello bastaría con hacer un enlace simbólico del ejecutabl
 \texttt{/usr/local/bin} de la siguiente manera:
 
 \begin{bashcode}
-$ ln -s ~/sitic/main.py /usr/local/bin/sitic
+    $ ln -s ~/sitic/main.py /usr/local/bin/sitic
 \end{bashcode}
 
 \section{Pruebas de implantación}
@@ -109,7 +109,7 @@ El primer paso antes de nada es lanzar la batería de tests que viene incluida e
 el proyecto, mediante el comando
 
 \begin{verbatim}
-$ python tests.py test
+    $ python tests.py test
 \end{verbatim}
 
 Todos los tests deberían funcionar correctamente. Si no lo hacen, es que ha
@@ -120,9 +120,9 @@ por lo que bastaría con ir a a la carpeta \texttt{examples} y ejecutar sitic en
 de los ejemplos disponibles. Los comandos para este caso serían los siguientes:
 
 \begin{bashcode}
-$ workon sitic
-$ cd ~/sitic/examples/blog
-$ sitic
+    $ workon sitic
+    $ cd ~/sitic/examples/blog
+    $ sitic
 \end{bashcode}
 
 En el caso de que la generación del sitio de ejemplo no se llevara a cabo

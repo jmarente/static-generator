@@ -303,7 +303,7 @@ detallando las razones de esta decisión.
 \subsection{Biblioteca para crear simples interfaces por línea de comandos}
 
 Dada la mayor familiaridad del desarrollador con el lenguaje, solo se barajaron
-frameworks de desarrollo basados en el lenguaje Python.
+\textit{frameworks} de desarrollo basados en el lenguaje Python.
 
 \begin{itemize}
     \item \textbf{Click}~\cite{click}: paquete de Python para crear interfaces de línea de comandos de
@@ -314,8 +314,8 @@ que evita cualquier frustración causada por la imposibilidad de implementar una
 \item \textbf{Fire}~\cite{python-fire}: es una biblioteca para generar automáticamente interfaces de línea de comandos
 desde cualquier objeto Python.
 \item \textbf{Argparse}~\cite{argparse}: pertenece a la biblioteca estándar de Python y facilita la escritura de interfaces
-de línea de comandos fáciles de usar. El programa define qué argumentos requiere, y argparse descubrirá cómo
-analizar los que están fuera de sys.argv. El módulo argparse también genera automáticamente mensajes de ayuda
+de línea de comandos fáciles de usar. El programa define qué argumentos requiere, y ArgParse descubrirá cómo
+analizar los que están fuera de sys.argv. El módulo ArgParse también genera automáticamente mensajes de ayuda
 y uso y emite errores cuando los usuarios dan al programa argumentos inválidos.
 \end{itemize}
 
@@ -368,9 +368,50 @@ las siguientes:
 \begin{itemize}
 \item \textbf{JSON}~\cite{json}: es un formato de texto ligero para el intercambio de datos. JSON es un subconjunto de la notación literal de
 objetos de JavaScript aunque hoy, debido a su amplia adopción como alternativa a XML, se considera un formato de lenguaje independiente.
+
+Ejemplo de formato:
+
+\begin{verbatim}
+    {
+      "firstName": "John",
+      "lastName": "Smith",
+      "age": 25,
+      "address": {
+        "streetAddress": "21 2nd Street",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": "10021-3100"
+      },
+      "spouse": null
+    }
+\end{verbatim}
+
 \item \textbf{TOML}~\cite{toml}: es un formato de archivo de configuración que es fácil de leer debido a la semántica obvia que pretende ser
 "mínima". TOML está diseñado para hacer asignaciones a un diccionario sin ambigüedad.
+
+Ejemplo de formato:
+
+\begin{verbatim}
+    title = "TOML Example"
+
+    [instance]
+    server = "192.168.1.1"
+    ports = [ 8001, 8001, 8002 ]
+    connection_max = 5000
+    enabled = true
+\end{verbatim}
+
 \item \textbf{YAML}~\cite{yaml}: formato de serialización de datos legible por humanos inspirado en lenguajes como XML, C, Python, Perl,
+
+Ejemplo de formato:
+
+\begin{verbatim}
+  men: [John Smith, Bill Jones]
+  women:
+    - Mary Smith
+    - Susan Williams
+\end{verbatim}
+
 \end{itemize}
 
 

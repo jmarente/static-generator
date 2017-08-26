@@ -1,7 +1,3 @@
-Como complemento a la lectura de este capítulo se recomienda tener una copia
-local del repositorio del proyecto, disponible para su libre descarga desde
-el repositorio oficial.
-
 \section{Entorno de construcción}
 
 \subsection{Herramientas de diseño y desarrollo}
@@ -17,9 +13,21 @@ formato vectorial PDF (Portable Document Format).
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textwidth]{6_implementacion/vim_logo}
-    \caption{Logo de Vim}
-    \label{fig:vim-logo}
+    \hspace*{\fill}%
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{6_implementacion/vim_logo}
+        \caption{Logo de Vim}
+        \label{fig:vim-logo}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{6_implementacion/drawio_logo.png}
+        \caption{Logo de Draw.io}
+        \label{fig:drawio-logo}
+    \end{subfigure}
+    \hspace*{\fill}%
 \end{figure}
 
 \subsection{Gestión de dependencias}
@@ -32,17 +40,17 @@ el entorno virtual de un proyecto no son accesibles desde el entorno del
 otro proyecto. Esto evita la polución del nivel general de bibliotecas y facilita el
 control estricto de las versiones de las dependencias.
 
-Junto a virtualenv, la herramienta pip~\cite{pip} permite guardar en un fichero anexo
+Junto a Virtualenv, la herramienta pip~\cite{pip} permite guardar en un fichero anexo
 la lista de dependencias de un proyecto, de forma que sea fácil reinstalarlas todas
 si hubiese que repetir la instalación en otro sistema.
 
 \subsection{Control de versiones}
 
 Todo el código fuente del proyecto se encuentra alojado en un repositorio público
-en GitHub, haciendo uso de los planes gratuitos. GitHub es una repositorio que
+en GitHub, haciendo uso de los planes gratuitos. GitHub es un repositorio que
 utiliza el sistema de control de versiones Git~\cite{git}. Además del alojamiento de
 código, GitHub provee numerosas funcionalidades adicionales, tanto a nivel
-social (permitiendo a las repositorios tener followers, por ejemplo) como a nivel funcional
+social (permitiendo a los repositorios tener followers, por ejemplo) como a nivel funcional
 (ofreciendo sistemas de tickets, estadísticas, etcétera).
 
 El uso de un control de versiones es fundamental por varios motivos. En primer
@@ -86,8 +94,7 @@ en los últimos años se haya expandido enormemente.
 En el proyecto se han utilizado un gran número de bibliotecas auxiliares para
 facilitar el desarrollo y ampliar la funcionalidad de forma sencilla.
 
-\paragraph{Jinja2~\cite{jinja}}
-Es un lenguaje de plantillas moderno y diseñado para Python, modelado a partir de las plantillas de Django.
+\textbf{Jinja2}~\cite{jinja} Es un lenguaje de plantillas moderno y diseñado para Python, modelado a partir de las plantillas de Django.
 Es rápido, ampliamente utilizado y seguro con el entorno de ejecución.
 
 Características:
@@ -107,22 +114,18 @@ Características:
     \label{fig:jinja-logo}
 \end{figure}
 
-\paragraph{Watchdog~\cite{watchdog}}
-
-API para monitorizar eventos en el sistema de ficheros.
+\textbf{Watchdog}~\cite{watchdog} API para monitorizar eventos en el sistema de ficheros.
 
 \begin{itemize}
     \item Multiplataforma.
     \item Herramientas para responder a cambios en directorios.
 \end{itemize}
 
-\paragraph{Click~\cite{click}}
-
-Es un paquete de Python para crear interfaces de línea de comandos de una manera
+\textbf{Click}~\cite{click} Es un paquete de Python para crear interfaces de línea de comandos de una manera
 sencilla. Es el "Kit de creación de interfaz de
 línea de comandos". Es altamente configurable.
 
-Caraterísticas:
+Características:
 
 \begin{itemize}
     \item Anidamiento arbitrario de comandos.
@@ -130,9 +133,7 @@ Caraterísticas:
     \item Soporta la carga de subcomandos en tiempo de ejecución.
 \end{itemize}
 
-\paragraph{Six~\cite{six}}
-
-Proporciona utilidades simples para envolver las diferencias entre Python 2 y Python 3. Pretende
+\textbf{Six}~\cite{six} Proporciona utilidades simples para envolver las diferencias entre Python 2 y Python 3. Pretende
 que soporte las bases de código que funcionan tanto en Python 2 como en 3 sin modificación.
 Consta de un solo archivo Python, por lo que es muy sencillo de añadir a un proyecto.
 
@@ -144,8 +145,11 @@ Consta de un solo archivo Python, por lo que es muy sencillo de añadir a un pro
 En esta sección se detalla la organización del código fuente del proyecto,
 describiendo la utilidad de los ficheros y directorios.
 
-El código fuente presente en el repositorio~\cite{repositorio} cuenta con los siguientes
-elementos en el directorio raíz:
+Como complemento a la lectura de este capítulo se recomienda tener una copia
+local del repositorio del proyecto, disponible para su libre descarga desde
+el repositorio oficial~\cite{repositorio}.
+
+El código fuente cuenta con los siguientes elementos en el directorio raíz:
 
 \begin{itemize}
     \item \texttt{doc}: directorio con toda la documentación del proyecto.
@@ -240,94 +244,91 @@ A continuación se puede ver un ejemplo de un fichero de contenido \texttt{Markd
 \texttt{TOML}:
 
 \begin{verbatim}
-++++++++++++++++
-title='Post 1'
-tags=['tag1', 'tag2']
-description="Post 1 description"
-++++++++++++++++
+    ++++++++++++++++
+    title='Post 1'
+    tags=['tag1', 'tag2']
+    description="Post 1 description"
+    ++++++++++++++++
 
-## Variarum loricaeque
+    ## Variarum loricaeque
 
-Lorem markdownum mihi. Avidoque doloris stabit; omen turaque est, ante ergo
-nostraque, tibi.
+    Lorem markdownum mihi. Avidoque doloris stabit; omen turaque est, 
+    ante ergo nostraque, tibi.
 
-    cpl_monitor_clean += html_window(management_ddl * 3, hacker);
-    ccd -= -3;
-    alignment_sdram += netbios_optical_party.webHardening(recycle_horizontal(5,
-            networkCmsOpen, bandwidth_computer - text), -1);
+        cpl_monitor_clean += html_window(management_ddl * 3, hacker);
+        ccd -= -3;
+        alignment_sdram += netbios_optical_party.webHardening(recycle_horizontal(5,
+                networkCmsOpen, bandwidth_computer - text), -1);
 
-## Curam vires adhuc domum
+    ## Curam vires adhuc domum
 
-Tendere posuisse fatorum pharetras e diversis *lacertos*: ius cum vacuaque denos
-quem, ausa transit puero. Undique foret et restatque supremaque accessi utile
-mollire [bracchia Othryn](http://www.ratibus.net/curvavit.html) manumque; vimque
-exprobravit sola ferrum diverso inania terramque. Qui illic et Romulus, ad erat
-Pergama daedalus annis, fudit.
+    Tendere posuisse fatorum pharetras e diversis *lacertos*: ius cum vacuaque denos
+    quem, ausa transit puero. Undique foret et restatque supremaque accessi utile
+    mollire [bracchia Othryn](http://www.ratibus.net/curvavit.html) manumque; vimque
+    exprobravit sola ferrum diverso inania terramque. Qui illic et Romulus, ad erat
+    Pergama daedalus annis, fudit.
 
-> Hunc medio, Argus plus pro lecto nimiumque dextera. Inde pondere ipse,
-> lacertos [Troianae](http://faciunt.net/) habet rex, membra, lacrimisque
-> onerosa. Dedi grata vani visurus corpora pariter ferarum **est quodque
-> stimuletur**, vestri discrimina sceptrum, abit doceri septem iuvenumque. Ego
-> est forte inpetus coniugis, auras inania regnat, tum languescuntque Byblida
-> nisi, mentes. Vident candidus flectitur humana.
+    > Hunc medio, Argus plus pro lecto nimiumque dextera. Inde pondere ipse,
+    > lacertos [Troianae](http://faciunt.net/) habet rex, membra, lacrimisque
+    > onerosa. Dedi grata vani visurus corpora pariter ferarum **est quodque
+    > stimuletur**, vestri discrimina sceptrum, abit doceri septem iuvenumque. Ego
+    > est forte inpetus coniugis, auras inania regnat, tum languescuntque Byblida
+    > nisi, mentes. Vident candidus flectitur humana.
 \end{verbatim}
 
 Internamente el sistema automáticamente divide el contenido del fichero en dos partes y las procesa por separado.
 A continuación se puede ver el fragmento de código que se encarga de realizar dicha tarea:
 
 \begin{pythoncode}
-# -*- condig: utf-8 -*-
-
-from sitic.content.frontmatter_handlers import YamlHander, TomlHandler
+    from sitic.content.frontmatter_handlers import YamlHander, TomlHandler
 
 
-handlers = [handler() for handler in [YamlHander, TomlHandler]]
+    handlers = [handler() for handler in [YamlHander, TomlHandler]]
 
-def __get_handler(text):
-    text_handler = None
+    def __get_handler(text):
+        text_handler = None
 
-    for handler in handlers:
-        if handler.has_format(text):
-            text_handler = handler
-            break
+        for handler in handlers:
+            if handler.has_format(text):
+                text_handler = handler
+                break
 
-    return handler
+        return handler
 
 
-def __parse(text, handler):
-    text = text.strip()
-    metadata = {}
+    def __parse(text, handler):
+        text = text.strip()
+        metadata = {}
 
-    handler = handler or __get_handler(text)
-    if not handler:
+        handler = handler or __get_handler(text)
+        if not handler:
+            return metadata, text
+
+
+        try:
+            metadata, text = handler.split(text)
+        except ValueError:
+            return metadata, text
+
+        metadata = handler.load(metadata)
+
         return metadata, text
 
 
-    try:
-        metadata, text = handler.split(text)
-    except ValueError:
-        return metadata, text
+    def load(file_path, handler=None):
+        text = ''
 
-    metadata = handler.load(metadata)
+        with open(file_path, 'r') as f:
+            text = f.read()
 
-    return metadata, text
-
-
-def load(file_path, handler=None):
-    text = ''
-
-    with open(file_path, 'r') as f:
-        text = f.read()
-
-    text = text.strip()
-    handler = handler or __get_handler(text)
-    return loads(text, handler)
+        text = text.strip()
+        handler = handler or __get_handler(text)
+        return loads(text, handler)
 \end{pythoncode}
 
 \subsubsection{Implementación de búsqueda}
 
-Hoy en día, cualquier página web de un tamaño considerable con una cantidad de contenidos lo suficientemente
-grande como para ser difícil encontrar cualquier contenido antiguo navegador por la misma, necesita un
+Hoy en día, cualquier sitio web con un número de páginas elevado, necesita un
 buscador con el que se puedan encontrar de forma sencilla los contenidos.
 
 Dado que \texttt{Sitic} genera un sitio web completamente estático, lo que implica que no tenemos ningún
@@ -355,38 +356,18 @@ EL JSON resultante tendría el siguiente formato:
         "content": "Variarum loricaeque\nLorem markdownum mihi...",
         "title": "Post 6",
         "url": "/blog/post6"
-    },
-    {
-        "content": "Variarum loricaeque\nLorem markdownum mihi...",
-        "title": "Post 5",
-        "url": "/blog/post5"
-    },
-    {
-        "content": "Variarum loricaeque\nLorem markdownum mihi. Avct...",
-        "title": "Post 3",
-        "url": "/blog/post3"
-    },
-    {
-        "content": "This is a Heading 1\n\n\tThis might be an intro...",
-        "title": "Post 7",
-        "url": "/blog/post7"
-    },
-    {
-        "content": "\nBasic self-documenting ReStructured Text exa...",
-        "title": "Post 8",
-        "url": "/blog/post8"
-    },
+    }
 ]
 \end{jsoncode}
 
 Este fichero se añadiría a la carpeta del sitio generado.
 
-La tercera parte requería implementar la lógica necesaria en \texttt{Javascript}que usara el indice generado
-y devolviera los resultados encontrados. Para ellos se hizo usa de la biblioteca para \texttt{Lunr.js} para
-\texttt{Javascript} que permite realizar búsquedas en índices adaptados a su formato.
+La tercera parte requería implementar la lógica necesaria en \texttt{Javascript} que usara el índice generado
+y devolviera los resultados encontrados. Para ello se hizo uso de la biblioteca \texttt{Lunr.js} para
+\texttt{Javascript} que permite realizar búsquedas en índices adaptados previamente a su formato.
 
 La tercera y última parte de la implementación consiste en que el usuario pueda de forma sencilla añadir dicho buscador en
-su web, para ello, se debe de añadir un formulario con un id específico que el código Javascript anteriormente
+su web, para ello, se debe añadir un formulario con un id específico que el código Javascript anteriormente
 comentado consultará y por último generar una plantilla llamada \texttt{search-results.js} con un bloque
 determinado donde se mostrarán los resultados de la búsqueda.
 
@@ -400,79 +381,43 @@ en el fichero configuración del sitio. A continuación podéis ver una configur
 idioma principal el inglés:
 
 \begin{verbatim}
-main_language: 'en'
+    main_language: 'en'
 
-languages:
-    en:
-		title: "English"
-    es:
-		title: "Español"
+    languages:
+        en:
+            title: "English"
+        es:
+            title: "Español"
 \end{verbatim}
 
 Una vez hecho esto, el usuario deberá indicar al sistema de que idioma se trata cada contenido, añadiendo como sufijo
 justo antes de la extensión, el código del idioma, en el caso de que no se añada ninguno, el sistema supondrá que
 el formato del fichero es el idioma marcado como principal.
 
-En el caso de las templates, el usuario tiene disponible un filtro propio de \texttt{Jinja2}. A continuación
-se puede ver el uso de dicho filtro en una template:
+En el caso de las templates, el usuario tiene disponible un filtro propio de \texttt{Jinja2}.
 
+El uso de dicho filtro se usaría de la siguiente forma dentro de una plantilla:
 \begin{minted}{html}
-<!DOCTYPE html>
-<html>
-  <head>
-    {% block head %}
-    <title>{% block title %}{% endblock %} - My Webpage</title>
-    {% endblock %}
-  </head>
-  <body>
     <div id="header">{% trans %}This is a test{% endtrans %}</div>
     <p>{% trans user='test'%}Hello {{ user }}!{% endtrans %}</p>
-    <p>
-      {% trans count=list|length %}
-      There is {{ count }} {{ name }} object.
-      {% pluralize %}
-      There are {{ count }} {{ name }} objects.
-      {% endtrans %}
-    </p>
-    <p>{{ gettext('Hello World!') }}</p>
-    <p>{{ ngettext('%(num)d apple', '%(num)d apples', apples|count) }}</p>
-    <p>{{ _('Hello World!') }}</p>
-    <p>{% trans %}this is multine
-    translation{% endtrans %}</p>
-    <p>
-    {% trans test='value' %}This is is another multiline{{ test }}{% endtrans %}
-    </p>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-      {% block footer %}
-      &copy; Hey!! <a href="#">Click me!</a>.
-      {% endblock %}
-    </div>
-    {% block scripts %}
-    {% endblock %}
-  </body>
-</html>
 \end{minted}
 
+Como se puede apreciar en el ejemplo anterior, el sistema permite añadir variables en las cadenas 
+traducibles.
+
 Por último, si el usuario tuviera que crear y manipular de forma totalmente manual los ficheros
-necesarios por \texttt{gettext}, esto sería de poca utilidad. Por ello se implementaron dos comando
-que hiciera la vida mucho más fácil al usuario:
+necesarios por \texttt{gettext}, esto sería de poca utilidad. Por ello se implementaron dos comandos
+que facilitaran esta labor al usuario:
 
 \begin{itemize}
 	\item \textbf{makemessages}: Extrae las cadenas de traducciones y genera los ficheros .po necesarios.
 	\item \textbf{compilemessages}: Compila los ficheros .po en .mo usados por gettext.
 \end{itemize}
 
-A continuación se puede ver un fragmento del código de \texttt{makemessages}:
+A continuación se puede ver un fragmento del código principar de \texttt{makemessages}
+encargdo de extraer las traducciones de las plantillas:
 
 \begin{pythoncode}
-def run(self):
-
-    self.extract_translations()
-    self.generate_pot_file()
-    self.generate_po_file()
-    self.delete_pot_file()
-
 def extract_translations(self):
     for root, directory, files in os.walk(config.templates_path):
         for f in files:
@@ -486,27 +431,4 @@ def extract_translations(self):
                     t = list(t)
                     t.insert(0, relative_file_path)
                     self.translations.append(t)
-
-def generate_pot_file(self):
-    pot_template = self.env.get_template('pot_template.jinja')
-    pot_content = pot_template.render({'translations': self.translations})
-
-    if not os.path.isdir(config.locales_path):
-        os.makedirs(config.locales_path)
-
-    with open(self.pot_file_path, 'w', encoding='utf-8') as f:
-        f.write(pot_content)
-
-    msguniq_args = ['msguniq'] + self.msguniq_options + [self.pot_file_path]
-    output, errors, status = call_subprocess(msguniq_args)
-
-    if status != constants.STATUS_OK and errors:
-        logger.error("errors happened while running msguniq\n{}".format(errors))
-        sys.exit(1)
-    elif errors:
-        logger.error(errors)
-
-    # Replace pot file with msguniq output
-    with open(self.pot_file_path, 'w', encoding='utf-8') as f:
-        f.write(output)
 \end{pythoncode}

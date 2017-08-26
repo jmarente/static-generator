@@ -1,5 +1,5 @@
 El diseño de casos de pruebas para un proyecto de las características de \emph{Sitic}
-es algo complicado, ya que estamos en un escenario simulando como interactúan muchísimos
+es algo complicado, ya que necesitamos un escenario en el que interactúen todos los
 elementos entre sí. Pero las pruebas son algo necesario si deseamos un software con una
 calidad aceptable.
 
@@ -26,8 +26,8 @@ En definitiva, la organización de los casos de pruebas fue la siguiente:
 
 \section{Pruebas unitarias}
 
-Esta pruebas se realizaron junto a la fase de implementación, conforme se implementaban nuevos módulos necesarios para la aplicación
-se realizaban pruebas individuales sobre estos módulos. De esta forma se buscaban todos los caminos posibles que podría dar cada
+Estas pruebas se realizaron junto a la fase de implementación, conforme se implementaban nuevos módulos para la aplicación,
+se realizaban pruebas individuales sobre los mismos. De esta forma se buscaban todos los caminos posibles que podría dar cada
 módulo, teniendo en cuenta aquellos que fueran más predispuesto a fallos.
 
 De esta forma todas las sentencias se ejecutaban como mínimo una vez y los posibles fallos se encontraban de una forma más sencilla.
@@ -52,6 +52,11 @@ del mismo sistema, sino entre varios sistemas.
 Una de las mejores formas que se pesaron para realizar este tipo de pruebas, es desarrollar una web que usara todos los elementos
 que se iban implementando.
 
+En este caso se creó un Blog, ya que es un ejemplo de sitio web perfecto, sencillo y que use 
+todos los elementos de \textbf{Sitic} que se puede construir.
+
+Durante el desarrollo se descubrieron distintos errores y se mejoraron muchos aspectos de usabilidad del proyecto.
+
 \section{Pruebas de aceptación}
 
 Conforme se avanzaba en el desarrollo del proyecto y se conseguían versiones estables del mismo, se
@@ -65,8 +70,12 @@ Cada uno de estos usuarios devolvía un pequeño informe sobre la herramienta, e
 problemas que se habían encontrado, errores que necesitaban ser corregidos y su opinión sobre
 funcionalidades, indicando cuales podría ser ampliadas para que fueran más útiles o más sencillas de usar.
 
-Con cada uno de estos informes, se trabajaba para mejorar la herramienta en la siguientes versiones, dando
+Con cada uno de estos informes, se trabajaba para mejorar la herramienta en versiones posteriores, dando
 prioridad a aquellas que se consideraban más críticas.
+
+Entre las principales quejas de los usuarios, se encontraban muchos aspectos referentes a los contenidos,
+ya que alguno uno de ellos consideraban que se debería permitir generar contenidos sin necesidad 
+de generar ficheros en la carpeta de contenidos, por lo que se trabajó en una solución para corregirlo.
 
 \section{Pruebas de generación}
 
