@@ -25,12 +25,15 @@ class Render(object):
         for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
             self.environment.filters[name] = function
 
-    def render(self, content, output_path, context, meta_tag):
+    def render(self, content, output_path, context, meta_tag, js_includes):
         template = self.get_content_template(content)
         if template:
 
             content = template.render(**context)
             content = content.replace('</head>', "{}\n\n</head>".format(meta_tag))
+
+            js_includes = '\n'.join(js_includes)
+            content = content.replace('</body>', "{}\n\n</body>".format(js_includes))
 
             with open(output_path, 'w') as output_file:
                 output_file.write(content)

@@ -27,6 +27,8 @@ class Generator(object):
         self.create_public_folder()
         self.move_static_folder()
 
+        self.search = Search()
+
         for language in config.get_languages():
 
             # initialize context every loop
@@ -55,12 +57,12 @@ class Generator(object):
 
             all_contents = [homepage] + contents + taxonomies_contents + sections + rss
 
-            self.search = Search(language, contents + sections)
-
             meta_data = {
                 'search-index': self.search.get_url(),
                 'language': language,
             }
+
+            self.search.add_contents(contents + sections)
 
             meta_values = ['data-{}="{}"'.format(key, value) for key, value in meta_data.items()]
             self.meta_tag = '<meta name="sitic" {}/>'.format(' '.join(meta_values))
@@ -78,9 +80,10 @@ class Generator(object):
 
             self.generate_regular(render, sitemap)
 
-            self.search.create_file()
 
             self.remove_expired(expired_contents)
+
+        self.search.create_files()
 
         logger.info('Site generated')
 
@@ -114,7 +117,7 @@ class Generator(object):
 
         self.create_path(content_path)
         self.context['node'] = content.get_context()
-        render.render(content, content_path, self.context, self.meta_tag)
+        render.render(content, content_path, self.context, self.meta_tag, self.search.get_html_includes())
 
     def generate_paginable(self, render, content):
         page_size = config.paginable or content.pages_count()
@@ -128,7 +131,7 @@ class Generator(object):
 
             self.create_path(page_path)
             self.context['node']['paginator'] = paginator
-            render.render(content, page_path, self.context, self.meta_tag)
+            render.render(content, page_path, self.context, self.meta_tag, self.search.get_html_includes())
 
     def remove_expired(self, expired_contents):
         for content in expired_contents:
