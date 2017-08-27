@@ -9,6 +9,7 @@ from sitic.config import config
 class BaseContent(object):
     name = ""
     paginable = False
+    indexable = True
     template_fields = ['name']
     simple_context = None
     context = None

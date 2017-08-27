@@ -20,12 +20,17 @@ class Search(object):
     def get_index(self):
 
         for content in self.contents:
+            if not content.indexable:
+                continue
+
             content_context = content.get_context()
             get_plain_content = getattr(content, 'get_plain_content', None)
+            get_description = getattr(content, 'get_description', None)
             page_index = {
                 'title': content_context['title'],
                 'url': content.get_url(),
                 'content': get_plain_content() if callable(get_plain_content) else '',
+                'description': get_description() if callable(get_description) else '',
                 'language': content.language,
             }
 

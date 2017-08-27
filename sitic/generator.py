@@ -43,6 +43,7 @@ class Generator(object):
             taxonomies = self.content_factory.get_taxonomies(language)
             taxonomies_contents = self.get_taxonomies_content(taxonomies)
             sections = self.content_factory.get_sections(language)
+            search_page = self.content_factory.search_pages[language]
 
             self.add_taxonomies_to_context(taxonomies)
 
@@ -55,7 +56,7 @@ class Generator(object):
 
             menus = menu_builder.build()
 
-            all_contents = [homepage] + contents + taxonomies_contents + sections + rss
+            all_contents = [homepage] + contents + taxonomies_contents + sections + rss + [search_page]
 
             meta_data = {
                 'search-index': self.search.get_url(),
