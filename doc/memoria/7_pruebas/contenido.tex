@@ -31,7 +31,7 @@ se realizaban pruebas individuales sobre los mismos. De esta forma se buscaban t
 módulo, teniendo en cuenta aquellos que fueran más predispuesto a fallos.
 
 De esta forma todas las sentencias se ejecutaban como mínimo una vez y los posibles fallos se encontraban de una forma más sencilla.
-Por lo que también eran más fácil localizar donde estaba el problema y afrontar la solución de este.
+Por lo que también eran más fácil localizar donde estaba el problema y afrontar la solución.
 
 \subsection{Análisis del código con Pylint.}
 
@@ -49,13 +49,14 @@ posteriormente habían sido probados individualmente, se realizaban pruebas de i
 Conforme se avanzaba en el desarrollo, se realizaban pruebas de integración a mayor escala. No solo entre módulos
 del mismo sistema, sino entre varios sistemas.
 
-Una de las mejores formas que se pesaron para realizar este tipo de pruebas, es desarrollar una web que usara todos los elementos
+Una de las mejores formas que se pensaron para realizar este tipo de pruebas, es desarrollar una web que usara todos los elementos
 que se iban implementando.
 
 En este caso se creó un Blog, ya que es un ejemplo de sitio web perfecto, sencillo y que use 
-todos los elementos de \textbf{Sitic} que se puede construir.
+todos los elementos de \textbf{Sitic}.
 
-Durante el desarrollo se descubrieron distintos errores y se mejoraron muchos aspectos de usabilidad del proyecto.
+Durante el desarrollo se descubrieron distintos errores y se mejoraron muchos aspectos de usabilidad del proyecto, 
+como puede serel uso de las taxonomías o la usabilidad de la funcionalidad para la paginación de secciones.
 
 \section{Pruebas de aceptación}
 
@@ -74,7 +75,7 @@ Con cada uno de estos informes, se trabajaba para mejorar la herramienta en vers
 prioridad a aquellas que se consideraban más críticas.
 
 Entre las principales quejas de los usuarios, se encontraban muchos aspectos referentes a los contenidos,
-ya que alguno uno de ellos consideraban que se debería permitir generar contenidos sin necesidad 
+ya que algunos usuario consideraban que se debería permitir generar contenidos sin necesidad 
 de generar ficheros en la carpeta de contenidos, por lo que se trabajó en una solución para corregirlo.
 
 \section{Pruebas de generación}
@@ -95,7 +96,7 @@ los mismos contenidos sin ningún idioma configurado.
 se generaba de forma correcta, en función de la rutas definidas
 \item \textbf{Paginación}: configurar distintos valores para la paginación de elementos por página, así como la desactivación
 del mismo, comprobando que se generaban tantas páginas estáticas por sección/taxonomías como páginas debería de tener.
-\item \textbf{Menús}: Definición de menús con elementos estáticas y dinámicos.
+\item \textbf{Menús}: definición de menús con elementos estáticas y dinámicos.
 \item \textbf{Categorización}: definir distintas taxonomías y mezclarlas entre los idiomas, comprobando finalmente que cada
 contenido se había organizado de la forma correcta.
 \end{itemize}

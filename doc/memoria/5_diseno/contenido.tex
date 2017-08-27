@@ -37,7 +37,7 @@ siguientes elementos, que es necesario instalar para desplegar el sistema:
 \subsection{Arquitectura lógica}
 
 La arquitectura lógica del sistema está formada por los elementos software
-(servicios, aplicaciones, librerías, frameworks, etc.) que componen el software base,
+(servicios, aplicaciones, librerías, etc.) que componen el software base,
 más el software desarrollado para cumplir los requisitos de la aplicación. En esta
 sección se muestra la organización de los distintos elementos software que
 componen el proyecto así como la comunicación entre ellos.
@@ -54,7 +54,7 @@ en cada capa es el siguiente:
 \end{figure}
 
 De esta forma, en este apartado de arquitectura lógica, vamos a describir todos los elementos
-software que componen el software base de la aplicación, además del propio software a desarrollar.
+que componen el software base de la aplicación, además del propio software a desarrollar.
 De esta forma, podemos citar los siguientes componentes software:
 
 \begin{itemize}
@@ -104,19 +104,19 @@ un tipo de datos que sea de fácil manipulación, los metadatos los convierte a 
 diccionario del lenguaje Python y el contenido en sí, lo parsea en función de la extensión que se le
 haya puesto al fichero, que determinará que lenguaje de marcado hemos utilizado.
 
-Una vez que todos los ficheros han sido parseados, determinar qué ficheros se van a generar, ya que
-el usuario puede haber definido en los metadatos de estos que el fichero haya caducado o que simplemente
-no esté listo para ser publicado aún y esté marcado como borrador.
+Una vez que todos los ficheros han sido parseados, determina qué ficheros se van a generar, ya que
+el usuario puede haber definido en los metadatos que el fichero haya caducado o que simplemente
+no esté listo para ser publicado aún.
 
 Teniendo ya los ficheros que se van a publicar, se recopilan el resto de contenidos a partir de estos, es decir,
-todos aquellos contenidos que depende de estos como son la homepage, las secciones o las taxonomías,
+todos aquellos contenidos que depende de estos como son la página inicial, las secciones o las taxonomías,
 ya que si, por ejemplo, existe una sección con un único contenido, se evita que dicha sección se genere
 completamente vacía.
 
-Tras esto, se recorre cada uno de los ficheros, determinando que template se debe usar como base para renderizarlos,
-y se le comunica al motor de templates Jinja, el contenido que debe de renderizar en la template.
+Tras esto, se recorre cada uno de los ficheros, determinando que plantilla se debe usar como base para renderizarlos,
+y se le comunica al motor de plantillas Jinja, el contenido que debe de renderizar.
 
-Por último, el sistema mueve todos los ficheros estáticos(CSS, imágenes, Javascript) que la web pueda necesitar
+Por último, el sistema mueve todos los ficheros estáticos (CSS, imágenes, Javascript) que la web pueda necesitar
 a la carpeta con todos los contenidos generados.
 
 

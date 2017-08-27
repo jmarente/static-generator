@@ -50,7 +50,7 @@ Todo el código fuente del proyecto se encuentra alojado en un repositorio públ
 en GitHub, haciendo uso de los planes gratuitos. GitHub es un repositorio que
 utiliza el sistema de control de versiones Git~\cite{git}. Además del alojamiento de
 código, GitHub provee numerosas funcionalidades adicionales, tanto a nivel
-social (permitiendo a los repositorios tener followers, por ejemplo) como a nivel funcional
+social (permitiendo a los repositorios tener seguidores, por ejemplo) como a nivel funcional
 (ofreciendo sistemas de tickets, estadísticas, etcétera).
 
 El uso de un control de versiones es fundamental por varios motivos. En primer
@@ -74,7 +74,7 @@ de programación elegido para el desarrollo del proyecto es Python~\cite{python}
 lenguaje interpretado de alto nivel desarrollado por Guido Van Rossum en 1991.
 Python soporta múltiples paradigmas de programación, desde la orientación a objetos
 hasta la programación funcional, pasando por el clásico estilo imperativo. Su
-principal uso ha sido como lenguaje de scripting, pero también tiene su hueco en
+principal uso ha sido como lenguaje de \textit{scripting}, pero también tiene su hueco en
 contextos más amplios como lenguaje principal.
 
 Su facilidad de aprendizaje, lo simple de su sintaxis (basada en la indentación
@@ -164,20 +164,20 @@ El código fuente cuenta con los siguientes elementos en el directorio raíz:
 El código se encuentra íntegramente contenido en el directorio sitic del proyecto, que contiene lo siguiente:
 
 \begin{itemize}
-\item \texttt{cli parser.py}: definición de comandos disponibles.
+\item \texttt{cli\_parser.py}: definición de comandos disponibles.
 \item \texttt{compilemessages.py}: comando para compilar traducciones.
 \item \texttt{config.py}: encargado de parsea la configuración.
 \item \texttt{content}: directorio con los ficheros que gestionan los contenidos.
     \begin{itemize}
-        \item \texttt{base content.py}: implementa el contenido base del que heredan el resto de contenidos.
-       \item \texttt{content factory.py}: implementa el patrón factory para obtener contenidos.
-       \item \texttt{frontmatter handlers.py}: parseado de metadatos de contenidos.
+        \item \texttt{base\_content.py}: implementa el contenido base del que heredan el resto de contenidos.
+       \item \texttt{content\_factory.py}: implementa el patrón factory para obtener contenidos.
+       \item \texttt{frontmatter\_handlers.py}: parseado de metadatos de contenidos.
        \item \texttt{homepage.py}: implementa la homepage.
-       \item \texttt{menu builder.py}: implementa el menú.
+       \item \texttt{menu\_builder.py}: implementa el menú.
        \item \texttt{menu.py}: implementa un elemento del menú.
-       \item \texttt{page parser.py}: implementa el parseador de contenidos.
+       \item \texttt{page\_parser.py}: implementa el parseador de contenidos.
        \item \texttt{page.py}: implementa el contenido escrito por el usuario.
-       \item \texttt{paginable content.py}: implementación de contenidos paginables.
+       \item \texttt{paginable\_content.py}: implementación de contenidos paginables.
        \item \texttt{paginator.py}: implementa paginación de secciones y taxonomías.
        \item \texttt{rss.py}: implementa el rss.
        \item \texttt{section.py}: implementa las secciones.
@@ -329,7 +329,7 @@ A continuación se puede ver el fragmento de código que se encarga de realizar 
 \subsubsection{Implementación de búsqueda}
 
 Hoy en día, cualquier sitio web con un número de páginas elevado, necesita un
-buscador con el que se puedan encontrar de forma sencilla los contenidos.
+buscador con el que se puedan encontrar los contenidos de forma sencilla.
 
 Dado que \texttt{Sitic} genera un sitio web completamente estático, lo que implica que no tenemos ningún
 servidor al que hacerle peticiones con los términos que se desean buscar, se decidió implementar
@@ -367,7 +367,7 @@ y devolviera los resultados encontrados. Para ello se hizo uso de la biblioteca 
 \texttt{Javascript} que permite realizar búsquedas en índices adaptados previamente a su formato.
 
 La tercera y última parte de la implementación consiste en que el usuario pueda de forma sencilla añadir dicho buscador en
-su web, para ello, se debe añadir un formulario con un id específico que el código Javascript anteriormente
+su web, para ello, se debe añadir un formulario con un id específico que el código \texttt{Javascript} anteriormente
 comentado consultará y por último generar una plantilla llamada \texttt{search-results.js} con un bloque
 determinado donde se mostrarán los resultados de la búsqueda.
 
@@ -415,7 +415,7 @@ que facilitaran esta labor al usuario:
 \end{itemize}
 
 A continuación se puede ver un fragmento del código principar de \texttt{makemessages}
-encargdo de extraer las traducciones de las plantillas:
+encargado de extraer las traducciones de las plantillas:
 
 \begin{pythoncode}
 def extract_translations(self):
