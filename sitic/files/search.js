@@ -87,14 +87,33 @@ var defaultDiacriticsRemovalMap = [
     {'base':'z','letters':/[\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763]/g}
 ];
 
-function initLunr(callback) {
+function getParameterByName(name) {
+    value = null;
 
-    console.log('initLunr');
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+    var results = regex.exec(url);
+
+    if (results) {
+        value = results[2] ? results[2] : '';
+    }
+
+    return value != null ? decodeURIComponent(value.replace(/\+/g, " ")) : null;
+}
+
+function getCurrentLanguage() {
+    var element = document.querySelector('meta[name="sitic"]');
+    var language = element && element.getAttribute("data-language");
+    return language;
+}
+
+function initLunr(language, callback) {
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            console.log('request done');
             pagesIndex = JSON.parse(xmlHttp.responseText);
 
             //Remove english stopwords
@@ -107,13 +126,16 @@ function initLunr(callback) {
                     boost: 10
                 });
                 this.field("content");
+                this.field("description");
 
                 // ref is the result item identifier (I chose the page URL)
                 this.ref("url");
 
                 // Feed lunr with each file and let lunr actually index them
                 pagesIndex.forEach(function(page) {
-                    this.add(page);
+                    if (!language || page.language == language) {
+                        this.add(page);
+                    }
                 }, this);
             });
 
@@ -152,23 +174,81 @@ function search(query) {
 }
 
 function applySearch(text) {
-    console.log('applySearch');
-
     var sanitizedText = removeDiacritics(text);
     var results = search(sanitizedText);
 
-    results.forEach(function (r) {
-        console.log(r);
-    });
+    if (results.length) {
+        document.getElementById('sitic-search-no-results').style.display = 'none';
+        var ul = document.getElementById('sitic-search-results');
+        while(ul.firstChild ){
+            ul.removeChild(ul.firstChild);
+        }
+        if (ul) {
+            results.forEach(function (r) {
+                appendResult(r, ul);
+            });
+        }
+    }
+    else {
+        document.getElementById('sitic-search-no-results').style.display = 'block';
+    }
+}
+
+function appendResult(data, ul) {
+    var a = document.createElement('a');
+    a.href = data.url;
+    a.title = data.title;
+    a.appendChild(document.createTextNode(data.title));
+
+
+    var li = document.createElement("li");
+    li.setAttribute('class', 'sitic-search-row');
+    li.appendChild(a);
+    if (data.description) {
+        var description = document.createElement('p');
+        description.appendChild(document.createTextNode(data.description));
+        description.setAttribute('class', 'sitic-search-row-desc');
+        li.appendChild(description);
+    }
+
+
+    ul.appendChild(li);
+}
+
+function checkForChanges() {
+
+    var t;
+    window.onkeypress = resetTimer;
+
+    function resetTimer() {
+        clearTimeout(t);
+        t = setTimeout(function () {
+            var searchText = document.getElementById("sitic-search-input").value;
+
+            if (searchText) {
+                applySearch(searchText);
+            }
+        }, 1000);  // time is in milliseconds
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var searchText = 'routed';
+    var searchText = getParameterByName('search');
 
-    initLunr(function (error) {
+    if (searchText) {
 
-        if (!error) {
-            applySearch(searchText);
-        }
-    });
+        document.getElementById('sitic-search-no-results').style.display = 'none';
+
+        document.getElementById("sitic-search-input").value = searchText;
+        var language = getCurrentLanguage();
+
+        initLunr(language, function (error) {
+
+            if (!error) {
+                applySearch(searchText);
+
+                checkForChanges();
+            }
+        });
+    }
 });

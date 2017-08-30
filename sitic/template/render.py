@@ -6,7 +6,7 @@ import gettext
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 from sitic.config import config
-from sitic.template import filters
+from sitic.template import filters, functions
 from sitic.utils import constants
 from sitic.logging import logger
 
@@ -24,6 +24,8 @@ class Render(object):
 
         for name, function in inspect.getmembers(filters, predicate=inspect.isfunction):
             self.environment.filters[name] = function
+
+        self.environment.globals['get_search_url'] = functions.get_search_url
 
     def render(self, content, output_path, context, meta_tag, js_includes):
         template = self.get_content_template(content)

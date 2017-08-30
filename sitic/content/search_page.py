@@ -2,12 +2,12 @@
 from sitic.content.base_content import BaseContent
 
 
-class Search(BaseContent):
+class SearchPage(BaseContent):
 
     indexable = False
 
     def __init__(self, language):
-        super(Search, self).__init__()
+        super(SearchPage, self).__init__()
         self.name = 'Search'
         self.language = language
 

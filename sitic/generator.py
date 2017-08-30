@@ -10,7 +10,7 @@ from sitic.template import Render
 from sitic.logging import logger
 from sitic.content.sitemap import Sitemap
 from sitic.scoper import Scoper
-from sitic.search import Search
+from sitic.search_indexer import SearchIndexer
 from sitic.content.rss import Rss
 
 class Generator(object):
@@ -27,7 +27,7 @@ class Generator(object):
         self.create_public_folder()
         self.move_static_folder()
 
-        self.search = Search()
+        self.search_indexer = SearchIndexer()
 
         for language in config.get_languages():
 
@@ -59,13 +59,13 @@ class Generator(object):
             all_contents = [homepage] + contents + taxonomies_contents + sections + rss + [search_page]
 
             meta_data = {
-                'search-index': self.search.get_url(),
+                'search-index': self.search_indexer.get_url(),
                 'language': language,
             }
 
-            self.search.add_contents(contents + sections)
+            self.search_indexer.add_contents(contents + sections)
 
-            meta_values = ['data-{}="{}"'.format(key, value) for key, value in meta_data.items()]
+            meta_values = ['data-{}="{}"'.format(key, value) for key, value in meta_data.items() if value]
             self.meta_tag = '<meta name="sitic" {}/>'.format(' '.join(meta_values))
 
             for content in all_contents:
@@ -84,7 +84,7 @@ class Generator(object):
 
             self.remove_expired(expired_contents)
 
-        self.search.create_files()
+        self.search_indexer.create_files()
 
         logger.info('Site generated')
 
@@ -118,7 +118,7 @@ class Generator(object):
 
         self.create_path(content_path)
         self.context['node'] = content.get_context()
-        render.render(content, content_path, self.context, self.meta_tag, self.search.get_html_includes())
+        render.render(content, content_path, self.context, self.meta_tag, self.search_indexer.get_html_includes())
 
     def generate_paginable(self, render, content):
         page_size = config.paginable or content.pages_count()
@@ -132,7 +132,7 @@ class Generator(object):
 
             self.create_path(page_path)
             self.context['node']['paginator'] = paginator
-            render.render(content, page_path, self.context, self.meta_tag, self.search.get_html_includes())
+            render.render(content, page_path, self.context, self.meta_tag, self.search_indexer.get_html_includes())
 
     def remove_expired(self, expired_contents):
         for content in expired_contents:

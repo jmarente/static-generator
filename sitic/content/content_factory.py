@@ -10,7 +10,7 @@ from sitic.content.section import Section
 from sitic.content.homepage import Homepage
 from sitic.content.routed_page import RoutedPage
 from sitic.content.rss import Rss
-from sitic.content.search import Search
+from sitic.content.search_page import SearchPage
 from sitic.utils import constants
 from sitic.logging import logger
 
@@ -40,7 +40,7 @@ class ContentFactory(object):
         for lang in config.get_languages():
             self.homepages[lang] = homepage = Homepage(lang)
             self.rss[lang].append(Rss(lang, homepage))
-            self.search_pages[lang] = Search(lang)
+            self.search_pages[lang] = SearchPage(lang)
 
     def build_contents(self):
         self.initialize()

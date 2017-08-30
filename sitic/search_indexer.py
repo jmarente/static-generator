@@ -5,7 +5,7 @@ import shutil
 
 from sitic.config import config
 
-class Search(object):
+class SearchIndexer(object):
 
     INDEX_FILE_NAME = 'sitic-search-index.js'
     FILES_TO_COPY = ['lunr.js', 'search.js']
