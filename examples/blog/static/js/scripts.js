@@ -88,13 +88,6 @@
 		  
 		  
 	   
-       /* Ajaxchimp for Subscribe Form */
-		
-        $('#mc-form').ajaxChimp();
-		
-		
-		
-       
        /* Video and Google Map Popup */
 		 
         $('.video-popup').magnificPopup({

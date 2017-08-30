@@ -9,3 +9,20 @@
 .post-taxonomies a {
     color: inherit; /* blue colors for links too */
 }
+
+#mc-form {
+    padding: 0px;
+}
+
+.search-block {
+    background-color: #ffffff !important;
+    max-width:100%;
+}
+
+.subscribe-form {
+    margin-bottom:0px;
+}
+
+.subscribe-form .text-input {
+    padding: 10px;
+}

@@ -44,7 +44,8 @@
         <div class="row">
           <!-- About Me (Left Sidebar) Start -->
           <div class="col-md-3">
-            <div class="about-fixed">
+            <!--div class="about-fixed"-->
+            <div>
               <div class="my-pic">
                 <img src="/static/images/pic/my-pic.png" alt="">
                 <div id="menu" class="">
@@ -53,6 +54,13 @@
                     <li><a href="/about">About</a></li>
                   </ul>
                 </div>
+              </div>
+              <div class="search-block">
+                <form id="mc-form" method="get" action="{{ get_search_url() }}" novalidate="true">
+                  <div class="subscribe-form">
+                    <input id="sitic-search-input" type="text" placeholder="Search" class="text-input" name="search">
+                  </div>
+                </form>
               </div>
               <div class="my-detail">
                 <div class="white-spacing">
