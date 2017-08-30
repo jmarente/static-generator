@@ -177,12 +177,13 @@ function applySearch(text) {
     var sanitizedText = removeDiacritics(text);
     var results = search(sanitizedText);
 
+    var ul = document.getElementById('sitic-search-results');
+    while(ul.firstChild ){
+        ul.removeChild(ul.firstChild);
+    }
+
     if (results.length) {
         document.getElementById('sitic-search-no-results').style.display = 'none';
-        var ul = document.getElementById('sitic-search-results');
-        while(ul.firstChild ){
-            ul.removeChild(ul.firstChild);
-        }
         if (ul) {
             results.forEach(function (r) {
                 appendResult(r, ul);
@@ -228,7 +229,7 @@ function checkForChanges() {
             if (searchText) {
                 applySearch(searchText);
             }
-        }, 1000);  // time is in milliseconds
+        }, 500);  // time is in milliseconds
     }
 }
 
