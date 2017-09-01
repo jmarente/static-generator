@@ -1,2 +1,8 @@
 base_url: 'www.siticblog.com'
 paginable: 2
+
+taxonomies:
+    tag: "tags"
+    category: "categories"
+    series: "series"
+    actor: "actors"

@@ -19,7 +19,7 @@ class ContentFactory(object):
     contents = defaultdict(list)
     expired_contents = defaultdict(list)
 
-    taxonomy_definitions = {}
+    taxonomy_definitions = defaultdict(dict)
     taxonomies = defaultdict(dict)
     sections = defaultdict(dict)
     rss = defaultdict(list)
@@ -30,7 +30,7 @@ class ContentFactory(object):
         self.contents = defaultdict(list)
         self.expired_contents = defaultdict(list)
 
-        self.taxonomy_definitions = {}
+        self.taxonomy_definitions = defaultdict(dict)
         self.taxonomies = defaultdict(dict)
         self.sections = defaultdict(dict)
         self.rss = defaultdict(list)
@@ -42,6 +42,11 @@ class ContentFactory(object):
             self.rss[lang].append(Rss(lang, homepage))
             self.search_pages[lang] = SearchPage(lang)
 
+            self.taxonomy_definitions[lang] = {
+                singular: TaxonomyDefinition(singular, plural)
+                for singular, plural in config.get_taxonomies(lang).items()
+            }
+
     def build_contents(self):
         self.initialize()
         for root, directory, files in os.walk(config.content_path):
@@ -52,10 +57,6 @@ class ContentFactory(object):
         self.build_routed_contents()
 
     def _build_contents(self, contents_path):
-        self.taxonomy_definitions = {
-            singular: TaxonomyDefinition(singular, plural)
-            for singular, plural in config.get_taxonomies().items()
-        }
         for path in contents_path:
             content = self._get_content(path)
             if content:
@@ -122,9 +123,9 @@ class ContentFactory(object):
 
     def update_taxonomies(self, content):
         language = content.language
-        for singular, plural in config.get_taxonomies().items():
+        for singular, plural in config.get_taxonomies(language).items():
             terms = content.frontmatter.get(plural, [])
-            definition = self.taxonomy_definitions[singular]
+            definition = self.taxonomy_definitions[language][singular]
 
             if plural not in self.taxonomies[content.language]:
                 self.taxonomies[content.language][plural] = {}

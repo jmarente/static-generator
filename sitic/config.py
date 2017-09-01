@@ -33,6 +33,8 @@ class _Config():
     rss_limit = constants.DEFAULT_RSS_LIMIT
     description_length = constants.DEFAULT_DESCRIPTION_LENGTH
     routing_path = None
+    taxonomies = None
+    taxonomies_by_lang = defaultdict(dict)
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
@@ -71,12 +73,18 @@ class _Config():
         self._format_languages()
         self.set_main_language()
 
+        self.check_taxonomies_format()
+
         current_file_path = os.path.abspath(os.path.dirname(__file__))
         self.files_path = os.path.join(current_file_path, 'files/')
 
-    def get_taxonomies(self):
+    def get_taxonomies(self, language):
         # TODO make it configurable
-        return constants.DEFAULT_TAXONOMIES
+        taxonomies = self.taxonomies
+        language_taxonomies = self.taxonomies_by_lang.get(language, None)
+        if language_taxonomies:
+            taxonomies = language_taxonomies
+        return taxonomies
 
     def get_menus(self, language = None):
         menus = self.menus.copy()
@@ -115,6 +123,45 @@ class _Config():
                            "taking «{}» as main language".format(main))
 
         self.main_language = main
+
+    def check_taxonomies_format(self):
+
+        taxonomies_to_check = {}
+
+        if self.taxonomies is not None:
+            print(self.taxonomies)
+            taxonomies_to_check['global'] = self.taxonomies
+
+        # Any language defined
+        if self.main_language is not None:
+            for language in self.get_languages():
+                config = self.get_language_config(self, language)
+                taxonomies = config.get('taxonomies', None)
+                if taxonomies is not None:
+                    taxonomies_to_check[language] = taxonomies
+
+        self.taxonomies = {}
+        for config_key in taxonomies_to_check:
+            taxonomies = taxonomies_to_check[config_key]
+
+            if not isinstance(taxonomies, dict):
+                logger.warning('«{}» config, taxonomies must be a dictionary(key: value)'.format(config_key))
+                continue
+
+            for taxonomy_key in taxonomies:
+                taxonomy_value = taxonomies[taxonomy_key]
+
+                if not isinstance(taxonomy_value, str) or not isinstance(taxonomy_key, str):
+                    logger.warning('«{}» config, taxonomies key and value must be strings'.format(config_key))
+                    continue
+
+                if config_key == 'global':
+                    self.taxonomies[taxonomy_key] = taxonomy_value
+                else:
+                    self.taxonomies_by_lang[lang][taxonomy_key] = taxonomy_value
+
+        if not self.taxonomies:
+            self.taxonomies = constants.DEFAULT_TAXONOMIES
 
 
 config = _Config()
