@@ -135,7 +135,7 @@ class _Config():
         # Any language defined
         if self.main_language is not None:
             for language in self.get_languages():
-                config = self.get_language_config(self, language)
+                config = self.get_language_config(language)
                 taxonomies = config.get('taxonomies', None)
                 if taxonomies is not None:
                     taxonomies_to_check[language] = taxonomies
