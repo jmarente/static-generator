@@ -210,11 +210,17 @@ function handlePaginationElements() {
 
 document.getElementById('sitic-search-previous-page').onclick = function () {
     currentPage -= 1;
+    if (currentPage < 1) {
+        currentPage = 1;
+    }
     showResults(currentSearchResult, currentPage);
 }
 
 document.getElementById('sitic-search-next-page').onclick = function () {
     currentPage += 1;
+    if (currentPage > numberOfPages) {
+        currentPage = numberOfPages;
+    }
     showResults(currentSearchResult, currentPage);
 }
 
