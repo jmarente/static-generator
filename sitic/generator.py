@@ -12,6 +12,7 @@ from sitic.content.sitemap import Sitemap
 from sitic.scoper import Scoper
 from sitic.search_indexer import SearchIndexer
 from sitic.content.rss import Rss
+from sitic.stats import stats
 
 class Generator(object):
     context = {}
@@ -23,6 +24,9 @@ class Generator(object):
         self.content_factory.build_contents()
 
     def gen(self):
+        logger.info('Generating site...')
+
+        stats.initialize()
         self.build_contents()
         self.create_public_folder()
         self.move_static_folder()
@@ -69,6 +73,7 @@ class Generator(object):
             self.meta_tag = '<meta name="sitic" {}/>'.format(' '.join(meta_values))
 
             for content in all_contents:
+                stats.update(content)
                 self.context['scoper'] = Scoper()
                 if content.is_paginable():
                     self.generate_paginable(render, content)
@@ -81,12 +86,11 @@ class Generator(object):
 
             self.generate_regular(render, sitemap)
 
-
             self.remove_expired(expired_contents)
 
         self.search_indexer.create_files()
 
-        logger.info('Site generated')
+        logger.info('{}{}{}'.format('Site generated', os.linesep, stats.get_stats()))
 
     def create_public_folder(self):
         if not os.path.exists(config.public_path):
@@ -139,6 +143,7 @@ class Generator(object):
             content_path = content.get_path()
             # Removes expired content previously published
             if content.is_expired() and os.path.isfile(content_path):
+                stats.num_expired_removed += 1
                 os.remove(content_path)
 
     def get_taxonomies_content(self, taxonomies):

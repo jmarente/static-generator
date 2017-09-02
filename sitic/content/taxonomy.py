@@ -40,3 +40,6 @@ class Taxonomy(PaginableContent):
             "default/taxonomy.html",
             "default/list.html"
         ]
+
+    def __repr__(self):
+        return 'Taxonomy {} - {}'.format(self.definition.singular, self.name)

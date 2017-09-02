@@ -129,7 +129,6 @@ class _Config():
         taxonomies_to_check = {}
 
         if self.taxonomies is not None:
-            print(self.taxonomies)
             taxonomies_to_check['global'] = self.taxonomies
 
         # Any language defined
