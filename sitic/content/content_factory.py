@@ -163,12 +163,13 @@ class ContentFactory(object):
             except Exception as e:
                 logger.warning('Routed config with data {} could not be handle. Error: {}'
                                .format(json.dumps(content), str(e)))
-
-            language = routed_page.language
-            if routed_page.to_publish():
-                self.contents[language].append(routed_page)
-            elif routed_page.is_expired():
-                self.expired_contents[language].append(routed_page)
+            else:
+                if routed_page:
+                    language = routed_page.language
+                    if routed_page.to_publish():
+                        self.contents[language].append(routed_page)
+                    elif routed_page.is_expired():
+                        self.expired_contents[language].append(routed_page)
 
     def handle_routed_content(self, content):
 
@@ -177,6 +178,17 @@ class ContentFactory(object):
         if not isinstance(content, dict):
             logger.warning('Every element in the routing file must be a dictionary: {}'.format(e.message))
             return
+
+        mandatory_fields = [('title', str), ('section', str), ('url', str)]
+
+        for field, field_type in mandatory_fields:
+            value = content.get(field, None)
+            if not value:
+                logger.warning('Every routed page must have a «{}» attribute'.format(field))
+                return
+            if not isinstance(value, field_type):
+                logger.warning('«{}» attribute must be type «{}»'.format(field, field_type))
+                return
 
         language = config.main_language
         if 'language' in content:
