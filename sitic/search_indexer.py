@@ -11,13 +11,18 @@ class SearchIndexer(object):
     FILES_TO_COPY = ['lunr.js', 'search.js']
 
     def __init__(self):
-        self.index = []
         self.contents = []
 
     def add_contents(self, contents):
         self.contents += contents
 
     def get_index(self):
+
+        index = []
+        index_content = {
+            'options': self.get_options(),
+            'index': '',
+        }
 
         for content in self.contents:
             if not content.indexable:
@@ -34,9 +39,20 @@ class SearchIndexer(object):
                 'language': content.language,
             }
 
-            self.index.append(page_index)
+            index.append(page_index)
 
-        return self.index
+        index_content['index'] = index
+
+        return index_content
+
+    def get_options(self):
+        search_pagination = config.search_pagination
+
+        options = {
+            'pagination': search_pagination if isinstance(search_pagination, int) else None,
+        }
+
+        return options
 
     def get_path(self):
         url = self.get_url().split('/')

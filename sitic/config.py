@@ -36,6 +36,8 @@ class _Config():
     taxonomies = None
     taxonomies_by_lang = defaultdict(dict)
     disqus_shortname = ''
+    search_enabled = True
+    search_pagination = -1
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path

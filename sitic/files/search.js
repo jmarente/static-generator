@@ -1,4 +1,8 @@
-var lunrIndex, pagesIndex;
+var lunrIndex, pagesIndex, options;
+var currentPage = 1;
+var currentSearchResult = [];
+var numberOfPages = 0;
+var ulResults = document.getElementById('sitic-search-results');
 
 var defaultDiacriticsRemovalMap = [
     {'base':'A', 'letters':/[\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F]/g},
@@ -114,7 +118,9 @@ function initLunr(language, callback) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            pagesIndex = JSON.parse(xmlHttp.responseText);
+            jsonResponse = JSON.parse(xmlHttp.responseText);
+            pagesIndex = jsonResponse.index;
+            options = jsonResponse.options;
 
             //Remove english stopwords
             lunr.stopWordFilter.stopWords = [];
@@ -173,26 +179,70 @@ function search(query) {
     });
 }
 
+function paginateResults(results, page=1) {
+    if (options.pagination > 0) {
+        var page_size = options.pagination;
+        currentPage = page;
+        numberOfPages = Math.ceil(results.length / page_size);
+        return results.slice((page - 1) * page_size, page * page_size);
+    }
+    else {
+        return results;
+    }
+}
+
+function handlePaginationElements() {
+    if (currentSearchResult.length != 0 && currentPage > 1) {
+        // document.getElementById('sitic-search-previous-page').style.removeProperty('none');
+        document.getElementById('sitic-search-previous-page').style.display = '';
+    }
+    else {
+        document.getElementById('sitic-search-previous-page').style.display = 'none';
+    }
+    if (currentSearchResult.length != 0 && currentPage < numberOfPages) {
+        // document.getElementById('sitic-search-next-page').style.removeProperty('none');
+        document.getElementById('sitic-search-next-page').style.display = '';
+    }
+    else {
+        document.getElementById('sitic-search-next-page').style.display = 'none';
+    }
+}
+
+document.getElementById('sitic-search-previous-page').onclick = function () {
+    currentPage -= 1;
+    showResults(currentSearchResult, currentPage);
+}
+
+document.getElementById('sitic-search-next-page').onclick = function () {
+    currentPage += 1;
+    showResults(currentSearchResult, currentPage);
+}
+
 function applySearch(text) {
     var sanitizedText = removeDiacritics(text);
-    var results = search(sanitizedText);
+    currentSearchResult = search(sanitizedText);
+    showResults(currentSearchResult);
+}
 
-    var ul = document.getElementById('sitic-search-results');
-    while(ul.firstChild ){
-        ul.removeChild(ul.firstChild);
+function showResults(results, page = 1) {
+
+    while(ulResults.firstChild ){
+        ulResults.removeChild(ulResults.firstChild);
     }
 
     if (results.length) {
         document.getElementById('sitic-search-no-results').style.display = 'none';
-        if (ul) {
-            results.forEach(function (r) {
-                appendResult(r, ul);
+        if (ulResults) {
+            var paginatedResults = paginateResults(results, page);
+            paginatedResults.forEach(function (r) {
+                appendResult(r, ulResults);
             });
         }
     }
     else {
         document.getElementById('sitic-search-no-results').style.display = 'block';
     }
+    handlePaginationElements();
 }
 
 function appendResult(data, ul) {
@@ -225,6 +275,7 @@ function checkForChanges() {
         clearTimeout(t);
         t = setTimeout(function () {
             var searchText = document.getElementById("sitic-search-input").value;
+            initializePaginationVariables();
 
             if (searchText) {
                 applySearch(searchText);
@@ -233,10 +284,16 @@ function checkForChanges() {
     }
 }
 
+function initializePaginationVariables() {
+    currentPage = 1;
+    numberOfPages = 0;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     var searchText = getParameterByName('search');
 
     if (searchText) {
+        initializePaginationVariables();
 
         document.getElementById('sitic-search-no-results').style.display = 'none';
 

@@ -8,3 +8,6 @@ taxonomies:
     actor: "actors"
 
 disqus_shortname: "siticblog"
+
+search_enabled: true
+search_pagination: 3
