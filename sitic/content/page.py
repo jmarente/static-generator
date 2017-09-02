@@ -67,7 +67,7 @@ class Page(BasePage):
 
     @property
     def title(self):
-        return self.frontmatter.get('title', self.name)
+        return self.frontmatter.get('title', None) or self.format_string_to_title(self.name)
 
     def get_description(self):
         if not self.description:

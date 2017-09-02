@@ -5,7 +5,7 @@ class Menu(object):
     def __init__(self, id, title, weight, url):
         self.id = id
         self.title = title
-        self.weight = 0
+        self.weight = weight
         self.url = url
         self.parent = None
         self._children = []
@@ -25,4 +25,4 @@ class Menu(object):
 
     @property
     def children(self):
-        return sorted(self._children, key=lambda x: x.weight)
+        return sorted(self._children, key=lambda x: (x.weight, x.title))

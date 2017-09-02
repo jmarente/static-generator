@@ -37,7 +37,8 @@ class Generator(object):
 
             # initialize context every loop
             self.context['site'] = {
-                'disqus_shortname': config.disqus_shortname
+                'disqus_shortname': config.disqus_shortname,
+                'language': language,
             }
 
             render = Render(language)
@@ -61,6 +62,7 @@ class Generator(object):
             menu_builder = MenuBuilder(contents, sections, language)
 
             menus = menu_builder.build()
+            self.context['site']['menus'] = menus
 
             all_contents = [homepage] + contents + taxonomies_contents + sections + rss + [search_page]
 

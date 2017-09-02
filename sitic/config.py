@@ -29,6 +29,7 @@ class _Config():
     lazy_menu = None
     languages = defaultdict(dict)
     main_language = None
+    main_language_as_root= True
     sitemap = None
     rss_limit = constants.DEFAULT_RSS_LIMIT
     description_length = constants.DEFAULT_DESCRIPTION_LENGTH

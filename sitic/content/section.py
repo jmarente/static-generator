@@ -39,7 +39,7 @@ class Section(PaginableContent):
 
     @property
     def title(self):
-        title = self.name
+        title = self.format_string_to_title(self.name)
         if self.content_page and self.content_page.title != self.content_page.name:
             title = self.content_page.title
         return title

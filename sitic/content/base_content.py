@@ -28,7 +28,7 @@ class BaseContent(object):
             url = self._get_url().strip('/')
 
             language_slug = ''
-            if self.language:
+            if self.language and (self.language != config.main_language or not config.main_language_as_root):
                 parts = [self.language] + url.split('/')
                 url = '/'.join(parts)
 
@@ -75,3 +75,8 @@ class BaseContent(object):
 
     def __repr__(self):
         return "<%s instance at %s>" % (self.__class__.__name__, id(self))
+
+    def format_string_to_title(self, string):
+        string = string.replace('-', ' ')
+        string = string.replace('_', ' ')
+        return string.title()
