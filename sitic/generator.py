@@ -36,7 +36,9 @@ class Generator(object):
         for language in config.get_languages():
 
             # initialize context every loop
-            self.context['site'] = {}
+            self.context['site'] = {
+                'disqus_shortname': config.disqus_shortname
+            }
 
             render = Render(language)
             sitemap = Sitemap(language)

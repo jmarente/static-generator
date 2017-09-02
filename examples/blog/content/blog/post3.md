@@ -2,6 +2,7 @@
 title='Post 3'
 description='Post 3 description'
 tags=['tag2']
+disable_comments=true
 ++++++++++++++++
 
 ## Variarum loricaeque

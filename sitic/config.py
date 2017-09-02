@@ -35,6 +35,7 @@ class _Config():
     routing_path = None
     taxonomies = None
     taxonomies_by_lang = defaultdict(dict)
+    disqus_shortname = ''
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path

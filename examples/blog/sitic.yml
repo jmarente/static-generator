@@ -6,3 +6,5 @@ taxonomies:
     category: "categories"
     series: "series"
     actor: "actors"
+
+disqus_shortname: "siticblog"
