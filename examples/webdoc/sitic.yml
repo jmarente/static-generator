@@ -1,0 +1,12 @@
+base_url: 'www.siticdoc.com'
+paginable: -1
+
+lazy_menu: 'main'
+
+search_pagination: 10
+
+main_language: 'es'
+
+languages:
+    en:
+    es:

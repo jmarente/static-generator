@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ node.title }}</h1>
+
+{{ node.page.content }}
+
+<ul>
+  {% for menu in site.menus.main %}
+  <li>
+    {{ menu.title }}
+    {% if menu.has_children %}
+    <ul>
+      {% for child in menu.children %}
+      <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
