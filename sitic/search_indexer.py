@@ -32,7 +32,7 @@ class SearchIndexer(object):
             get_plain_content = getattr(content, 'get_plain_content', None)
             get_description = getattr(content, 'get_description', None)
             page_index = {
-                'title': content_context['title'],
+                'title': content_context.get('title', ''),
                 'url': content.get_url(),
                 'content': get_plain_content() if callable(get_plain_content) else '',
                 'description': get_description() if callable(get_description) else '',

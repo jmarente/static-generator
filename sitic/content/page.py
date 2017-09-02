@@ -24,8 +24,8 @@ class Page(BasePage):
         self.file_path = file_path
         self.extension = extension
 
-        self.html_content = None
-        self.plain_content = None
+        self.html_content = ''
+        self.plain_content = ''
 
         super(Page, self).__init__(frontmatter, language, section)
 
@@ -53,7 +53,7 @@ class Page(BasePage):
         return self.html_content
 
     def get_plain_content(self):
-        if not self.plain_content:
+        if not self.plain_content and self.get_html_content():
             self.plain_content = lxml.html.fromstring(self.get_html_content()).text_content()
         return self.plain_content
 
@@ -102,5 +102,5 @@ class Page(BasePage):
         return templates
 
     def __repr__(self):
-        return "Routed page: title «{}» | url «{}» | path «{}»"\
+        return "Conent page: title «{}» | url «{}» | path «{}»"\
                 .format(self.title, self.get_url(), self.relative_path)

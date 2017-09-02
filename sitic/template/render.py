@@ -69,7 +69,7 @@ class Render(object):
             try:
                 translations = gettext.translation(constants.GETTEXT_DOMAIN, locale_dir, langs)
             except (IOError, OSError):
-                logger.error((
+                logger.warning((
                     "Cannot find translations for language '{}'."
                     " Installing NullTranslations.").format(
                         language, constants.GETTEXT_DOMAIN))
