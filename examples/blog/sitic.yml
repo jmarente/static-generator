@@ -1,5 +1,5 @@
 base_url: 'www.siticblog.com'
-paginable: 2
+paginable: 3
 
 taxonomies:
     tag: "tags"

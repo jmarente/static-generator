@@ -56,3 +56,6 @@ class Section(PaginableContent):
         if self.content_page:
             self.plain_content = self.content_page.get_plain_content()
         return self.plain_content
+
+    def __repr__(self):
+        return "Section: name «{}»".format(self.name)

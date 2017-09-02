@@ -102,5 +102,5 @@ class Page(BasePage):
         return templates
 
     def __repr__(self):
-        return "Conent page: title «{}» | url «{}» | path «{}»"\
+        return "Content page: title «{}» | url «{}» | path «{}»"\
                 .format(self.title, self.get_url(), self.relative_path)

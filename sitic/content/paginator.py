@@ -6,13 +6,13 @@ import six
 
 class Paginator(object):
     def __init__(self, content, per_page, orphans=0, allow_empty_first_page=True):
-        self.content = content
-        self.object_list = content.get_pages()
-        self.per_page = int(per_page)
-        self.orphans = int(orphans)
-        self.allow_empty_first_page = allow_empty_first_page
         self._num_pages = self._count = None
         self.page = None
+        self.content = content
+        self.object_list = content.get_pages()
+        self.per_page = int(per_page) if int(per_page) > 0 else self._get_count()
+        self.orphans = int(orphans)
+        self.allow_empty_first_page = allow_empty_first_page
 
     def get_page(self, number):
         "Returns a Page object for the given 1-based page number."
@@ -35,6 +35,8 @@ class Paginator(object):
         "Returns the total number of pages."
         if self._num_pages is None:
             if self.count == 0 and not self.allow_empty_first_page:
+                self._num_pages = 0
+            elif self.per_page < 1:
                 self._num_pages = 0
             else:
                 hits = max(1, self.count - self.orphans)
