@@ -1,0 +1,11 @@
+{% for definition in node.taxonomies %}
+<div class="post-taxonomies">
+  {% set values = node.taxonomies[definition] %}
+  <p class="title">{{ definition }}:</p>
+  <ul class="knowledge">
+    {% for value in values %}
+    <li class="bg-color-4"><a href="{{ value.url }}">{{ value.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}

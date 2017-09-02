@@ -22,6 +22,7 @@
     {
         "title": "Routing 5",
         "url": "/routing5",
-        "section": "blog"
+        "section": "blog",
+        "actors": ["actor1"]
     }
 ]

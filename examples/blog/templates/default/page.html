@@ -7,25 +7,12 @@
     <h1>{{ node.title }}</h1>
   </div>
 
-  {{ scoper.set('total', [1, 0]) }}
-  {% for definition in node.taxonomies %}
-    <div class="post-taxonomies">
-    {% set values = node.taxonomies[definition] %}
-    <p class="title">{{ definition }}:</p>
-    <ul class="knowledge">
-      {% for value in values %}
-        {{ scoper.add('total', 1) }}
-        <li class="bg-color-4"><a href="{{ value.url }}">{{ value.name }}</a></li>
-      {% endfor %}
-    </ul>
-    </div>
-  {% endfor %}
+  {% include 'partials/page_taxonomies.html' %}
 
   <div class="post-info">
     <span>{{ node.publication_date | datetimeformat("%d %B, %Y") }}{% if node.author %}/ by <a href="#" target="_blank">{{ node.author }}</a>{% endif %}</span>
   </div>
 
-  <!--p>Total: {{ scoper.get('total') }}</p-->
   {{ node.content }}
 </div>
 
