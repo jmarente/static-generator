@@ -1,3 +1,21 @@
-#: /templates/base.html:102
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/base.html:46
+msgid "Sitic framework official documentation"
+msgstr ""
+
+#: /templates/base.html:76
+msgid ""
+"This documentation template is provided by %(url)s. You can download and use "
+"this template for free. If you have used this template, please pay the "
+"developer's effort by Tweeting, sharing on Facebook, social mention or with "
+"a linkback. Enjoy! :)"
+msgstr ""
+
+#: /templates/base.html:82
 msgid "Copyright Frittt Templates. All Rights Reserved."
 msgstr ""
