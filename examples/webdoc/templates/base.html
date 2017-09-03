@@ -1,41 +1,22 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <meta charset="utf-8">
-
 <meta name="description" content="">
-
 <meta name="HandheldFriendly" content="True">
-
 <meta name="MobileOptimized" content="320">
-
 <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>Free Documentation HTML Template</title>
-
 <link rel="alternate" type="application/rss+xml" title="frittt.com" href="/static/feed/index.html">
-
-<link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
-
-        type="text/css">
-
+<link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"type="text/css">
 <link rel="stylesheet" href="/static/css/style.css">
-
 <link rel="stylesheet" href="/static/css/prettify.css">
-
 </head>
-
 <body>
-
 <div class="wrapper">
-
 <nav>
   	<div class="pull-left">
-
     	<h1><a href="javascript:"><img src="/static/img/icon.png" alt="Free Documentation Template Icon" /> <span>DocWeb</span></a></h1>
-
     </div>
     <div class="pull-right search-form-container">
       <form id="mc-form" method="get" action="{{ get_search_url() }}" novalidate="true">
@@ -47,7 +28,6 @@
 <header>
 
   <div class="container container-header">
-
     <h2 class="pull-left lone-header"><a href="{{ site.home_url }}">{% trans %}Sitic framework official documentation{% endtrans %}</a></h2>
     <div class="pull-right flag-block">
     {% for lang_key in site.languages %}
@@ -55,7 +35,6 @@
       <div class="pull-right flag-container"><a href="{{ lang_config.url }}"><img src="{{ lang_config.icon }}" /></a></div>
     {% endfor %}
     </div>
-
   </div>
 
 </header>
