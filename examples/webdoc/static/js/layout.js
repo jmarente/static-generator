@@ -84,7 +84,7 @@ $(document).ready(function () {
     var docsNavHeight = $('.docs-nav').height();
     var docsContent = $('.docs-content');
     if (docsContent.height() < docsNavHeight) {
-        docsContent.height(docsNavHeight);
+        docsContent.css('min-height', docsNavHeight);
     }
     
     $('pre').addClass('prettyprint');
