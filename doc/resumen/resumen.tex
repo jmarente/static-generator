@@ -19,6 +19,7 @@
 
 \newminted[bashcode]{console}{} % tango vs
 \newminted{python}{}
+\newminted{json}{}
 
 
 \graphicspath{{./img/}}
@@ -88,17 +89,15 @@
 \textbf{Sitic} es un framework generador de sitios web estáticos. El usuario escribirá
 los contenidos de la web en ficheros de textos plano y la
 herramienta generará una web completamente estática a partir de estos ficheros,
-transformándolos en html.
+transformándolos en HTML.
 
-Entre otras características, la herramienta usa un sistema de templates que permite al
-usuario personalizar la forma en la que se mostrarán todos los contenidos. También puede
-ser ampliada, añadiendo filtros y funciones propias que se puedan usar posteriormente en
-las templates durante la generación de contenido. Así mismo, permitirá al usuario definir los
-atributos básicos de cada página y ofrecerá otras posibilidades como generación de menús
-o generación de RSS.
+Entre otras características, la herramienta usa un sistema de plantillas que permite al
+usuario personalizar la forma en la que se mostrarán todos los contenidos. Así mismo,
+permitirá al usuario definir los atributos básicos de cada página y ofrecerá otras
+posibilidades como generación de menús o generación de RSS.
 
 Estará totalmente desarrollado usando el lenguaje de programación Python~\cite{python} y usará como
-base el sistema de templates Jinja~\cite{jinja}. \\
+base el sistema de plantillas Jinja~\cite{jinja}. \\
 
 \textbf{Palabras clave:} Internet, Web, HTML, Python, Jinja.
 
@@ -112,7 +111,7 @@ base el sistema de templates Jinja~\cite{jinja}. \\
 \subsection{Contexto y motivación}
 
 La idea de desarrollar este proyecto surge a raíz de usar otras herramientas con un objetivo
-parecido, pero que no llegaba a satisfacer todas las necesidades que necesitaba, viéndote obligado
+parecido, pero que no llegaban a satisfacer todas las funcionalidads que necesitaba, viéndote obligado
 a suplirlas con otras herramientas que no eran totalmente compatibles con las originales.
 
 En noviembre de 2015 forme parte en el desarrollo de una página web totalmente estática con información
@@ -173,7 +172,7 @@ de desarrollo iterativo incremental.
 La primera fase consistió en plantear la idea del proyecto, con la ayuda del tutor. Tras plantear
 varios enfoques, se decidió realizar este proyecto debido a las motivaciones escritas anteriormente.
 
-También se pensó en que lenguaje se desarrollaría el proyecto, así como las principales bibliotecas que
+También se pensó en qué lenguaje se desarrollaría el proyecto, así como las principales bibliotecas que
 se usarían durante la realización del mismo, priorizando siempre opciones libres. Finalmente se optó por
 utilizar el lenguage Python por su documentación, comunidad y amplia biblioteca estándar.
 
@@ -200,7 +199,7 @@ así como metodologías a utilizar.
 \item \textbf{Aprendizaje de otras bibliotecas}: investigar bibliotecas externas desarrolladas por la comunidad y
 que podrían ser útiles en el desarrollo.
 \item \textbf{Investigar sobre lenguajes de marcado}: dado que el usuario escribirá el contenido de la web en ficheros
-de texto plano y haciendo uso de lenguaje de marcado. Invertí tiempo en ver cuales eran los más usados, para así poder
+de texto plano y haciendo uso de lenguajes de marcado. Invertí tiempo en ver cuáles eran los más usados, para así poder
 darles soporte en la herramienta.
 \end{itemize}
 
@@ -214,7 +213,7 @@ prototipos que iba implementando conforme aprendía.
 \item \textbf{Generador básico}: Como primer paso se realizó un generador básico de ficheros a partir
 de ficheros de texto plano. Esto incluía la generación estructural de toda la web resultante.
 \item \textbf{Adaptar sistema de plantillas}: Otro de los aspectos más importantes fue adaptar el sistema
-de plantillas usado (Jinja) con el motor de generación de forma que los html generados fueran totalmente
+de plantillas usado (Jinja) con el motor de generación de forma que los HTML generados fueran totalmente
 personalizables por los usuarios.
 \item \textbf{Mejor de output}: Al ser una herramienta que se ejecuta por la linea de comandos, se invirtió
 bastante tiempo en que el output ofrecido al usuario fuera realmente verbose y útil, dando información relevante.
@@ -257,7 +256,7 @@ Diagrama de Gantt de la planificación comentada (Figura \ref{fig:gantt}).
 
 Sitic es un framework para hacer sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
 A diferencia de otros sistemas que genera dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
-un única vez,
+una única vez,
 cuando creas su contenido. Dado que los sitios web se ven con mucha más frecuencia de lo que se edita.
 
 Los sitios construidos con Sitic son bastante más rápidos y seguros que un sitio generado de forma dinámica.
@@ -322,9 +321,9 @@ Sitic cuenta con las siguientes características:
 \item Soporte para secciones
 \item URL personalizables
 \item Soporte para taxonomías configurables que incluyen categorías y etiquetas.
-\item Capacidad de clasificar el contenido como usted desea
-\item Generación automática de tabla de contenido
-\item Creación dinámica de menú
+\item Capacidad de clasificar el contenido como se desee
+\item Generación automática de tabla de contenidos
+\item Creación dinámica de menús
 \item Soporte de URLs legibles
 \end{itemize}
 
@@ -332,8 +331,8 @@ Sitic cuenta con las siguientes características:
 
 \begin{itemize}
 \item Soporte nativo para contenido escrito en Markdown~\cite{markdown}, Textile~\cite{textile} y Reestructured text~\cite{restructuredtext}
-\item Soporte internacionalización
-\item Soporte para los metadatos TOML~\cite{toml} y YAML~\cite{yaml} en los contenidos
+\item Soporte para internacionalización
+\item Soporte para especificar metadatos, usando TOML~\cite{toml} y YAML~\cite{yaml} como formatos, en los contenidos
 \item Páginas completamente personalizables
 \end{itemize}
 
@@ -358,9 +357,8 @@ utilizado se detalla a continuación:
 documentación, comunidad y amplia biblioteca estándar.
 
 \item Para el motor de plantillas quse ha usado \textbf{Jinja2}~\cite{jinja}, es un motor de
-plantillas completo para Python. Cuenta con so-
-porte unicode completo, un entorno de ejecución de espacio de trabajo inte-
-grado opcional, ampliamente utilizado y licenciado por BSD.
+plantillas completo para Python. Cuenta con soporte unicode completo, un entorno de ejecución de
+espacio de trabajo integrado opcional, ampliamente utilizado y licenciado por BSD.
 
 \item Los lenguajes de marcados soportados para que el usuario pueda escribir los contenidos de las web
 han sido \textbf{Markdown}~\cite{markdown}, \textbf{Textile}~\cite{textile} y
@@ -375,7 +373,9 @@ con el que se sintiera más cómodo.
 Además de las mencionadas, se han utilizado muchas otras tecnologías y herramientas de apoyo
 al desarrollo, que se detallan más profundamente en la memoria del proyecto.
 
-\subsection{Detalles implementación de estructura de ficheros}
+\subsection{Detalles implementación}
+
+\subsubsection{Estructura de ficheros}
 
 Uno de los primeros retos a la hora de la implementación, era ofrecer al usuario una forma sencilla de dividir
 el contenido de los ficheros y los metadatos de estos.
@@ -420,65 +420,55 @@ mollire [bracchia Othryn](http://www.ratibus.net/curvavit.html) manumque; vimque
 exprobravit sola ferrum diverso inania terramque. Qui illic et Romulus, ad erat
 Pergama daedalus annis, fudit.
 
-> Hunc medio, Argus plus pro lecto nimiumque dextera. Inde pondere ipse,
-> lacertos [Troianae](http://faciunt.net/) habet rex, membra, lacrimisque
-> onerosa. Dedi grata vani visurus corpora pariter ferarum **est quodque
-> stimuletur**, vestri discrimina sceptrum, abit doceri septem iuvenumque. Ego
-> est forte inpetus coniugis, auras inania regnat, tum languescuntque Byblida
-> nisi, mentes. Vident candidus flectitur humana.
 \end{verbatim}
 
 Internamente el sistema automáticamente divide el contenido del fichero en dos partes y las procesa por separado.
 A continuación se puede ver el fragmento de código que se encarga de realizar dicha tarea:
 
-\begin{pythoncode}
-# -*- condig: utf-8 -*-
+\subsubsection{Buscador}
 
-from sitic.content.frontmatter_handlers import YamlHander, TomlHandler
+Hoy en día, cualquier sitio web con un número de páginas elevado, necesita un
+buscador con el que se puedan encontrar los contenidos de forma sencilla.
 
+Dado que \texttt{Sitic} genera un sitio web completamente estático, lo que implica que no tenemos ningún
+servidor al que hacerle peticiones con los términos que se desean buscar, se decidió implementar
+una búsqueda acorde a las características de la herramienta.
 
-handlers = [handler() for handler in [YamlHander, TomlHandler]]
+Para conseguirlo, la implementación consistía en varias partes, la primera de ellas, generar un índice de contenidos
+en un fichero JSON que incluyera todos los contenidos publicados.
 
-def __get_handler(text):
-    text_handler = None
+EL JSON resultante tendría el siguiente formato:
 
-    for handler in handlers:
-        if handler.has_format(text):
-            text_handler = handler
-            break
+\begin{jsoncode}
+[
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 1",
+        "url": "/blog/post1"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 2",
+        "url": "/blog/post2"
+    },
+    {
+        "content": "Variarum loricaeque\nLorem markdownum mihi...",
+        "title": "Post 6",
+        "url": "/blog/post6"
+    }
+]
+\end{jsoncode}
 
-    return handler
+Este fichero se añadiría a la carpeta del sitio generado.
 
+La tercera parte requería implementar la lógica necesaria en \texttt{Javascript} que usara el índice generado
+y devolviera los resultados encontrados. Para ello se hizo uso de la biblioteca \texttt{Lunr.js} para
+\texttt{Javascript} que permite realizar búsquedas en índices adaptados previamente a su formato.
 
-def __parse(text, handler):
-    text = text.strip()
-    metadata = {}
-
-    handler = handler or __get_handler(text)
-    if not handler:
-        return metadata, text
-
-
-    try:
-        metadata, text = handler.split(text)
-    except ValueError:
-        return metadata, text
-
-    metadata = handler.load(metadata)
-
-    return metadata, text
-
-
-def load(file_path, handler=None):
-    text = ''
-
-    with open(file_path, 'r') as f:
-        text = f.read()
-
-    text = text.strip()
-    handler = handler or __get_handler(text)
-    return loads(text, handler)
-\end{pythoncode}
+La tercera y última parte de la implementación consiste en que el usuario pueda de forma sencilla añadir dicho buscador en
+su web, para ello, se debe añadir un formulario con un id específico que el código \texttt{Javascript} anteriormente
+comentado consultará y por último generar una plantilla llamada \texttt{search-results.js} con un bloque
+determinado donde se mostrarán los resultados de la búsqueda.
 
 \subsection{Verificación y pruebas}
 
@@ -505,7 +495,6 @@ En definitiva, la organización de los casos de pruebas fue la siguiente:
     \item A medida que distintos módulo que anteriormente probados individualmente, debían colaborar entre ellos, se
     llevaban a cabo pruebas de integración.
     \item Con las distintas versiones usables se realizaban pruebas de generación.
-    \item Pruebas de interfaz sobre los distintos menús que se implementaban.
 \end{enumerate}
 
 \subsubsection{Pruebas unitarias}
@@ -525,7 +514,7 @@ posteriormente habían sido probados individualmente, se realizaban pruebas de i
 Conforme se avanzaba en el desarrollo, se realizaban pruebas de integración a mayor escala. No solo entre módulos
 del mismo sistema, sino entre varios sistemas.
 
-Una de las mejores formas que se pesaron para realizar este tipo de pruebas, es desarrollar una web que usara todos los elementos
+Una de las mejores formas que se pesaron para realizar este tipo de pruebas, fue desarrollar una web que usara todos los elementos
 que se iban implementando.
 
 \subsubsection{Pruebas de aceptación}
@@ -562,7 +551,7 @@ los mismos contenidos sin ningún idioma configurado.
 se generaba de forma correcta, en función de la rutas definidas
 \item \textbf{Paginación}: configurar distintos valores para la paginación de elementos por página, así como la desactivación
 del mismo, comprobando que se generaban tantas páginas estáticas por sección/taxonomías como páginas debería de tener.
-\item \textbf{Menús}: Definición de menús con elementos estáticas y dinámicos.
+\item \textbf{Menús}: Definición de menús con elementos estáticos y dinámicos.
 \item \textbf{Categorización}: definir distintas taxonomías y mezclarlas entre los idiomas, comprobando finalmente que cada
 contenido se había organizado de la forma correcta.
 \end{itemize}
@@ -589,9 +578,7 @@ bloqueado durante un tiempo hasta encontrar la solución más adecuada para esto
 estoy muy satisfecho con el resultado que se ha obtenido.
 
 Se puede decir que el proyecto goza de buena calidad. Se ha intentado hacer un software sencillo,
-intuitivo, fácil de manejar y entretenido para el jugador. Algo esencial para un juego de estas
-características, en el que se busca que cualquier persona pueda echar algún rato de su tiempo libre y qué menos
-que disfrute durante ese tiempo.
+intuitivo y fácil de usar.
 
 \subsection{Conclusiones personales}
 
@@ -599,7 +586,7 @@ Durante el desarrollo del proyecto se han aprendido muchísimas cosas: como hace
 desarrollo, plantear y crear calendarios, usar las herramientas adecuadas, hacer decisiones importantes
 para el desarrollo de este, documentación del código, organización, etc. Ya que durante la carrera se
 han realizado distintas prácticas y trabajos de complejidad, pero nada con el tamaño y duración que
-requiere un Proyecto de fin de carrera. Una vez finalizado este creo que tengo la experiencia necesaria
+requiere un Proyecto de fin de carrera. Una vez finalizado, creo que tengo la experiencia necesaria
 para afrontar otro proyecto con buenos resultados.
 
 Puedo decir que he profundizado y consolidado bastante en el lenguaje de programación Python.
@@ -617,7 +604,7 @@ a continuación:
 
 \begin{itemize}
     \item \textbf{Soporte Filtros/funciones propias} de forma que cada usuario puede personalizar aún mas
-    funciones a usar en las templates.
+    funciones a usar en las plantillas.
     \item \textbf{Método watch que recargue automáticamente el navegador}: permitir que el modo watch recargue
     automáticamente el navegador cuando se detecte algún cambio.
     \item \textbf{Permitir temas}: permitir la creación de temas, es decir, poder usar temas definidos
