@@ -506,3 +506,11 @@ input:focus {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.lone-header a {
+    color: white;
+}
+
+.container-header {
+    max-width:none;
+}
