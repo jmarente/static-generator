@@ -4,7 +4,7 @@ En este capítulo se explicarán en detalle las instrucciones de uso de la herra
 
 Sitic es un \textit{framework} para hacer sitios web de uso general. Técnicamente hablando, Sitic es un generador de sitios web estáticos.
 A diferencia de otros sistemas que genera dinámicamente una página cada vez que un visitante la solicita, Sitic crea el sitio
-un única vez, 
+un única vez,
 cuando creas su contenido. Dado que los sitios web se ven con mucha más frecuencia de lo que se edita.
 
 Los sitios construidos con Sitic son bastante más rápidos y seguros que un sitio generado de forma dinámica.
@@ -40,13 +40,13 @@ servidor HTTP incorporado. Cuando ejecuta el servidor, Sitic procesa todo su con
 un servidor HTTP en su máquina para que pueda ver cómo son las páginas.
 
 El segundo componente se utiliza una vez que el sitio esté listo para ser publicado.
-Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url} 
-del fichero de configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente 
+Ejecutar Sitic sin ninguna acción reconstruirá su sitio web completo utilizando la configuración \texttt{base\_url}
+del fichero de configuración de su sitio. Eso es necesario para que sus enlaces de página funcionen correctamente
 con la mayoría de las empresas de alojamiento.
 
 \subsection{Características principales}
 
-En términos técnicos, Sitic toma un directorio fuente de ficheros 
+En términos técnicos, Sitic toma un directorio fuente de ficheros
 y plantillas y los usa como entrada para crear un sitio web completo.
 
 Sitic cuenta con las siguientes características:
@@ -225,7 +225,7 @@ idiomas, de las que hablaremos mas en detalle en las siguientes secciones.
 \subsection{Organización}
 
 El contenido debe estar organizado de la misma manera que se pretende que aparezca en la web.
-Sin ningún tipo de configuración adicional, a countinuacón se puede apreciar un ejemplo sencillo:
+Sin ningún tipo de configuración adicional, a continuación se puede apreciar un ejemplo sencillo:
 
 \begin{verbatim}
     content/
@@ -264,7 +264,7 @@ Estos metadatos se identificarán a partir de unos caracteres delimitadores, los
 
 \begin{itemize}
     \item \textbf{TOML}: identificado por +++.
-    \item \textbf{YAML}: identificado por ---.
+    \item \textbf{YAML}: identificado por - - -.
 \end{itemize}
 
 \textbf{Ejemplo de TOML}:
@@ -560,9 +560,9 @@ Podemos ver que ya no es necesario volver a definir el \texttt{HTML} completo pa
 contenidos, sino que podemos extender de algunas de las plantillas ya existentes y definido qué
 bloques vamos a completar.
 
-En este caso se extiende de la plantilla \texttt{base.html} mostrada anteriormente y se define el 
-contenido que tendrá el bloque denominado \texttt{content}, a su vez se accede a los distintos 
-metadatos del contenido en este caso a los campos \texttt{title}, \texttt{author}, 
+En este caso se extiende de la plantilla \texttt{base.html} mostrada anteriormente y se define el
+contenido que tendrá el bloque denominado \texttt{content}, a su vez se accede a los distintos
+metadatos del contenido en este caso a los campos \texttt{title}, \texttt{author},
 \texttt{publication\_date} y \texttt{content}, este último está compuesto del contenido de la página
 en \texttt{HTML}.
 
@@ -613,6 +613,13 @@ En el siguiente ejemplo, se puede ver un ejemplo con una sección con contenidos
 Para ver como traducir las cadenas presentes en las plantillas, los mejor es visitar la página oficial de
 Jinja2~\cite{jinja}, donde se explican los distintos filtros disponibles.
 
+Aunque la forma más común de traducir texto en las plantillas se realiza usando el filtro \texttt{trans}, se puede
+ver un ejemplo a continuación:
+
+\begin{minted}{html}
+    <h1>{% trans %}Texto a traducir{% endtrans %}</h1>
+\end{minted}
+
 \subsection{Generación y gestión}
 
 Sitic ofrece la posibilidad de generar los ficheros .po y .mo, usado por gettext para realizar la traducción
@@ -649,6 +656,77 @@ ficheros, para que gettext pueda obtener las traducciones correctamente. El coma
 \begin{bashcode}
     $ sitic compilemessages
 \end{bashcode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Buscador}
+
+Sitic trae de base un buscador de forma que sea sencillo encontrar cualquier contenido del sitio,
+bastante útil en los casos que creemos webs con muchos contenidos.
+
+Para que el buscador funcione correctamente hay que realizar los siguientes pasos:
+
+\begin{itemize}
+    \item Añadir un formulario con las clases necesarias
+    \item Crear la plantilla en la que el buscador mostrará los resultados
+\end{itemize}
+
+\subsection{Añadir formulario}
+
+Como es obvio, es necesario añadir un formulario en el que realizar las busquedas.
+
+El formulario debe de enviarse como \texttt{GET} y como \texttt{action} debe de tener la url del buscador,
+que podemos obtener usando la función \texttt{get\_search\_url}.
+
+Además deberá de tener un \texttt{input} con el valor \texttt{sitic-search-input} como id.
+
+A continuación se puede ver un ejemplo del como sería el HTML necesario de un buscador válido.
+
+\begin{minted}{html}
+    <form method="get" action="{{ get_search_url() }}" novalidate="true">
+      <input id="sitic-search-input" type="text" name="search">
+    </form>
+\end{minted}
+
+\subsection{Plantilla del buscador}
+
+También necesitaremos que se genere una url donde se muestren los resultado de la búsqueda.
+
+En este caso tendremos que añadir la plantilla \texttt{search.html} en el directorio de
+plantillas \texttt{templates}.
+
+Esta plantilla deberá de tener los siguientes elementos:
+
+\begin{itemize}
+    \item Elemento \texttt{ul} con la clase \texttt{sitic-search-results} en la que se mostrarán
+        los resultados.
+    \item Cualquier tipo de contenedor con la clase \texttt{sitic-search-no-results} con el mensaje
+        que queramos mostrar en el caso de que no se encuentre ningún resultado.
+    \item Dos elementos para controlar la paginación, con las clases \texttt{sitic-search-previous-page}
+        y \texttt{sitic-search-next-page}
+\end{itemize}
+
+Un ejemplo del contenido de esta plantilla, recopilando todo lo anterior sería el siguiente:
+
+\begin{minted}{html}
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <ul id="sitic-search-results">
+    </ul>
+    <p id="sitic-search-no-results">No results found</p>
+
+    <div class="col-md-12">
+      <nav aria-label="...">
+        <ul class="pager">
+          <li id="sitic-search-previous-page"><a>Previous</a></li>
+          <li id="sitic-search-next-page"><a>Next</a></li>
+        </ul>
+      </nav>
+    </div>
+    {% endblock %}
+\end{minted}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
