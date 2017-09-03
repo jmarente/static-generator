@@ -80,4 +80,12 @@ $(document).ready(function () {
     });
 
     prettyPrint();
+
+    var docsNavHeight = $('.docs-nav').height();
+    var docsContent = $('.docs-content');
+    if (docsContent.height() < docsNavHeight) {
+        docsContent.height(docsNavHeight);
+    }
+    
+    $('pre').addClass('prettyprint');
 });

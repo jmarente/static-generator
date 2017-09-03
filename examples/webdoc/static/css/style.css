@@ -462,7 +462,7 @@ input:focus {
         padding: 0 20px;
     }
 
-    section { padding: 3em 0; text-align: left;   background: #fff;}
+    section { padding: 1em 0; text-align: left;   background: #fff;}
     section.centered {
         text-align: center;
     }
