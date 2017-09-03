@@ -731,6 +731,95 @@ Un ejemplo del contenido de esta plantilla, recopilando todo lo anterior sería 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Menús}
+
+Es posible gestionar los menús que queramos que estén disponibles en la web y qué contenidos
+queremos que aparezcan en ciertos menús.
+
+\subsection{Asignación en contenidos}
+
+Para definir qué contenidos estén en ciertos menús, basta con añadir en los metadatos del contenido
+el atributo \texttt{menus} en el que indicaremos los menús en los que deberá aparecer
+los contenidos.
+
+Ejemplo:
+
+\begin{verbatim}
+    +++
+    title='Post 1'
+    description='Post 1 description'
+    menus=['main', 'footer']
+    weight=3
+    +++
+
+    El contenido va aquí
+\end{verbatim}
+
+En el ejemplo, el contenido se asignará a los menús \texttt{main}y \texttt{footer}.
+
+\subsection{Elementos personalizados}
+
+También tenemos la posibilidad de añadir elementos a los menús de forma manual, sin necesidad de que
+tenga que ser contenidos de la web, para ello deberemos de indicar los elementos del menú en el fichero
+de configuración principal del sitio.
+
+Ejemplo:
+
+\begin{yamlcode}
+    menus:
+        main:
+            - title: "title test"
+              url: "/test-url"
+              id: "test1"
+            - title: "title test2"
+              url: "/test-url2"
+              id: "test2-custom"
+              parent: "test1"
+        footer:
+            - title: "title footer"
+              url: "/test-url-footer"
+              id: "test-footer"
+\end{yamlcode}
+
+Como podemos ver, hemos definidos ciertos elementos el los menús \texttt{main} y \texttt{footer},
+indicando el título, la url e identificador de los elementos. Con el atributo \texttt{parent},
+indicaremos que ese elemento del menú será hijo del elemento con el id especificado.
+
+\subsection{Menú automático}
+
+Otra opción es dejar que Sitic genere un menú de forma totalmente automática a partir de todos los
+contenidos del sitio. Para ello basta con establecer la opción \texttt{lazy\_menu} en la configuración
+principal, especificando qué menú se completará de forma automática.
+
+Ejemplo:
+
+\begin{yamlcode}
+    lazy_menu: "main"
+\end{yamlcode}
+
+\subsection{Usando menús en las plantillas}
+
+Por último, podremos acceder a todos los menús definidos desde las plantillas, accediendo al atributo
+\texttt{menus} de la variable \texttt{site}.
+
+\begin{minted}{html}
+    <ul>
+    {% for menu in site.menus.main %}
+    <li><strong>{{ menu.title }}</strong></li>
+      {% if menu.has_children %}
+        {% for child in menu.children %}
+        <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+\end{minted}
+
+Como se ve en el ejemplo, podemos comprobar si un menú tiene más elementos y también recorrerlos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Comandos}
 
 En esta sección se indican los distintos comandos disponibles en sitic, aparte de los ya comentados
