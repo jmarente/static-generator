@@ -43,8 +43,6 @@ class Generator(object):
                 'languages': config.get_languages_config(),
             }
 
-            print(self.context['site']['languages'])
-
             render = Render(language)
             sitemap = Sitemap(language)
 
