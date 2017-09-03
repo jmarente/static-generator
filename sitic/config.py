@@ -108,6 +108,13 @@ class _Config():
         config = self.languages.get(language, {})
         if not config and not isinstance(config, dict):
             config = {}
+        config['url'] = '/' + language if self.main_language != language or not self.main_language_as_root else '/'
+        return config
+
+    def get_languages_config(self):
+        config = {}
+        for language in self.get_languages():
+            config[language] = self.get_language_config(language)
         return config
 
     def get_languages(self):

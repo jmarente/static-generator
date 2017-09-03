@@ -39,7 +39,11 @@ class Generator(object):
             self.context['site'] = {
                 'disqus_shortname': config.disqus_shortname,
                 'language': language,
+                'main_language': config.main_language,
+                'languages': config.get_languages_config(),
             }
+
+            print(self.context['site']['languages'])
 
             render = Render(language)
             sitemap = Sitemap(language)
@@ -56,6 +60,7 @@ class Generator(object):
 
             homepage = self.content_factory.homepages[language]
             homepage.pages = contents
+            self.context['site']['home_url'] = homepage.get_url()
 
             rss = self.content_factory.rss[language]
 
