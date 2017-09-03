@@ -9,4 +9,8 @@ main_language: 'es'
 
 languages:
     en:
+        title: 'English'
+        icon: '/static/img/en-flag.png'
     es:
+        title: 'Español'
+        icon: '/static/img/es-flag.png'

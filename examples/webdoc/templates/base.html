@@ -43,7 +43,13 @@
 
   <div class="container">
 
-    <h2 class="lone-header">{% trans %}Sitic framework official documentation{% endtrans %}</h2>
+    <h2 class="pull-left lone-header">{% trans %}Sitic framework official documentation{% endtrans %}</h2>
+    <div class="pull-right flag-block">
+    {% for lang_key in site.languages %}
+      {% set lang_config = site.languages[lang_key] %}
+      <div class="pull-right flag-container"><a href="{{ lang_config.url }}"><img src="{{ lang_config.icon }}" /></a></div>
+    {% endfor %}
+    </div>
 
   </div>
 
@@ -54,6 +60,7 @@
   <div class="container">
 
     <ul class="docs-nav">
+      <li><a href="{{ site.home_url }}"><strong>{% trans %}Homapage{% endtrans %}</strong></a></li>
       {% for menu in site.menus.main %}
       <li><strong>{{ menu.title }}</strong></li>
         {% if menu.has_children %}
