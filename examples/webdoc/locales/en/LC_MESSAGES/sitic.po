@@ -4,11 +4,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/base.html:46
+#: /templates/search.html:6
+msgid "No results found"
+msgstr ""
+
+#: /templates/search.html:11
+msgid "Previous"
+msgstr ""
+
+#: /templates/search.html:12
+msgid "Next"
+msgstr ""
+
+#: /templates/base.html:42
+msgid "Search"
+msgstr ""
+
+#: /templates/base.html:51
 msgid "Sitic framework official documentation"
 msgstr ""
 
-#: /templates/base.html:76
+#: /templates/base.html:68
+msgid "Homapage"
+msgstr ""
+
+#: /templates/base.html:88
 msgid ""
 "This documentation template is provided by %(url)s. You can download and use "
 "this template for free. If you have used this template, please pay the "
@@ -16,6 +36,6 @@ msgid ""
 "a linkback. Enjoy! :)"
 msgstr ""
 
-#: /templates/base.html:82
+#: /templates/base.html:94
 msgid "Copyright Frittt Templates. All Rights Reserved."
 msgstr ""

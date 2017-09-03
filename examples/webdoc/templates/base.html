@@ -37,13 +37,18 @@
     	<h1><a href="javascript:"><img src="/static/img/icon.png" alt="Free Documentation Template Icon" /> <span>DocWeb</span></a></h1>
 
     </div>
+    <div class="pull-right search-form-container">
+      <form id="mc-form" method="get" action="{{ get_search_url() }}" novalidate="true">
+        <input id="sitic-search-input" type="text" placeholder="{% trans %}Search{% endtrans %}" class="text-input" name="search">
+      </form>
+    </div>
 </nav>
 
 <header>
 
   <div class="container">
 
-    <h2 class="pull-left lone-header">{% trans %}Sitic framework official documentation{% endtrans %}</h2>
+    <h2 class="pull-left lone-header"><a href="{{ site.home_url }}">{% trans %}Sitic framework official documentation{% endtrans %}</a></h2>
     <div class="pull-right flag-block">
     {% for lang_key in site.languages %}
       {% set lang_config = site.languages[lang_key] %}

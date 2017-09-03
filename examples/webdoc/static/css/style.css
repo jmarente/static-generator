@@ -489,8 +489,20 @@ input:focus {
 
 .flag-container {
     margin-right:15px;
+    max-width: 35px;
 }
 
 .flag-block {
     margin-left: 100px;
+}
+
+.search-form-container {
+    margin-top: 12px;
+    margin-right: 10px;
+    width: 400px;
+}
+
+#sitic-search-input {
+    padding-left: 5px;
+    padding-right: 5px;
 }

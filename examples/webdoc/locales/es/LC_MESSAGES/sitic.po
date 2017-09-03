@@ -4,11 +4,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/base.html:46
+#: /templates/search.html:6
+msgid "No results found"
+msgstr "No se han encontrado resultados"
+
+#: /templates/search.html:11
+msgid "Previous"
+msgstr "Anterior"
+
+#: /templates/search.html:12
+msgid "Next"
+msgstr "Siguiente"
+
+#: /templates/base.html:42
+msgid "Search"
+msgstr "Búsqueda"
+
+#: /templates/base.html:51
 msgid "Sitic framework official documentation"
 msgstr "Sitic framework: documentación oficial"
 
-#: /templates/base.html:76
+#: /templates/base.html:68
+msgid "Homapage"
+msgstr "Inicio"
+
+#: /templates/base.html:88
 msgid ""
 "This documentation template is provided by %(url)s. You can download and use "
 "this template for free. If you have used this template, please pay the "
@@ -16,10 +36,10 @@ msgid ""
 "a linkback. Enjoy! :)"
 msgstr ""
 "Esta plantilla de documentación es proporcionada por %(url)s. Puede "
-"descargar y usar esta plantilla de forma gratuita. Si has utilizado esta plantilla, "
-"por favor paga el esfuerzo del desarrollador por Twittear, compartir en Facebook, con "
-"mención social o con un linkback. Disfruta! :)"
+"descargar y usar esta plantilla de forma gratuita. Si has utilizado esta "
+"plantilla, por favor paga el esfuerzo del desarrollador por Twittear, "
+"compartir en Facebook, con mención social o con un linkback. Disfruta! :)"
 
-#: /templates/base.html:82
+#: /templates/base.html:94
 msgid "Copyright Frittt Templates. All Rights Reserved."
 msgstr "Copyright Frittt Templates. Todos los derechos reservados."
