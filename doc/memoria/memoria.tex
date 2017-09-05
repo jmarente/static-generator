@@ -111,8 +111,6 @@
 
 \begin{document}
 
-\frontmatter
-
 % Órdenes LaTeX variadas
 \input{0_inicio/ordenes.tex}
 
@@ -128,6 +126,8 @@
 \input{0_inicio/fdl_short.tex}
 \cleardoublepage
 
+\frontmatter
+
 % Agradecimientos
 \input{0_inicio/agradecimientos.tex}
 \cleardoublepage
@@ -140,12 +140,13 @@
 \tableofcontents
 \listoffigures
 
-\mainmatter
-
 % Cambia el nombre del índice de tablas
 \renewcommand{\listtablename}{Índice de tablas}
 \renewcommand{\tablename}{Tabla}
 \listoftables
+
+\mainmatter
+
 
 %\setlength{\parskip}{1.2ex plus 0.4ex minus 0.1ex}
 

@@ -282,12 +282,14 @@ A continuación se puede ver el fragmento de código que se encarga de realizar 
 \begin{pythoncode}
     from sitic.content.frontmatter_handlers import YamlHander, TomlHandler
 
-
+    # Define every supported metadata handler
     handlers = [handler() for handler in [YamlHander, TomlHandler]]
 
     def __get_handler(text):
+        """ Detects if text metadata is in TOML o YAML format """
         text_handler = None
 
+        # Check file with every handler and return the correct one
         for handler in handlers:
             if handler.has_format(text):
                 text_handler = handler
@@ -297,33 +299,52 @@ A continuación se puede ver el fragmento de código que se encarga de realizar 
 
 
     def __parse(text, handler):
+        """ Process the file and splits the content in metadata and text """
         text = text.strip()
         metadata = {}
 
         handler = handler or __get_handler(text)
+
+        # If no handler found, return metadata as empty
         if not handler:
             return metadata, text
 
-
+        # If handler found, split the content in metadata and text
         try:
             metadata, text = handler.split(text)
         except ValueError:
             return metadata, text
 
+        # Parse metada into internal format
         metadata = handler.load(metadata)
 
         return metadata, text
 
 
     def load(file_path, handler=None):
+        """ Giving a file path, returns parsed content """
         text = ''
 
         with open(file_path, 'r') as f:
             text = f.read()
 
         text = text.strip()
+
+        # Get handler if none given
         handler = handler or __get_handler(text)
+
+        # Once we have read the file, use loads function to handle content
         return loads(text, handler)
+
+
+    def loads(text, handler=None):
+        """ Giving a text and an optional handle, returns parsed content """
+
+        # Get handler if none given
+        handler = handler or __get_handler(text)
+
+        # Return content parsed
+        return __parse(text, handler)
 \end{pythoncode}
 
 \subsubsection{Implementación de búsqueda}
@@ -419,14 +440,23 @@ encargado de extraer las traducciones de las plantillas:
 
 \begin{pythoncode}
 def extract_translations(self):
+    # Loop through every file in the templates path
     for root, directory, files in os.walk(config.templates_path):
         for f in files:
+
+            # Skip the file if it doesn't have a valid template name
             if not f.endswith(tuple(constants.VALID_TEMPLATES_EXTENSIONS)):
                 continue
+
+            # Get complete file path
             file_path = os.path.join(root, f)
             relative_file_path = file_path.replace(config.base_path, '')
+
             with open(file_path, 'r') as content:
+                # Extract every translation from file
                 translations = self.env.extract_translations(content.read())
+
+                # Insert every translation in array to handle it later
                 for t in translations:
                     t = list(t)
                     t.insert(0, relative_file_path)

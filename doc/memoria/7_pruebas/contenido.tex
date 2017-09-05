@@ -32,13 +32,13 @@ módulo, teniendo en cuenta aquellos que fueran más predispuesto a fallos.
 De esta forma todas las sentencias se ejecutaban como mínimo una vez y los posibles fallos se encontraban de una forma más sencilla.
 Por lo que también eran más fácil localizar donde estaba el problema y afrontar la solución.
 
-\subsection{Análisis del código con Pylint.}
-
-Una vez que se comprobaba el correcto funcionamiento del módulo implementado, se le pasaba el analizador de código pylint, con el
-fin de que el código siguiera un estándar uniforme y que estuviera exento de cualquier tipo de errores o signos de mala calidad.
-
-Pylint proporciona una nota de 1 a 10 al código analizado. Se intentó que todos y cada uno de los módulos tuvieran al menos
-una nota mínima de 7. Finalmente se obtuvo una nota de 8.25 en todo el código conjunto de la aplicación.
+% \subsection{Análisis del código con ylint.}
+% 
+% Una vez que se comprobaba el correcto funcionamiento del módulo implementado, se le pasaba el analizador de código pylint, con el
+% fin de que el código siguiera un estándar uniforme y que estuviera exento de cualquier tipo de errores o signos de mala calidad.
+% 
+% Pylint proporciona una nota de 1 a 10 al código analizado. Se intentó que todos y cada uno de los módulos tuvieran al menos
+% una nota mínima de 7. Finalmente se obtuvo una nota de 8.25 en todo el código conjunto de la aplicación.
 
 \section{Pruebas de integración}
 
@@ -48,11 +48,34 @@ posteriormente habían sido probados individualmente, se realizaban pruebas de i
 Conforme se avanzaba en el desarrollo, se realizaban pruebas de integración a mayor escala. No solo entre módulos
 del mismo sistema, sino entre varios sistemas.
 
-Una de las mejores formas que se pensaron para realizar este tipo de pruebas, fue desarrollar una web que usara todos los elementos
-que se iban implementando.
+Una de las mejores formas que se pensaron para realizar este tipo de pruebas, fue desarrollar dos webs que usaran todos 
+los elementos que se iban implementando.
 
-En este caso se creó un Blog, ya que es un ejemplo de sitio web perfecto, sencillo y que use 
-todos los elementos de \textbf{Sitic}.
+En concreto se crearon las dos siguientes webs:
+
+\begin{itemize}
+    \item \textbf{Blog}: ejemplo de sitio web perfecto y sencillo, donde se pueden usar elementos como la paginación,
+        taxonomías, comentarios, secciones y buscador. Se puede ver el resultado en la figura \ref{fig:blog-example}.
+    \item \textbf{Documentación web}: otro ejemplo perfecto en el que se pueden ver somo se usan elementos como menús,
+        internacionalización y buscador. Se puede ver el resultado en la figura \ref{fig:doc-example}.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{7_pruebas/blog_example.png}
+    \caption{Ejemplo de blog construido}
+    \label{fig:blog-example}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.1\textwidth]{7_pruebas/doc_example.png}
+    \caption{Ejemplo de documentación web construido}
+    \label{fig:doc-example}
+\end{figure}
+
+Ambos sitios están disponibles en el respositorio oficial del proyecto~\cite{repositorio}
+bajo la carpeta \texttt{examples}.
 
 Durante el desarrollo se descubrieron distintos errores y se mejoraron muchos aspectos de usabilidad del proyecto, 
 como puede serel uso de las taxonomías o la usabilidad de la funcionalidad para la paginación de secciones.

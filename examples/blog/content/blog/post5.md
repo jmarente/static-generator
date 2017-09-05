@@ -38,23 +38,3 @@ Pergama daedalus annis, fudit.
 > stimuletur**, vestri discrimina sceptrum, abit doceri septem iuvenumque. Ego
 > est forte inpetus coniugis, auras inania regnat, tum languescuntque Byblida
 > nisi, mentes. Vident candidus flectitur humana.
-
-## Obrutaque videat
-
-Modo figens satyri iunget hortamine comitata; ego fortibus nescit? *Tergum*
-Aurora te tenera, rivi est, ne nec procellae numina cum pellor.
-
-## Vestigia crines caelestique primus Caeneus
-
-Hanc animam; pompa humum illa evanescere crimina solum sub ususabstrahit *fama
-tulit*, montes. Vos unda omnia, atque dedit matris mutare gravis; et ille. Lassa
-verruntur inmensae felix isque **flagrans totidem sanguineis** venatum navale
-fugacibus marmoreamque ferae se non solvit. Superbus silices suppressit
-sumptoque ausa. Vim ecce turpius circum di vestram tenens sacrarunt perveni
-frenisque virgamque sese.
-
-Subest ceciderunt altior potuisse canum moveoque coniuge. Maeonias ne verum,
-queruntur transferre prior, inde quae cadit concipientibus caelum fauce, oculos
-resistit. Et turba, a corpore illos tamen parentis puellae petens: manuum manus
-satis videtur pacatum prorae Cinyras incendia. Alta et marmoris loquendo: deerat
-illic tacitos inprudens et.

@@ -45,14 +45,14 @@ darles soporte.
 
 \section{Fase de desarrollo}
 
-Tras la consecución de las etapas anteriores, se comenzó el desarrollo del proyecto. Esta etapa del desarrollo 
+Tras la consecución de las etapas anteriores, se comenzó el desarrollo del proyecto. Esta etapa del desarrollo
 es la más extensa de todas, como es comprensible. Y me fue posible llevarla a cabo gracias a los
 prototipos que iba implementando conforme aprendía.
 
 \begin{itemize}
-\item \textbf{Generador básico}: Como primer paso se realizó un generador básico de ficheros a partir 
+\item \textbf{Generador básico}: Como primer paso se realizó un generador básico de ficheros a partir
 de ficheros de texto plano. Esto incluía la generación estructural de toda la web resultante.
-\item \textbf{Adaptar sistema de plantillas}: Otro de los aspectos más importantes fue adaptar el sistema 
+\item \textbf{Adaptar sistema de plantillas}: Otro de los aspectos más importantes fue adaptar el sistema
 de plantillas usado (Jinja) con el motor de generación de forma que los HTMLs generados fueran totalmente
 personalizables por los usuarios.
 \item \textbf{Mejor de output}: Al ser una herramienta que se ejecuta por la linea de comandos, se invirtió
@@ -67,7 +67,7 @@ se dedicó tiempo a mejorar las ya existentes, así como a implementar nuevas.
 \section{Pruebas y correcciones}
 
 Una de las etapas más importantes del desarrollo de cualquier proyecto. Esta etapa se realizó en paralelo
-a la de desarrollo, ya que conforme se implementaron nuevas funcionalidades, se iban probando exhaustivamente 
+a la de desarrollo, ya que conforme se implementaron nuevas funcionalidades, se iban probando exhaustivamente
 bajo el contexto de las distintas situaciones que pudieran darse, hasta obtener el comportamiento
 esperado.
 
@@ -89,3 +89,54 @@ Gantt:
     \caption{Diagrama de Gantt}
     \label{fig:gantt}
 \end{figure}
+
+\section{Costes}
+
+El coste final del producto, sería la suma del coste de los recursos humanos, con los
+recursos materiales. El cálculo se realiza con los tiempos estimados.
+
+Los recursos materiales los podemos dividir en dos:
+
+\begin{itemize}
+
+    \item Recursos software: conjunto de herramientas propuestas a usar en el desarrollo. Todo lo
+        utilizado es software libre, por lo tanto el coste de los recursos software es 0€.
+    \item Recursos hardware: para el desarrollo de la herramienta se ha utilizado un portátil
+        Asus con un precio de 720€.
+\end{itemize}
+
+Los recursos humanos necesarios para el desarrollo serían:
+
+\begin{itemize}
+    \item Analista: Sueldo medio anual de un analista funcional es de 45.000€. Siendo la
+        hora a 23€
+    \item Desarrollador: Sueldo medio anual de un desarrollador web es de 35.000€.
+        Siendo la hora a 18€.
+    \item Encargado de Pruebas: Sueldo medio anual de un especialista encargado de
+        realizar pruebas técnicas y funcionales es de 30.000€. Siendo la hora a 15€.
+\end{itemize}
+
+Los costes de cada rol han sido obtenidos a través de la web http://espana.jobtonic.es.
+
+Coste total de desarrollo:
+
+\begin{table}[hbtp]
+  \centering
+  \begin{tabular}[h]{|l|c|c|r|}
+    \hline
+    \textbf{Concepto} & \textbf{Coste unitario} & \textbf{Unidades} & \textbf{Coste total} \\
+    \hline
+    \textit{Portatil Asus} & 720€ & 3 & 2.160€ \\
+    \hline
+    \textit{Analista} & 23€/hora & 50 horas & 1.150€ \\
+    \hline
+    \textit{Desarrollador} & 18€/hora & 300 horas & 5.400€ \\
+    \hline
+    \textit{Encargado de pruebas} & 15€/hora & 60 horas & 900€ \\
+    \hline
+    \textbf{Total} & & & \textbf{9.610€} \\
+    \hline
+  \end{tabular}
+  \caption{Tabla de planificación de costes}
+  \label{tab:costes}
+\end{table}
