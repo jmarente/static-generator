@@ -106,12 +106,12 @@
           <h2>Descripción</h2>
           <section>
             <h4>Qué es Sitic</h4>
-            <p>Framework para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos.</p>
+            <p>Framework para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos</p>
           </section>
           <section>
             <h4>Diferencia con generadores dinámicos</h4>
             <ul>
-              <li class="fragment fade-left">Servidor HTTP ejecuta el generador para crear un nuevo fichero HTML por visita.</li>
+              <li class="fragment fade-left">Servidor HTTP ejecuta el generador para crear un nuevo fichero HTML por visita</li>
               <li class="fragment fade-left">La máquina que aloja el servidor con suficiente memoria y CPU para ejecutar el generador todo el día</li>
               <li class="fragment fade-left">Por general, almacenan en caché los ficheros HTML</li>
             </ul>
@@ -144,10 +144,68 @@
               <li>Soporte para secciones y taxonmías</li>
               <li>URL personalizables</li>
               <li>Creación dinámica de menús</li>
-              <li>Soporte contenido esen Markdown, Textile y Reestructured text</li>
-              <li>Soporte internacionalización</li>
-              <li>Soporte para especificar metadatos en los contenidos</li>
+              <li>Markdown, Textile y Reestructured text</li>
+              <li>Internacionalización</li>
+              <li>Definiter metadatos en los contenidos</li>
             <ul>
+          </section>
+          <section>
+            <h4>Organización de un proyecto Sitic</h4>
+            <pre><code data-trim data-noescape>
+content
+data
+static
+templates
+sitic.yml
+            </code></pre>
+          </section>
+          <section>
+            <h4>Fichero de configuración</h4>
+            <ul>
+              <li>Fichero pricipal del un proyecto Sitic</li>
+              <li>Define los aspectos globales</li>
+            </ul>
+            <pre><code data-trim data-noescape>
+base_url: 'www.siticblog.com'
+paginable: 3
+
+taxonomies:
+    tag: "tags"
+    category: "categories"
+    series: "series"
+    actor: "actors"
+
+disqus_shortname: "siticblog"
+search_pagination: 3
+            </code></pre>
+          </section>
+          <section>
+            <h4>La estructura de los contenidos importa</h4>
+            <pre><code data-trim data-noescape>
+content/
++-- about.md      // http://example.com/about
++-- blog          // http://example.com/blog/
++-- post1.md      // http://example.com/blog/post1
++-- post2.md      // http://example.com/blog/post2
++-- post3.textile // http://example.com/blog/post3
++-- post3.rst     // http://example.com/blog/post4
+            </code></pre>
+          </section>
+          <section>
+            <h4>Estructura de contenidos</h4>
+            <ul>
+            <li>Definir información extra que desee en los ficheros</li>
+            <li>Formato TOML (+++) y YAML (---)</li>
+            </ul>
+            <pre><code data-trim data-noescape>
+++++++++++++++++
+title='Post 1'
+tags=['tag1', 'tag2']
+actors=['actor1']
+++++++++++++++++
+
+## Contenido
+            </code></pre>
           </section>
         </section>
 
@@ -168,12 +226,12 @@
           </section>
           <section>
             <h4>Fase de desarrollo</h4>
-            <ul>
+            <ol>
               <li class="fragment fade-left">Generador básico</li>
               <li class="fragment fade-left">Sistema de plantillas</li>
               <li class="fragment fade-left">Internacionalización</li>
               <li class="fragment fade-left">Amplicar funcionalidades</li>
-            </ul>
+            </ol>
           </section>
           <section>
             <h4>Diagrama de Gantt</h4>
@@ -187,7 +245,75 @@
         <section>
           <h2>Desarrollo</h2>
           <section>
-            <h4></h4>
+            <h4>Principales tecnologías utilizadas</h4>
+            <ul>
+              <li>Python como lenguaje de programación</li>
+              <li>Virtualenv, VirtualenvWrapper y Pip para la gestión de dependencias</li>
+              <li>Jinja2 como sistema de plantillas</li>
+              <li>Watchdog para monitorización de ficheros</li>
+              <li>Click para crear las interfaces de línea de comandos</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Buscador</h4>
+            <ul>
+              <li>Facilidad para encontrar contenidos</li>
+              <li>No es necesario recorrer la web completa</li>
+              <li>Sitic indexa todos los contenidos en un JSON</li>
+              <li>Con Javascript (lunr.js) realiza las búsquedas sin llamadas al servidor</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Buscador</h4>
+            <pre><code data-trim data-noescape>
+[
+    {
+        "content": "Variarum ...",
+        "title": "Post 1",
+        "url": "/blog/post1"
+    },
+    {
+        "content": "markdownum mihi...",
+        "title": "Post 2",
+        "url": "/blog/post2"
+    },
+    {
+        "content": "loricaeque Lorem...",
+        "title": "Post 6",
+        "url": "/blog/post6"
+    }
+]
+            </code></pre>
+          </section>
+          <section>
+            <h4>Internacionalización</h4>
+            <ul>
+              <li>Uso de biblioteca gettext</li>
+              <li>Definir idiomas en fichero configuración</li>
+              <li>Traducción de las plantillas</li>
+              <li>Herramientas para gestión de traducciones</li>
+            </ul>
+            <pre><code data-trim>
+<h1>{% trans %}Texto a traducir{% endtrans %}</h1>
+            </code></pre>
+          </section>
+          <section>
+            <h4>Herramientas para el desarrollo</h4>
+            <p style="text-align:left;">Sitic provee distintas herramientas para facilitar el desarrollo:</p>
+            <ul>
+              <li>server: lanzar un servidor HTTP local</li>
+              <li>watcher: genera el contenido cada vez que detecta un cambio</li>
+              <li>makemessages: obtiene todas las cadenas a traducir</li>
+              <li>compilemessages: complia traducciones</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Ejemplo. Blog</h4>
+            <img src="img/blog_example.png"/>
+          </section>
+          <section>
+            <h4>Ejemplo. Documentación</h4>
+            <img src="img/doc_example.png"/>
           </section>
         </section>
 
@@ -244,9 +370,12 @@
       // - https://github.com/hakimel/reveal.js#configuration
       // - https://github.com/hakimel/reveal.js#dependencies
       Reveal.initialize({
+        // width: "100%",
+        // height: "100%",
         width: 960,
         height: 700,
-        slideNumber: true,
+        // slideNumber: true,
+        slideNumber: 'c/t',
         dependencies: [
         { src: 'plugin/markdown/marked.js' },
         { src: 'plugin/markdown/markdown.js' },
