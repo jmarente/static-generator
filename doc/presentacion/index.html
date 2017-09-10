@@ -33,7 +33,7 @@
         <!---------------PORTADA-------------->
         <!------------------------------------>
         <section>
-          <h1>Sitic</h1>
+          <h1 class="orange">Sitic</h1>
           <h3>Framework para generar páginas webs estáticas</h3>
           <p>
             <small><a href="https://github.com/jmarente">José Marente</a></small>
@@ -68,7 +68,7 @@
             <ul>
               <li class="fragment fade-left">Una web se suele visitar con más frecuencia que se edita</li>
               <li class="fragment fade-left">Cualquier web de hoy en día necesita bastantes recursos</li>
-              <li class="fragment fade-left">Si una de las partes falla, todo falla</li>
+              <li class="fragment fade-left">Si una de las partes falla, <span class="red">todo falla</span></li>
               <li class="fragment fade-left">Seguridad en cada una de las partes</li>
             </ul>
           </section>
@@ -77,14 +77,14 @@
             <ul>
               <li class="fragment fade-left">Noviembre 2014, miembro en desarrollo de una web completamente estática</li>
               <li class="fragment fade-left">Se usó uno de los generadores más usados del momento</li>
-              <li class="fragment fade-left">Carencia de funcionalidades imprescindibles</li>
-              <li class="fragment fade-left">Implementar funcionalidades no 100% compatibles</li>
+              <li class="fragment fade-left"><span class="red">Carencia</span> de funcionalidades imprescindibles</li>
+              <li class="fragment fade-left">Implementar <span class="blue">workarrounds</span> no 100% compatibles</li>
             </ul>
           </section>
           <section>
             <h4>Obtetivos</h4>
             <ul>
-              <li class="fragment fade-left">Crear webs estática con funcionalidades que una web dinámica</li>
+              <li class="fragment fade-left">Crear webs estática con <span class="red">funcionalidades</span> de una web dinámica</li>
               <li class="fragment fade-left">Permitir configurar cada uno de los aspectos</li>
               <li class="fragment fade-left">Cualquier usuario medio puede crear un sitio web sin conocimientos</li>
             </ul>
@@ -92,9 +92,9 @@
           <section>
             <h4>Obtetivos transversales</h4>
             <ul>
-              <li class="fragment fade-left">Aplicar y amplicar <strong>conocimientos en desarrollo web</strong></li>
-              <li class="fragment fade-left">Descubrir <strong>nuevas tecnologías</strong></li>
-              <li class="fragment fade-left">Aportar <strong>software libre</strong></li>
+              <li class="fragment fade-left">Aplicar y amplicar <span class="blue">conocimientos en desarrollo web</span></li>
+              <li class="fragment fade-left">Descubrir <span class="purple">nuevas tecnologías</span></li>
+              <li class="fragment fade-left">Aportar <span class="pink">software libre</span></li>
             </ul>
           </section>
         </section>
@@ -105,8 +105,8 @@
         <section>
           <h2>Descripción</h2>
           <section>
-            <h4>Qué es Sitic</h4>
-            <p>Framework para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos</p>
+            <h4>Qué es <span class="orange">Sitic</span></h4>
+            <p><span class="blue">Framework</span> para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos</p>
           </section>
           <section>
             <h4>Diferencia con generadores dinámicos</h4>
@@ -150,7 +150,7 @@
             <ul>
           </section>
           <section>
-            <h4>Organización de un proyecto Sitic</h4>
+            <h4>Organización de un proyecto <span class="orange">Sitic</span></h4>
             <pre><code data-trim data-noescape>
 content
 data
@@ -162,7 +162,7 @@ sitic.yml
           <section>
             <h4>Fichero de configuración</h4>
             <ul>
-              <li>Fichero pricipal del un proyecto Sitic</li>
+              <li>Fichero pricipal del un proyecto <span class="orange">Sitic</span></li>
               <li>Define los aspectos globales</li>
             </ul>
             <pre><code data-trim data-noescape>
@@ -195,7 +195,7 @@ content/
             <h4>Estructura de contenidos</h4>
             <ul>
             <li>Definir información extra que desee en los ficheros</li>
-            <li>Formato TOML (+++) y YAML (---)</li>
+            <li>Formato <span class="pink">TOML</span> (+++) y <span class="blue">YAML</span>(---)</li>
             </ul>
             <pre><code data-trim data-noescape>
 ++++++++++++++++
@@ -247,11 +247,11 @@ actors=['actor1']
           <section>
             <h4>Principales tecnologías utilizadas</h4>
             <ul>
-              <li>Python como lenguaje de programación</li>
-              <li>Virtualenv, VirtualenvWrapper y Pip para la gestión de dependencias</li>
-              <li>Jinja2 como sistema de plantillas</li>
-              <li>Watchdog para monitorización de ficheros</li>
-              <li>Click para crear las interfaces de línea de comandos</li>
+              <li><span class="orange">Python</span> como lenguaje de programación</li>
+              <li>Virtualenv, <span class="purple">VirtualenvWrapper</span> y Pip para la gestión de dependencias</li>
+              <li><span class="blue">Jinja2</span> como sistema de plantillas</li>
+              <li><span class="red">Watchdog</span> para monitorización de ficheros</li>
+              <li><span class="pink">Click</span> para crear las interfaces de línea de comandos</li>
             </ul>
           </section>
           <section>
@@ -259,8 +259,8 @@ actors=['actor1']
             <ul>
               <li>Facilidad para encontrar contenidos</li>
               <li>No es necesario recorrer la web completa</li>
-              <li>Sitic indexa todos los contenidos en un JSON</li>
-              <li>Con Javascript (lunr.js) realiza las búsquedas sin llamadas al servidor</li>
+              <li><span class="orange">Sitic</span> indexa todos los contenidos en un JSON</li>
+              <li>Con <span class="blue">Javascript</span> (<span class="pink">lunr.js</span>) realiza las búsquedas sin llamadas al servidor</li>
             </ul>
           </section>
           <section>
@@ -299,7 +299,7 @@ actors=['actor1']
           </section>
           <section>
             <h4>Herramientas para el desarrollo</h4>
-            <p style="text-align:left;">Sitic provee distintas herramientas para facilitar el desarrollo:</p>
+            <p style="text-align:left;"><span class="orange">Sitic</span> provee distintas herramientas para facilitar el desarrollo:</p>
             <ul>
               <li>server: lanzar un servidor HTTP local</li>
               <li>watcher: genera el contenido cada vez que detecta un cambio</li>
@@ -341,7 +341,7 @@ actors=['actor1']
           <section>
             <h4>Mejoras y ampliaciones</h4>
             <ul>
-              <li class="fragment fade-left">Publicar un sólo idioma</li>
+              <li class="fragment fade-left">Publicar un solo idioma</li>
               <li class="fragment fade-left">Método watch que recarga sólo el navegador</li>
               <li class="fragment fade-left">Soporte para temas de plantillas</li>
             </ul>

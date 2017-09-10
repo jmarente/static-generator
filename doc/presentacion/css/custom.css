@@ -2,3 +2,23 @@
     border:0px !important;
     background-color: inherit !important;
 }
+
+.purple {
+    color: rgb(128, 85, 196) !important;
+}
+
+.pink {
+    color: #f08 !important;
+}
+
+.blue {
+    color: #0af !important;
+}
+
+.orange {
+    color: #fa0 !important;
+}
+
+.red {
+    color: #d82f2f !important;
+}
