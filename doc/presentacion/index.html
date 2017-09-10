@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Sitic</title>
+
+    <meta name="description" content="Sitic - Framework para generar páginas webs estáticas">
+    <meta name="author" content="Jose Marente">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!------------------------------------>
+        <!---------------PORTADA-------------->
+        <!------------------------------------>
+        <section>
+          <h1>Sitic</h1>
+          <h3>Framework para generar páginas webs estáticas</h3>
+          <p>
+            <small><a href="https://github.com/jmarente">José Marente</a></small>
+          </p>
+          <p>
+            <small><a href="https://github.com/jmarente/sitic">Github</a></small>
+          </p>
+        </section>
+
+        <!------------------------------------>
+        <!---------------ÍNDICE-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Índice</h2>
+          <ol>
+            <li>Introducción</li>
+            <li>Planificación</li>
+            <li>Descripción</li>
+            <li>Desarrollo</li>
+            <li>Conclusiones</li>
+            <li>Demostración</li>
+          </ol>
+        </section>
+
+        <!------------------------------------>
+        <!-----------ÍNTRODUCCÓN-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Introducción</h2>
+          <section>
+            <h4>Contexto</h4>
+            <ul>
+              <li class="fragment fade-left">Una web se suele visitar con más frecuencia que se edita</li>
+              <li class="fragment fade-left">Cualquier web de hoy en día necesita bastantes recursos</li>
+              <li class="fragment fade-left">Si una de las partes falla, todo falla</li>
+              <li class="fragment fade-left">Seguridad en cada una de las partes</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Motivación</h4>
+            <ul>
+              <li class="fragment fade-left">Noviembre 2014, miembro en desarrollo de una web completamente estática</li>
+              <li class="fragment fade-left">Se usó uno de los generadores más usados del momento</li>
+              <li class="fragment fade-left">Carencia de funcionalidades imprescindibles</li>
+              <li class="fragment fade-left">Implementar funcionalidades no 100% compatibles</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Obtetivos</h4>
+            <ul>
+              <li class="fragment fade-left">Crear webs estática con funcionalidades que una web dinámica</li>
+              <li class="fragment fade-left">Permitir configurar cada uno de los aspectos</li>
+              <li class="fragment fade-left">Cualquier usuario medio puede crear un sitio web sin conocimientos</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Obtetivos transversales</h4>
+            <ul>
+              <li class="fragment fade-left">Aplicar y amplicar <strong>conocimientos en desarrollo web</strong></li>
+              <li class="fragment fade-left">Descubrir <strong>nuevas tecnologías</strong></li>
+              <li class="fragment fade-left">Aportar <strong>software libre</strong></li>
+            </ul>
+          </section>
+        </section>
+
+        <!------------------------------------>
+        <!----------PLANIFICACION-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Planificación</h2>
+          <section>
+            <h4>Fases</h4>
+            <ul>
+              <li class="fragment fade-left">Fase de análisis: indentificación de las necesidades del software</li>
+              <li class="fragment fade-left">Fase de diseño: diseño de todo el sistema</li>
+              <li class="fragment fade-left">Fase de aprendizaje: familiarización con Python y bibliotecas</li>
+              <li class="fragment fade-left">Fase de desarrollo: implementación de todo lo defnido en la fase de diseño</li>
+              <li class="fragment fade-left">Pruebas y correcciones: En paralelo a la fase de desarrollo</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Fase de desarrollo</h4>
+            <ul>
+              <li class="fragment fade-left">Generador básico</li>
+              <li class="fragment fade-left">Sistema de plantillas</li>
+              <li class="fragment fade-left">Internacionalización</li>
+              <li class="fragment fade-left">Amplicar funcionalidades</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Diagrama de Gantt</h4>
+            <img src="img/diagrama_gantt.png"/>
+          </section>
+        </section>
+
+        <!------------------------------------>
+        <!-----------DESCRIPCION-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Descripción</h2>
+          <section>
+            <h4>Qué es Sitic</h4>
+            <p>Framework para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos.</p>
+          </section>
+          <section>
+            <h4>Diferencia con generadores dinámicos</h4>
+            <ul>
+              <li class="fragment fade-left">Servidor HTTP ejecuta el generador para crear un nuevo fichero HTML por visita.</li>
+              <li class="fragment fade-left">La máquina que aloja el servidor con suficiente memoria y CPU para ejecutar el generador todo el día</li>
+              <li class="fragment fade-left">Por general, almacenan en caché los ficheros HTML</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Diferencia con generadores dinámicos</h4>
+            <ul>
+              <li class="fragment fade-left">LLeva la caché a un paso más. HTML directamente en disco</li>
+              <li class="fragment fade-left">Mejora de rendimiento. Servidor HTTP muy buenos enviando ficheros</li>
+              <li class="fragment fade-left">Reduccion de costes</li>
+              <li class="fragment fade-left">Mejora en seguridad</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Diferencia con generadores dinámicos</h4>
+            <div>
+              <img src="img/dynamic_diagram.svg" class="img-no-style" style="width:450px;"/>
+            </div>
+          </section>
+          <section>
+            <h4>Diferencia con generadores dinámicos</h4>
+            <div>
+              <img src="img/static_diagram.svg" class="img-no-style" style="width:450px;"/>
+            </div>
+          </section>
+          <section>
+            <h4>Características</h4>
+            <ul>
+              <li>Organización sencilla</li>
+              <li>Soporte para secciones y taxonmías</li>
+              <li>URL personalizables</li>
+              <li>Creación dinámica de menús</li>
+              <li>Soporte contenido esen Markdown, Textile y Reestructured text</li>
+              <li>Soporte internacionalización</li>
+              <li>Soporte para especificar metadatos en los contenidos</li>
+            <ul>
+          </section>
+        </section>
+
+        <!------------------------------------>
+        <!-----------DESARROLLO------------------>
+        <!------------------------------------>
+        <section>
+          <h2>Desarrollo</h2>
+          <section>
+            <h4></h4>
+          </section>
+        </section>
+
+        <!------------------------------------>
+        <!-----------CONCLUSIONES-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Conclusiones</h2>
+          <section>
+            <h4>Objetivos cumplidos</h4>
+            <ul>
+              <li class="fragment fade-left">Todos los objetivos marcados al inicio del PFC han sido cumplidos</li>
+              <li class="fragment fade-left">Contribución al mundo del Software libre</li>
+              <li class="fragment fade-left">Framework totalmente funcional</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Valoración personal</h4>
+            <ul>
+              <li class="fragment fade-left">Siempre es un reto enfrentarse a un proyecto sólo</li>
+              <li class="fragment fade-left">Aprendizaje de nuevas herramientas y metodologías</li>
+              <li class="fragment fade-left">Puesta en prática de conocimientos adquiridos</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Mejoras y ampliaciones</h4>
+            <ul>
+              <li class="fragment fade-left">Publicar un sólo idioma</li>
+              <li class="fragment fade-left">Método watch que recarga sólo el navegador</li>
+              <li class="fragment fade-left">Soporte para temas de plantillas</li>
+            </ul>
+          </section>
+        </section>
+
+        <!------------------------------------>
+        <!-----------DEMOSTRACIÓN-------------->
+        <!------------------------------------>
+        <section>
+          <h2>Demostración</h2>
+        </section>
+
+        <section>
+          <h2>Muchas gracias</h2>
+          <h2>¿Preguntas?</h2>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        width: 960,
+        height: 700,
+        slideNumber: true,
+        dependencies: [
+        { src: 'plugin/markdown/marked.js' },
+        { src: 'plugin/markdown/markdown.js' },
+        { src: 'plugin/notes/notes.js', async: true },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
