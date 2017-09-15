@@ -19,12 +19,16 @@ class Generator(object):
 
     def __init__(self):
         self.content_factory = ContentFactory()
+        self.current_url = None
+        self.meta_tag = ''
 
     def build_contents(self):
         self.content_factory.build_contents()
 
     def gen(self):
         logger.info('Generating site...')
+
+        self.current_url = None
 
         stats.initialize()
         self.build_contents()
@@ -62,12 +66,13 @@ class Generator(object):
 
             rss = self.content_factory.rss[language]
 
-            menu_builder = MenuBuilder(contents, sections, language)
+            menu_builder = MenuBuilder(self, contents, sections, language)
 
             menus = menu_builder.build()
             self.context['site']['menus'] = menus
 
-            all_contents = [homepage] + contents + taxonomies_contents + sections + rss + [search_page]
+            all_contents = [homepage] + contents + taxonomies_contents \
+                    + sections + rss + [search_page]
 
             meta_data = {
                 'search-index': self.search_indexer.get_url(),
@@ -76,10 +81,12 @@ class Generator(object):
 
             self.search_indexer.add_contents(contents + sections)
 
-            meta_values = ['data-{}="{}"'.format(key, value) for key, value in meta_data.items() if value]
+            meta_values = ['data-{}="{}"'.format(key, value)
+                           for key, value in meta_data.items() if value]
             self.meta_tag = '<meta name="sitic" {}/>'.format(' '.join(meta_values))
 
             for content in all_contents:
+                self.current_url = content.get_url()
                 stats.update(content)
                 self.context['scoper'] = Scoper()
                 if content.is_paginable():
@@ -106,22 +113,22 @@ class Generator(object):
     def move_static_folder(self):
         if os.path.exists(config.static_path):
             for item in os.listdir(config.static_path):
-                s = os.path.join(config.static_path, item)
+                origin = os.path.join(config.static_path, item)
                 # FIXME: use same name as static source folder
-                d = os.path.join(config.public_path, 'static', item)
-                if os.path.isdir(s):
-                    if os.path.exists(d):
-                        shutil.rmtree(d)
-                    shutil.copytree(s, d)
+                destination = os.path.join(config.public_path, 'static', item)
+                if os.path.isdir(origin):
+                    if os.path.exists(destination):
+                        shutil.rmtree(destination)
+                    shutil.copytree(origin, destination)
                 else:
-                    shutil.copy2(s, d)
+                    shutil.copy2(origin, destination)
 
     def create_path(self, content_path):
         path = os.path.dirname(content_path)
         if not os.path.exists(path):
             try:
                 os.makedirs(path)
-            except FileExistsError as e:
+            except OSError:
                 pass
 
     def generate_regular(self, render, content):
@@ -129,7 +136,8 @@ class Generator(object):
 
         self.create_path(content_path)
         self.context['node'] = content.get_context()
-        render.render(content, content_path, self.context, self.meta_tag, self.search_indexer.get_html_includes())
+        render.render(content, content_path, self.context, self.meta_tag,
+                      self.search_indexer.get_html_includes())
 
     def generate_paginable(self, render, content):
         page_size = config.paginable or content.pages_count()
@@ -143,7 +151,8 @@ class Generator(object):
 
             self.create_path(page_path)
             self.context['node']['paginator'] = paginator
-            render.render(content, page_path, self.context, self.meta_tag, self.search_indexer.get_html_includes())
+            render.render(content, page_path, self.context, self.meta_tag,
+                          self.search_indexer.get_html_includes())
 
     def remove_expired(self, expired_contents):
         for content in expired_contents:
@@ -155,8 +164,8 @@ class Generator(object):
 
     def get_taxonomies_content(self, taxonomies):
         taxonomies_content = []
-        for t in taxonomies.values():
-            taxonomies_content += list(t.values())
+        for taxonomy in taxonomies.values():
+            taxonomies_content += list(taxonomy.values())
         return taxonomies_content
 
     def add_taxonomies_to_context(self, taxonomies):

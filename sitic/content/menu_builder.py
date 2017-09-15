@@ -2,12 +2,12 @@
 from sitic.config import config
 from sitic.logging import logger
 from sitic.content.menu import Menu
-from sitic.content.page import Page
 
 
 class MenuBuilder(object):
 
-    def __init__(self, pages = [], sections = [], language = None):
+    def __init__(self, generator, pages=[], sections=[], language=None):
+        self.generator = generator
         self.pages = pages
         self.sections = sections
         section_pages = [s.content_page for s in sections if s.content_page]
@@ -58,8 +58,9 @@ class MenuBuilder(object):
             data['name'] = index
         return data
 
-    def get_object_from_page(self, page, menu_data = {}):
+    def get_object_from_page(self, page, menu_data={}):
         return Menu(
+            self.generator,
             id=menu_data.get('id', None) or page.id,
             title=menu_data.get('title', None) or page.title,
             weight=menu_data.get('weight', None) or page.weight,
@@ -68,6 +69,7 @@ class MenuBuilder(object):
 
     def get_object_from_section(self, section):
         return Menu(
+            self.generator,
             id=section.id,
             title=section.title,
             weight=section.weight,
@@ -86,7 +88,7 @@ class MenuBuilder(object):
                 parent = item.get('parent', None)
 
                 if title and id and url:
-                    menu_object = Menu(id=id, title=title, weight=weight, url=url)
+                    menu_object = Menu(self.generator, id=id, title=title, weight=weight, url=url)
 
                     self.add_to_menu(menu_name, menu_object, parent)
                 else:
@@ -108,7 +110,7 @@ class MenuBuilder(object):
 
     def rank(self):
         for menu_name, menu_items in self.menus.items():
-            for key, menu in menu_items.items():
+            for _, menu in menu_items.items():
                 parent_id = menu['parent_id']
                 menu_object = menu['object']
 
@@ -119,8 +121,11 @@ class MenuBuilder(object):
         formatted_menus = {}
         for menu_name, menu_items in self.menus.items():
 
-            without_parents = [x['object'] for x in menu_items.values() if x['object'].parent is None]
-            formatted_menus[menu_name] = sorted(without_parents, key = lambda x: x.weight)
+            without_parents = [
+                x['object'] for x in menu_items.values()
+                if x['object'].parent is None
+            ]
+            formatted_menus[menu_name] = sorted(without_parents, key=lambda x: x.weight)
 
         return formatted_menus
 
