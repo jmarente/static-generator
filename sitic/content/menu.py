@@ -31,7 +31,7 @@ class Menu(object):
     @property
     def has_current(self):
 
-        if isinstance(sef.generator, str):
+        if isinstance(self.generator, str):
             return False
 
         menu_elements = [self]
