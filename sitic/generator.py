@@ -12,6 +12,7 @@ from sitic.content.sitemap import Sitemap
 from sitic.scoper import Scoper
 from sitic.search_indexer import SearchIndexer
 from sitic.content.rss import Rss
+from sitic.content.redirect_page import RedirectPage
 from sitic.stats import stats
 
 class Generator(object):
@@ -97,6 +98,9 @@ class Generator(object):
                 # FIXME: temporary fix
                 if not isinstance(content, Rss):
                     sitemap.contents.append(content)
+
+                if content.has_redirect_url():
+                    all_contents.append(RedirectPage(content.get_redirect_url(), content.get_url()))
 
             self.generate_regular(render, sitemap)
 

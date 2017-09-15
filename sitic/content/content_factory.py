@@ -23,6 +23,7 @@ class ContentFactory(object):
     taxonomies = defaultdict(dict)
     sections = defaultdict(dict)
     rss = defaultdict(list)
+    search_pages = {}
 
     homepages = {}
 
@@ -49,9 +50,9 @@ class ContentFactory(object):
 
     def build_contents(self):
         self.initialize()
-        for root, directory, files in os.walk(config.content_path):
+        for root, _, files in os.walk(config.content_path):
             supported_files = [os.path.join(root, f) for f in files
-                    if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
+                               if f.endswith(tuple(constants.VALID_CONTENT_EXTENSIONS))]
             self._build_contents(supported_files)
 
         self.build_routed_contents()
@@ -176,7 +177,7 @@ class ContentFactory(object):
         languages = config.get_languages()
 
         if not isinstance(content, dict):
-            logger.warning('Every element in the routing file must be a dictionary: {}'.format(e.message))
+            logger.warning('Every element in the routing file must be a dictionary')
             return
 
         mandatory_fields = [('title', str), ('section', str), ('url', str)]

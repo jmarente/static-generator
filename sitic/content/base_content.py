@@ -27,7 +27,6 @@ class BaseContent(object):
         if not self._url:
             url = self._get_url().strip('/')
 
-            language_slug = ''
             if self.language and (self.language != config.main_language or not config.main_language_as_root):
                 parts = [self.language] + url.split('/')
                 url = '/'.join(parts)
@@ -37,6 +36,20 @@ class BaseContent(object):
             self._url = url
 
         return self._url
+
+    def has_redirect_url(self):
+        return self.get_redirect_url() is not None
+
+    def get_redirect_url(self):
+        redirect_url = None
+        if self.language and self.language == config.main_language:
+            redirect_url = self._get_url().strip('/')
+            if config.main_language_as_root:
+                parts = [self.language] + redirect_url.split('/')
+                redirect_url = '/'.join(parts)
+            redirect_url = '/' + redirect_url.lstrip('/')
+        return redirect_url
+
 
     def absolute_url(self):
         url = self.get_url()
