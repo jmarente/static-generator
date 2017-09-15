@@ -71,11 +71,11 @@ $(document).ready(function () {
 
             var $current = getClosestHeader(top);
 
-            if (current !== $current) {
-                $affixNav.find(".active").removeClass("active");
-                $current.addClass("active");
-                current = $current;
-            }
+            // if (current !== $current) {
+            //     $affixNav.find(".active").removeClass("active");
+            //     $current.addClass("active");
+            //     current = $current;
+            // }
         });
     });
 

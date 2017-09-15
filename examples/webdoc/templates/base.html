@@ -44,12 +44,12 @@
   <div class="container">
 
     <ul class="docs-nav">
-      <li><a href="{{ site.home_url }}"><strong>{% trans %}Homapage{% endtrans %}</strong></a></li>
+      <li><a href="{{ site.home_url }}" class="{% if node.url == site.home_url %}active{% endif %}"><strong>{% trans %}Homapage{% endtrans %}</strong></a></li>
       {% for menu in site.menus.main %}
       <li><strong>{{ menu.title }}</strong></li>
         {% if menu.has_children %}
           {% for child in menu.children %}
-          <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+          <li><a href="{{ child.url }}" class="{% if child.is_current %}active{% endif %}">{{ child.title }}</a></li>
           {% endfor %}
         {% endif %}
       {% endfor %}
