@@ -28,27 +28,35 @@ class Render(object):
 
         self.environment.globals['get_search_url'] = functions.get_search_url
 
+        # Get filters defined by user
         if config.custom_filters:
-            spec = importlib.util.spec_from_file_location("custom_filters", config.custom_filters)
-            foo = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(foo)
-            for name, function in inspect.getmembers(foo, predicate=inspect.isfunction):
-                if not name.startswith('custom_'):
-                    name = '{}_{}'.format('custom', name)
-                self.environment.filters[name] = function
+            try:
+                spec = importlib.util.spec_from_file_location("custom_filters", config.custom_filters)
+                custom_filters = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(custom_filters)
+                for name, function in inspect.getmembers(custom_filters, predicate=inspect.isfunction):
+                    if not name.startswith('custom_'):
+                        name = '{}_{}'.format('custom', name)
+                    self.environment.filters[name] = function
+            except:
+                logger.error('Could not get custom filters, make sure it\'s a valid python file')
 
     def render(self, content, output_path, context, meta_tag, js_includes):
         template = self.get_content_template(content)
         if template:
+            try:
+                content = template.render(**context)
+                content = content.replace('</head>', "{}\n\n</head>".format(meta_tag))
 
-            content = template.render(**context)
-            content = content.replace('</head>', "{}\n\n</head>".format(meta_tag))
+                js_includes = '\n'.join(js_includes)
+                content = content.replace('</body>', "{}\n\n</body>".format(js_includes))
 
-            js_includes = '\n'.join(js_includes)
-            content = content.replace('</body>', "{}\n\n</body>".format(js_includes))
-
-            with open(output_path, 'w') as output_file:
-                output_file.write(content)
+                with open(output_path, 'w') as output_file:
+                    output_file.write(content)
+            except Exception as error:
+                template_path = '/' + template.filename.replace(config.base_path, '').lstrip('/')
+                logger.error('Rendering template {} for content {}: {}'
+                             .format(template_path, content, str(error)))
         else:
             logger.warning('No template found for content - {}'.format(content))
 
@@ -59,7 +67,7 @@ class Render(object):
         for template_name in possible_templates:
             template = self.get_template(template_name)
             if template:
-                break;
+                break
 
         return template
 
@@ -81,7 +89,6 @@ class Render(object):
             except (IOError, OSError):
                 logger.warning((
                     "Cannot find translations for language '{}'."
-                    " Installing NullTranslations.").format(
-                        language, constants.GETTEXT_DOMAIN))
+                    " Installing NullTranslations.").format(language))
                 translations = gettext.NullTranslations()
         return translations
