@@ -9,6 +9,7 @@ from sitic.commands.watcher import Watcher
 from sitic.commands.server import Server
 from sitic.commands.makemessages import MakeMessages
 from sitic.commands.compilemessages import CompileMessages
+from sitic.commands.new_command import NewCommand
 
 
 @click.group(invoke_without_command=True)
@@ -46,3 +47,11 @@ def makemessages():
 def compilemessages():
     compiler = CompileMessages()
     compiler.compile()
+
+@cli.command()
+@click.argument('filepath')
+@click.option('--title', default=None, type=str)
+@click.option('--frontmatter', default='toml', type=click.Choice(['toml', 'yaml']))
+def new(filepath, title, frontmatter):
+    new_command = NewCommand(filepath, title, frontmatter)
+    new_command.run()
