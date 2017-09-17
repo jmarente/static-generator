@@ -12,6 +12,7 @@ from sitic.logging import logger
 
 class _Config():
     config = None
+    config_path = None
     verbose = False
     base_url = ""
     base_path = None
@@ -19,6 +20,7 @@ class _Config():
     public_path = None
     static_path = None
     templates_path = None
+    locales_path = None
     extra_params = {}
     ignore_files_regex = []
     build_draft = False
@@ -29,7 +31,7 @@ class _Config():
     lazy_menu = None
     languages = defaultdict(dict)
     main_language = None
-    main_language_as_root= True
+    main_language_as_root = True
     sitemap = None
     rss_limit = constants.DEFAULT_RSS_LIMIT
     description_length = constants.DEFAULT_DESCRIPTION_LENGTH
@@ -39,6 +41,7 @@ class _Config():
     disqus_shortname = ''
     search_enabled = True
     search_pagination = -1
+    custom_filters = None
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
@@ -53,7 +56,7 @@ class _Config():
         self.locales_path = os.path.join(self.base_path, constants.DEFAULT_LOCALES_PATH)
         self.routing_path = os.path.join(self.base_path, constants.DEFAULT_ROUTING_FILE_PATH)
 
-        path_options = ['public_path', 'content_path', 'static_path']
+        path_options = ['public_path', 'content_path', 'static_path', 'custom_filters']
         with open(self.config_path, 'r') as config_file:
             parsed_config = yaml.load(config_file)
 
@@ -70,6 +73,11 @@ class _Config():
         if not os.path.isdir(self.content_path):
             logger.error('Invalid path for content. Folder not found')
             sys.exit(1)
+
+        if self.custom_filters and not os.path.isfile(self.custom_filters):
+            logger.error('Specified filters file not found.')
+            self.custom_filters = None
+            return
 
         # TODO: make patterns configurables
         self.ignore_files_regex = [re.compile(i) for i in constants.IGNORE_FILES_PATTERN]

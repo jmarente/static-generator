@@ -14,3 +14,5 @@ languages:
     es:
         title: 'Español'
         icon: '/static/img/es-flag.png'
+
+custom_filters: 'filters.py'

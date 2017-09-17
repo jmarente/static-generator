@@ -2,6 +2,7 @@
 import os
 import inspect
 import gettext
+import importlib.util
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
@@ -26,6 +27,15 @@ class Render(object):
             self.environment.filters[name] = function
 
         self.environment.globals['get_search_url'] = functions.get_search_url
+
+        if config.custom_filters:
+            spec = importlib.util.spec_from_file_location("custom_filters", config.custom_filters)
+            foo = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(foo)
+            for name, function in inspect.getmembers(foo, predicate=inspect.isfunction):
+                if not name.startswith('custom_'):
+                    name = '{}_{}'.format('custom', name)
+                self.environment.filters[name] = function
 
     def render(self, content, output_path, context, meta_tag, js_includes):
         template = self.get_content_template(content)
