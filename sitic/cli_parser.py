@@ -10,6 +10,7 @@ from sitic.commands.server import Server
 from sitic.commands.makemessages import MakeMessages
 from sitic.commands.compilemessages import CompileMessages
 from sitic.commands.new_command import NewCommand
+from sitic.commands.publish_command import PublishCommand
 
 
 @click.group(invoke_without_command=True)
@@ -55,3 +56,9 @@ def compilemessages():
 def new(filepath, title, frontmatter):
     new_command = NewCommand(filepath, title, frontmatter)
     new_command.run()
+
+@cli.command()
+@click.argument('filepath')
+def publish(filepath):
+    command = PublishCommand(filepath)
+    command.run()
