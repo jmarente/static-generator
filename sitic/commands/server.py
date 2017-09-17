@@ -4,14 +4,12 @@ import sys
 import os
 import posixpath
 import argparse
-from urllib.parse import urlparse, parse_qs
 from multiprocessing import Process
 
 from six.moves import SimpleHTTPServer, socketserver
-from six.moves.urllib import parse
 
 from sitic.generator import Generator
-from sitic.watcher import Watcher
+from sitic.commands.watcher import Watcher
 from sitic.config import config
 from sitic.logging import logger
 

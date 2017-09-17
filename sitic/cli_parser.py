@@ -3,12 +3,12 @@
 import click
 
 from sitic.config import config as conf
-from sitic.generator import Generator
-from sitic.watcher import Watcher
-from sitic.server import Server
 from sitic.utils import constants
-from sitic.makemessages import MakeMessages
-from sitic.compilemessages import CompileMessages
+from sitic.generator import Generator
+from sitic.commands.watcher import Watcher
+from sitic.commands.server import Server
+from sitic.commands.makemessages import MakeMessages
+from sitic.commands.compilemessages import CompileMessages
 
 
 @click.group(invoke_without_command=True)
