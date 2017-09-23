@@ -20,7 +20,12 @@ from sitic.commands.new_site_command import NewSiteCommand
 @click.option('--build_draft', is_flag=True, default=False, type=bool)
 @click.option('--build_future', is_flag=True, default=False, type=bool)
 @click.option('--build_expired', is_flag=True, default=False, type=bool)
-def cli(ctx, config, build_draft, build_future, build_expired):
+@click.option('--disable_sitemap', is_flag=True, default=False, type=bool)
+@click.option('--disable_rss', is_flag=True, default=False, type=bool)
+@click.option('--disable_search', is_flag=True, default=False, type=bool)
+@click.option('--remove_expired', is_flag=True, default=False, type=bool)
+@click.option('--clean_destination', is_flag=True, default=False, type=bool)
+def cli(ctx, config, build_draft, build_future, build_expired, disable_sitemap, disable_rss, disable_search, remove_expired, clean_destination):
     """
     Sitic is a Static Site Generator built in Python.
 
@@ -35,11 +40,21 @@ def cli(ctx, config, build_draft, build_future, build_expired):
 @click.option('--build_draft', is_flag=True, default=False, type=bool)
 @click.option('--build_future', is_flag=True, default=False, type=bool)
 @click.option('--build_expired', is_flag=True, default=False, type=bool)
-def generate(config, build_draft, build_future, build_expired):
+@click.option('--disable_sitemap', is_flag=True, default=False, type=bool)
+@click.option('--disable_rss', is_flag=True, default=False, type=bool)
+@click.option('--disable_search', is_flag=True, default=False, type=bool)
+@click.option('--remove_expired', is_flag=True, default=False, type=bool)
+@click.option('--clean_destination', is_flag=True, default=False, type=bool)
+def generate(config, build_draft, build_future, build_expired, disable_sitemap, disable_rss, disable_search, remove_expired, clean_destination):
     conf.load_config(config)
     conf.build_draft = build_draft
     conf.build_future = build_future
     conf.build_expired = build_expired
+    conf.disable_search = disable_search
+    conf.disable_sitemap = disable_sitemap
+    conf.disable_rss = disable_rss
+    conf.remove_expired = remove_expired
+    conf.clean_destination = clean_destination
     generator = Generator()
     generator.gen()
 
@@ -48,8 +63,13 @@ def generate(config, build_draft, build_future, build_expired):
 @click.option('--build_draft', default=False, type=bool)
 @click.option('--build_future', default=False, type=bool)
 @click.option('--build_expired', default=False, type=bool)
+@click.option('--disable_sitemap', is_flag=True, default=False, type=bool)
+@click.option('--disable_rss', is_flag=True, default=False, type=bool)
+@click.option('--disable_search', is_flag=True, default=False, type=bool)
+@click.option('--remove_expired', is_flag=True, default=False, type=bool)
+@click.option('--clean_destination', is_flag=True, default=False, type=bool)
 @click.option('--port', default=constants.DEFAULT_PORT, type=int)
-def server(config, build_draft, build_future, build_expired, port):
+def server(config, build_draft, build_future, build_expired, disable_sitemap, disable_rss, disable_search, remove_expired, clean_destination, port):
     """
     Sitic provides its own webserver which builds and serves the site.
     It is a webserver with limited options.
@@ -63,6 +83,11 @@ def server(config, build_draft, build_future, build_expired, port):
     conf.build_draft = build_draft
     conf.build_future = build_future
     conf.build_expired = build_expired
+    conf.disable_search = disable_search
+    conf.disable_sitemap = disable_sitemap
+    conf.disable_rss = disable_rss
+    conf.remove_expired = remove_expired
+    conf.clean_destination = clean_destination
     server = Server(port)
     server.start()
 
@@ -71,11 +96,21 @@ def server(config, build_draft, build_future, build_expired, port):
 @click.option('--build_draft', default=False, type=bool)
 @click.option('--build_future', default=False, type=bool)
 @click.option('--build_expired', default=False, type=bool)
-def watch(config, build_draft, build_future, build_expired):
+@click.option('--disable_sitemap', is_flag=True, default=False, type=bool)
+@click.option('--disable_rss', is_flag=True, default=False, type=bool)
+@click.option('--disable_search', is_flag=True, default=False, type=bool)
+@click.option('--remove_expired', is_flag=True, default=False, type=bool)
+@click.option('--clean_destination', is_flag=True, default=False, type=bool)
+def watch(config, build_draft, build_future, build_expired, disable_sitemap, disable_rss, disable_search, remove_expired, clean_destination):
     conf.load_config(config)
     conf.build_draft = build_draft
     conf.build_future = build_future
     conf.build_expired = build_expired
+    conf.disable_search = disable_search
+    conf.disable_sitemap = disable_sitemap
+    conf.disable_rss = disable_rss
+    conf.remove_expired = remove_expired
+    conf.clean_destination = clean_destination
     watcher = Watcher()
     watcher.start()
 

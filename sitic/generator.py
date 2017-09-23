@@ -73,7 +73,13 @@ class Generator(object):
             self.context['site']['menus'] = menus
 
             all_contents = [homepage] + contents + taxonomies_contents \
-                    + sections + rss + [search_page]
+                    + sections
+
+            if not config.disable_rss:
+                all_contents += rss
+
+            if not config.disable_search and len(contents) > 0:
+                all_contents += [search_page]
 
             meta_data = {
                 'search-index': self.search_indexer.get_url(),
@@ -102,15 +108,21 @@ class Generator(object):
                 if content.has_redirect_url():
                     all_contents.append(RedirectPage(content.get_redirect_url(), content.get_url()))
 
-            self.generate_regular(render, sitemap)
+            if not config.disable_sitemap:
+                self.generate_regular(render, sitemap)
 
-            self.remove_expired(expired_contents)
+            if not config.remove_expired:
+                self.remove_expired(expired_contents)
 
-        self.search_indexer.create_files()
+        if not config.disable_search:
+            self.search_indexer.create_files()
 
         logger.info('{}{}{}'.format('Site generated', os.linesep, stats.get_stats()))
 
     def create_public_folder(self):
+        if os.path.exists(config.public_path) and config.clean_destination:
+            shutil.rmtree(config.public_path)
+
         if not os.path.exists(config.public_path):
             os.makedirs(config.public_path)
 

@@ -42,6 +42,11 @@ class _Config():
     search_enabled = True
     search_pagination = -1
     custom_filters = None
+    disable_search = False
+    disable_sitemap = False
+    disable_rss = False
+    remove_expired = False
+    clean_destination = False
 
     def load_config(self, config_file_path):
         self.config_path = config_file_path
