@@ -210,6 +210,23 @@ actors=['actor1']
 ## Contenido
             </code></pre>
           </section>
+          <section>
+            <h4>Sistema de plantillas</h4>
+            <ul>
+              <li>Usa el potente sistema de plantillas <span class="blue">Jinja2</span></li>
+              <li>Reutilización y extensibilidad</li>
+            </ul>
+            <pre><code data-trim>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>{{ node.title }}</h3>
+
+{{ node.content }}
+{% endblock %}
+            </code></pre>
+          </section>
         </section>
 
         <!------------------------------------>
