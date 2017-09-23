@@ -10,7 +10,7 @@
     <meta name="author" content="Jose Marente">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/theme/beige.css" id="theme">
     <link rel="stylesheet" href="css/custom.css">
     <!--link rel="stylesheet" href="css/print/pdf.css"-->
 
@@ -66,35 +66,35 @@
           <section>
             <h4>Contexto</h4>
             <ul>
-              <li class="fragment fade-left">Una web se suele visitar con más frecuencia que se edita</li>
-              <li class="fragment fade-left">Cualquier web de hoy en día necesita bastantes recursos</li>
-              <li class="fragment fade-left">Si una de las partes falla, <span class="red">todo falla</span></li>
-              <li class="fragment fade-left">Seguridad en cada una de las partes</li>
+              <li class="">Una web se suele visitar con más frecuencia que se edita</li>
+              <li class="">Cualquier web de hoy en día necesita bastantes recursos</li>
+              <li class="">Si una de las partes falla, <span class="red">todo falla</span></li>
+              <li class="">Seguridad en cada una de las partes</li>
             </ul>
           </section>
           <section>
             <h4>Motivación</h4>
             <ul>
-              <li class="fragment fade-left">Noviembre 2014, miembro en desarrollo de una web completamente estática</li>
-              <li class="fragment fade-left">Se usó uno de los generadores más usados del momento</li>
-              <li class="fragment fade-left"><span class="red">Carencia</span> de funcionalidades imprescindibles</li>
-              <li class="fragment fade-left">Implementar <span class="blue">workarrounds</span> no 100% compatibles</li>
+              <li class="">Noviembre 2014, miembro en desarrollo de una web completamente estática</li>
+              <li class="">Se usó uno de los generadores más usados del momento</li>
+              <li class=""><span class="red">Carencia</span> de funcionalidades imprescindibles</li>
+              <li class="">Implementar <span class="blue">workarrounds</span> no 100% compatibles</li>
             </ul>
           </section>
           <section>
-            <h4>Obtetivos</h4>
+            <h4>Objetivos</h4>
             <ul>
-              <li class="fragment fade-left">Crear webs estática con <span class="red">funcionalidades</span> de una web dinámica</li>
-              <li class="fragment fade-left">Permitir configurar cada uno de los aspectos</li>
-              <li class="fragment fade-left">Cualquier usuario medio puede crear un sitio web sin conocimientos</li>
+              <li class="">Crear webs estática con <span class="red">funcionalidades</span> de una web dinámica</li>
+              <li class="">Permitir configurar cada uno de los aspectos</li>
+              <li class="">Cualquier usuario medio puede crear un sitio web sin conocimientos</li>
             </ul>
           </section>
           <section>
-            <h4>Obtetivos transversales</h4>
+            <h4>Objetivos transversales</h4>
             <ul>
-              <li class="fragment fade-left">Aplicar y ampliar <span class="blue">conocimientos en desarrollo web</span></li>
-              <li class="fragment fade-left">Descubrir <span class="purple">nuevas tecnologías</span></li>
-              <li class="fragment fade-left">Aportar <span class="pink">software libre</span></li>
+              <li class="">Aplicar y ampliar <span class="blue">conocimientos en desarrollo web</span></li>
+              <li class="">Descubrir <span class="purple">nuevas tecnologías</span></li>
+              <li class="">Aportar <span class="pink">software libre</span></li>
             </ul>
           </section>
         </section>
@@ -106,35 +106,37 @@
           <h2>Descripción</h2>
           <section>
             <h4>Qué es <span class="orange">Sitic</span></h4>
-            <p class="fragment fade-up"><span class="blue">Framework</span> para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos</p>
+            <p class=""><span class="blue">Framework</span> para hacer sitios web de uso general. Técnicamente hablando es un generador de sitios web estáticos</p>
           </section>
           <section>
             <h4>Generadores dinámicos</h4>
             <ul>
-              <li class="fragment fade-left">Servidor HTTP ejecuta el generador para crear un nuevo fichero HTML por visita</li>
-              <li class="fragment fade-left">La máquina que aloja el servidor con suficiente memoria y CPU para ejecutar el generador todo el día</li>
-              <li class="fragment fade-left">Por general, almacenan en caché los ficheros HTML</li>
+              <li class="">Servidor HTTP ejecuta el generador para crear un nuevo fichero HTML por visita</li>
+              <li class="">La máquina que aloja el servidor con suficiente memoria y CPU para ejecutar el generador todo el día</li>
+              <li class="">Por general, almacenan en caché los ficheros HTML</li>
             </ul>
           </section>
          <section>
             <h4>Diferencia con generadores dinámicos</h4>
             <div>
-              <img src="img/dynamic_diagram.svg" class="img-no-style" style="width:450px;"/>
+              <!--img src="img/dynamic_diagram.svg" class="img-no-style" style="width:450px;"/-->
+              <img src="img/dynamic_diagram_black.png" class="img-no-style" style="width:450px;"/>
             </div>
           </section>
           <section>
             <h4>Generadores estáticos</h4>
             <ul>
-              <li class="fragment fade-left"><span class="blue">LLeva la caché a un paso más</span>. HTML directamente en disco</li>
-              <li class="fragment fade-left"><span class="purple">Mejora de rendimiento</span>. Servidor HTTP muy buenos enviando ficheros</li>
-              <li class="fragment fade-left"><span class="red">Reduccion de costes</span></li>
-              <li class="fragment fade-left"><span class="orange">Mejora en seguridad</span></li>
+              <li class=""><span class="blue">LLeva la caché a un paso más</span>. HTML directamente en disco</li>
+              <li class=""><span class="purple">Mejora de rendimiento</span>. Servidor HTTP muy buenos enviando ficheros</li>
+              <li class=""><span class="red">Reduccion de costes</span></li>
+              <li class=""><span class="orange">Mejora en seguridad</span></li>
             </ul>
           </section>
           <section>
             <h4>Diferencia con generadores dinámicos</h4>
             <div>
-              <img src="img/static_diagram.svg" class="img-no-style" style="width:450px;"/>
+              <!--img src="img/static_diagram.svg" class="img-no-style" style="width:450px;"/-->
+              <img src="img/static_diagram_black.png" class="img-no-style" style="width:450px;"/>
             </div>
           </section>
           <section>
@@ -217,20 +219,20 @@ actors=['actor1']
           <section>
             <h4>Fases</h4>
             <ul>
-              <li class="fragment fade-left"><strong>Fase de análisis</strong>: indentificación de las necesidades del software</li>
-              <li class="fragment fade-left"><strong>Fase de diseño</strong>: diseño de todo el sistema</li>
-              <li class="fragment fade-left"><strong>Fase de aprendizaje</strong>: familiarización con Python y bibliotecas</li>
-              <li class="fragment fade-left"><strong>Fase de desarrollo</strong>: implementación de todo lo defnido en la fase de diseño</li>
-              <li class="fragment fade-left"><strong>Pruebas y correcciones</strong>: En paralelo a la fase de desarrollo</li>
+              <li class=""><strong>Fase de análisis</strong>: indentificación de las necesidades del software</li>
+              <li class=""><strong>Fase de diseño</strong>: diseño de todo el sistema</li>
+              <li class=""><strong>Fase de aprendizaje</strong>: familiarización con Python y bibliotecas</li>
+              <li class=""><strong>Fase de desarrollo</strong>: implementación de todo lo definido en la fase de diseño</li>
+              <li class=""><strong>Pruebas y correcciones</strong>: En paralelo a la fase de desarrollo</li>
             </ul>
           </section>
           <section>
             <h4>Fase de desarrollo</h4>
             <ol>
-              <li class="fragment fade-left">Generador básico</li>
-              <li class="fragment fade-left">Sistema de plantillas</li>
-              <li class="fragment fade-left">Internacionalización</li>
-              <li class="fragment fade-left">Ampliar funcionalidades</li>
+              <li class="">Generador básico</li>
+              <li class="">Sistema de plantillas</li>
+              <li class="">Internacionalización</li>
+              <li class="">Ampliar funcionalidades</li>
             </ol>
           </section>
           <section>
@@ -325,25 +327,25 @@ actors=['actor1']
           <section>
             <h4>Objetivos cumplidos</h4>
             <ul>
-              <li class="fragment fade-left">Objetivos marcados al inicio se han cumplidos</li>
-              <li class="fragment fade-left">Contribución al mundo del Software libre</li>
-              <li class="fragment fade-left">Framework totalmente funcional</li>
+              <li class="">Objetivos marcados al inicio se han cumplidos</li>
+              <li class="">Contribución al mundo del Software libre</li>
+              <li class="">Framework totalmente funcional</li>
             </ul>
           </section>
           <section>
             <h4>Valoración personal</h4>
             <ul>
-              <li class="fragment fade-left">Siempre es un reto enfrentarse a un proyecto sólo</li>
-              <li class="fragment fade-left">Aprendizaje de nuevas herramientas y metodologías</li>
-              <li class="fragment fade-left">Puesta en prática de conocimientos adquiridos</li>
+              <li class="">Siempre es un reto enfrentarse a un proyecto sólo</li>
+              <li class="">Aprendizaje de nuevas herramientas y metodologías</li>
+              <li class="">Puesta en prática de conocimientos adquiridos</li>
             </ul>
           </section>
           <section>
             <h4>Mejoras y ampliaciones</h4>
             <ul>
-              <li class="fragment fade-left">Publicar un solo idioma</li>
-              <li class="fragment fade-left">Método watch que recarga sólo el navegador</li>
-              <li class="fragment fade-left">Soporte para temas de plantillas</li>
+              <li class="">Publicar un solo idioma</li>
+              <li class="">Método watch que recarga sólo el navegador</li>
+              <li class="">Soporte para temas de plantillas</li>
             </ul>
           </section>
         </section>
