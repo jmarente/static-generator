@@ -110,3 +110,9 @@ def publish(filepath, config):
     conf.load_config(config)
     command = PublishCommand(filepath)
     command.run()
+
+@cli.command()
+@click.argument('path')
+def new_site(path):
+    new_site = NewSiteCommand(path)
+    new_site.run()
