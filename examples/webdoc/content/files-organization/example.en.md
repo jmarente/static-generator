@@ -42,5 +42,5 @@ Next, we can create a slightly more complete file with different elements:
                       url: "/test-url-footer"
                       id: "test-footer"
 
-En este último ejemplo se pueden ver distintas configuraciones, como la configuración de menús
-o idiomas, de las que hablaremos más en detalle en las siguientes secciones.
+In this last example you can see different configurations, such as menu settings
+or languages, which we will discuss in more detail in the following sections.
