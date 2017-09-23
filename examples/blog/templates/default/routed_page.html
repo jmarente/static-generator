@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% set football_results = node.data|get_json %}
+
 {% block content %}
 <div class="col-md-12 blog-post">
 
   <div class="post-title">
-    <h1>{{ node.title }}</h1>
+    <h2>{{ node.title }} | {{ football_results.name }} | Jornada {{ node.round }}</h2>
   </div>
 
   {% include 'partials/page_taxonomies.html' %}
@@ -13,7 +15,28 @@
     <span>{{ node.publication_date | datetimeformat("%d %B, %Y") }}{% if node.author %}/ by <a href="#" target="_blank">{{ node.author }}</a>{% endif %}</span>
   </div>
 
-  Content should be here
+  {% set round = football_results.rounds[node.round - 1 ]%}
+
+  <table class="table">
+    <thead> 
+      <tr> 
+        <th>Fecha</th> 
+        <th>Anfitrión</th> 
+        <th>Resultado</th> 
+        <th>Visitante</th> 
+      </tr> 
+    </thead>
+    <tbody>
+      {% for match in round.matches %}
+      <tr>
+        <td>{{ match.date }}</td>
+        <td class="text-right">{{ match.team1.name }}</td>
+        <td class="text-center">{{ match.score1 }} - {{ match.score2 }}</td>
+        <td>{{ match.team2.name  }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% include 'disqus.html' %}
