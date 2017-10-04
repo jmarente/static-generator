@@ -23,12 +23,14 @@ class Server(object):
     def start(self):
         self.generator.gen()
 
-        server_process = Process(target = self.start_server)
+        # server_process = Process(target = self.start_server)
         watcher_process = Process(target = self.start_watcher)
 
-        server_process.start()
+        # server_process.start()
         watcher_process.start()
-        server_process.join()
+        
+        self.start_server()
+        # server_process.join()
         watcher_process.join()
 
     def start_server(self):
