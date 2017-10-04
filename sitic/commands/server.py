@@ -41,6 +41,7 @@ class Server(object):
         os.chdir(config.public_path)
 
         Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+        socketserver.TCPServer.allow_reuse_address = True
         httpd = socketserver.TCPServer(("", self.port), Handler)
 
         logger.info("Serving at: localhost:{}".format(self.port))
@@ -49,8 +50,7 @@ class Server(object):
             httpd.serve_forever()
         except KeyboardInterrupt:
             logger.info('Stopping server...')
-
-        httpd.server_close()
+            httpd.server_close()
 
     def start_watcher(self):
         self.watcher.start(generate_on_start=False)
