@@ -6,6 +6,7 @@ lazy_menu: 'main'
 search_pagination: 10
 
 main_language: 'es'
+main_language_as_root: True
 
 languages:
     en:

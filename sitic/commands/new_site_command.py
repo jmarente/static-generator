@@ -25,7 +25,7 @@ class NewSiteCommand(object):
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-        folders = ['content', 'layouts', 'static', 'data']
+        folders = ['content', 'templates', 'static', 'data']
 
         for folder in folders:
             folder_path = os.path.join(self.path, folder)
