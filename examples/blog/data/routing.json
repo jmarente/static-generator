@@ -1,18 +1,20 @@
 [
     {
-        "title": "Liga BBVA",
+        "title": "Liga BBVA | Jornada 1",
         "url": "/bbva/round/1",
         "section": "blog",
         "categories": ["jornadas"],
         "data": "data/football.json",
+        "description": "Resultados de liga de la Jornada 1",
         "round": 1
     },
     {
-        "title": "Liga BBVA",
+        "title": "Liga BBVA | Jornada 2",
         "url": "/bbva/round/2",
         "section": "blog",
         "categories": ["jornadas"],
         "data": "data/football.json",
+        "description": "Resultados de liga de la Jornada 2",
         "round": 2
     }
 ]

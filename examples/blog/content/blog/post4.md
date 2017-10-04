@@ -1,6 +1,5 @@
 ++++++++++++++++
 title='Post 4'
-description='Post 4 description'
 tags=['tag1']
 ++++++++++++++++
 
